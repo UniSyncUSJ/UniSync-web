@@ -1,7 +1,7 @@
-import style from "../styles/SignUp.module.scss"
+
 function Home() {
   return (
-    <div className={style.background}>
+    <div>
       <h1>Home</h1>
     </div>
   )
