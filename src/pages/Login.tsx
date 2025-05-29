@@ -10,7 +10,7 @@ import Visibility from '@mui/icons-material/Visibility';
 import KeyIcon from '@mui/icons-material/Key';
 import EmailIcon from '@mui/icons-material/Email';
 import { Link } from 'react-router-dom';
-import UniSyncInput from '../Components/uniSyncInput';
+import UniSyncInput from '../Components/UniSyncInput';
 
 
 function Login() {

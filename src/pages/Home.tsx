@@ -1,10 +1,16 @@
+import style from '../styles/Home.module.scss'
 
-function Home() {
-  return (
-    <div>
-      <h1>Home</h1>
-    </div>
-  )
-}
+import Banner from '../Components/Home/Banner/Banner';
+import Header from '../Components/Home/Header/Header';
+import EventCatalogue from '../Components/Home/EventCatalogue/EventCatalogue';
+
+const Home = () => {
+  return <div className={style.background}>
+    <Header />
+    <Banner />
+    <EventCatalogue />
+
+  </div>
+};
 
 export default Home;
