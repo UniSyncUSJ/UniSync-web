@@ -1,0 +1,22 @@
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem 0 0 0;
+}
+
+.text_1 {
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: whitesmoke;
+  text-align: center;
+}
+
+.text_2 {
+  font-size: 1rem;
+  color: whitesmoke;
+  text-align: center;
+  font-weight: 300;
+}

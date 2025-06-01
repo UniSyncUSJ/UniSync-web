@@ -1,0 +1,135 @@
+.background {
+  background-image: url("../assets/images/background.jpg");
+  height: 100vh;
+  width: 100vw;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mainWindow {
+  height: 85%;
+  width: 50%;
+  background-color: white;
+  border-radius: 1rem;
+  display: flex;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease-in-out;
+}
+
+.right {
+  flex-grow: 1;
+  height: 100%;
+  width: 100%;
+  border-top-right-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  background-image: url("../assets/images/side_decoration.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  transition: all 0.3s ease-in-out;
+}
+
+.left {
+  flex-grow: 1;
+  height: 100%;
+  width: 100%;
+  border-top-left-radius: 1rem;
+  border-bottom-left-radius: 1rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  gap: 1rem;
+  padding: 2rem;
+
+  p {
+    font-weight: 500;
+  }
+}
+
+.heading {
+  font-size: 3rem;
+  font-weight: 900;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 1rem;
+  gap: 0.5rem;
+}
+
+.bottomContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+  width: 100%;
+  padding-left: 2rem;
+}
+
+.forgotPassword {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #671fd8;
+  width: fit-content;
+  text-decoration: none;
+
+  &:hover {
+    color: #5680d6;
+  }
+}
+
+.register {
+  font-size: 0.8rem;
+  font-weight: 500;
+  padding: 0.5rem;
+  margin-left: 2rem;
+}
+
+.registerLink {
+  color: #671fd8;
+  text-decoration: none;
+
+  &:hover {
+    color: #5680d6;
+  }
+}
+
+/* Responsive Stylings */
+
+@media screen and (max-width: 1024px) {
+  .mainWindow {
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 540px) {
+  .mainWindow {
+    flex-direction: column;
+    width: 90%;
+    height: auto;
+  }
+
+  .right {
+    display: none;
+  }
+
+  .left {
+    border-top-left-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+  }
+}
