@@ -1,15 +1,15 @@
 import style from './EventCard.module.scss'
-import { Box, Button, Card, CardActions, CardContent, CardMedia, Modal, Typography } from '@mui/material';
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';import PeopleAltRoundedIcon from '@mui/icons-material/PeopleAltRounded';
-import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
 import { useState } from 'react';
+import { Box, Button, Card, CardActions, CardContent, CardMedia, Modal, Typography } from '@mui/material';
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import PeopleAltRoundedIcon from '@mui/icons-material/PeopleAltRounded';
+import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import GroupsIcon from '@mui/icons-material/Groups';
 import ShareIcon from '@mui/icons-material/Share';
-
 import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
 import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined';
 import PlaceOutlinedIcon from '@mui/icons-material/PlaceOutlined';
@@ -77,7 +77,8 @@ const EventCard = () => {
       onClose={handleModalButtonClick}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
-      sx={{backgroundColor:'rgba(239, 239, 239, 0.3)'}}
+      sx={{backgroundColor:'rgba(105, 109, 163, 0.2)', backdropFilter:'blur(0.5rem)'}}
+      closeAfterTransition
     >
       <Box sx={modalStyle}>
         <Typography id="modal-modal-title" variant="h6" component="h2">

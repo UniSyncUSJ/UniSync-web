@@ -8,7 +8,7 @@ const SearchBar = () => {
       <ArrowDropDownRoundedIcon fontSize='medium' />
     </button>
     <div className={style.search}>
-      <input type="text" className={style.searchInput} />
+      <input type="text" className={style.searchInput} id='search'/>
       <button className={style.searchIconContainer}>
         <SearchRoundedIcon className={style.searchIcon} fontSize='medium' sx={{color:'white'}}/>
       </button>
