@@ -3,11 +3,10 @@ import ArrowDropDownRoundedIcon from '@mui/icons-material/ArrowDropDownRounded';
 
 const SearchBar = () => {
   return <div className={style.container}>
-      <button className={style.categoryButton}>
-        Select Category
-        <ArrowDropDownRoundedIcon fontSize='medium' />
-      </button>
-    
+    <button className={style.categoryButton}>
+      Select Category
+      <ArrowDropDownRoundedIcon fontSize='medium' />
+    </button>
     <div className={style.search}>
       <input type="text" className={style.searchInput} />
       <button className={style.searchIconContainer}>

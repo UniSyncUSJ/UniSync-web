@@ -1,8 +1,17 @@
+import EventCard from '../../EventCard/EventCard';
 import style from './EventCatalogue.module.scss'
 
 const EventCatalogue = () => {
   return <div className={style.container}>
-    Event Catalogue
+    <EventCard />
+    <EventCard />
+    <EventCard />
+    <EventCard />
+    <EventCard />
+    <EventCard />
+
+
+
   </div>
 }
 
