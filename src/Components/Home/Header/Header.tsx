@@ -9,7 +9,7 @@ const Header = () => {
     <div className={style.navBar}>
       <Link to='/' className={style.navLink}>Events</Link> <span className={style.separator}>|</span>
       <Link to='/'className={style.navLink}>Marketplace</Link> <span className={style.separator}>|</span>
-      <Link to='/' className={style.navLink}>My Calendar</Link> <span className={style.separator}>|</span>
+      <Link to='/calendar' className={style.navLink}>My Calendar</Link> <span className={style.separator}>|</span>
       <Link to='/' className={style.navLink}>Discover</Link>
     </div>
     <div className={style.userActions}>
