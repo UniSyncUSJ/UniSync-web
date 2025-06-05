@@ -15,7 +15,7 @@ import Visibility from "@mui/icons-material/Visibility";
 
 import KeyIcon from "@mui/icons-material/Key";
 import EmailIcon from "@mui/icons-material/Email";
-import { Link } from "react-router-dom";
+import { Link, redirect } from "react-router-dom";
 
 function SignIn() {
   const [showPassword, setShowPassword] = useState(false);
@@ -138,3 +138,29 @@ function SignIn() {
 }
 
 export default SignIn;
+
+export async function action({ request }: { request: Request }) {
+  const formData = await request.formData();
+
+  const authData = {
+    email: formData.get("email"),
+    password: formData.get("password"),
+  };
+
+  const response = await fetch("http://localhost:8080/api/auth/signin", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(authData),
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to sign in");
+  }
+
+  const data = await response.json();
+  const token = data.accessToken;
+  localStorage.setItem("token", token);
+  return redirect("/");
+}
