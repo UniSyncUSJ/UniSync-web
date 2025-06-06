@@ -1,16 +1,9 @@
 import React, { useState } from "react";
-import {
-  Bell,
-  Calendar,
-  Users,
-  Settings,
-  Edit,
-  Image,
-  Save,
-} from "lucide-react";
+import { Edit, Image, Save } from "lucide-react";
 import styles from "./admin.module.scss";
-import { Link } from "react-router-dom";
 import EventCatalogue from "../Events/EventCatalogue";
+// import Header from "../header/Header";
+// import SideBar from "../sidebar/Sidebar";
 
 const Admin = () => {
   const [notifications] = useState([
@@ -50,54 +43,12 @@ const Admin = () => {
   return (
     <div className={styles.adminDashboard}>
       {/* Sidebar */}
-      <div className={styles.sidebar}>
-        <div className={styles.logo}>
-          <h2>UniSync</h2>
-        </div>
-        <nav className={styles.navMenu}>
-          <div className={`${styles.navItem} ${styles.active}`}>
-            <Calendar size={20} />
-            <span>Page</span>
-          </div>
-          <div className={styles.navItem}>
-            <Users size={20} />
-            <Link to="/manage-events">
-              <span>Manage Events</span>
-            </Link>
-          </div>
-          <div className={styles.navItem}>
-            <Bell size={20} />
-            <Link to="/notifications">
-              <span>Notification/Notices</span>
-            </Link>
-          </div>
-          <div className={styles.navItem}>
-            <Settings size={20} />
-            <Link to="/settings">
-              <span>Messages</span>
-            </Link>
-          </div>
-        </nav>
-        <div className={styles.navFooter}>
-          <p>
-            This page includes all the admin functionality to add, manage,
-            create/delete/edit, publish/unpublish
-          </p>
-        </div>
-      </div>
+      {/* <SideBar /> */}
 
       {/* Main Content */}
       <div className={styles.mainContent}>
         {/* Header */}
-        <header className={styles.header}>
-          <div className={styles.headerLeft}>
-            <h1>Faculty of Applied Sciences</h1>
-          </div>
-          <div className={styles.headerRight}>
-            <span>Text is bold & large & centered</span>
-            <div className={styles.logoutBtn}>Logout</div>
-          </div>
-        </header>
+        {/* <Header /> */}
 
         {/* Content Area */}
         <div className={styles.contentArea}>

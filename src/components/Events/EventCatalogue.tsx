@@ -1,44 +1,55 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./eventsCatalogue.module.scss";
 import { Edit, Trash2 } from "lucide-react";
+import { useDispatch, useSelector } from "react-redux";
+import { eventActions } from "../../store/events-slice";
 
 type Event = {
   id: number;
   title: string;
   date: string;
   status: string;
+  venue?: string;
 };
 
 function EventCatalogue() {
-  const [events, setEvents] = useState([
-    {
-      id: 1,
-      title: "Tech Conference 2025",
-      date: "2025-07-15",
-      status: "Published",
-    },
-    { id: 2, title: "Workshop Series", date: "2025-08-20", status: "Draft" },
-    { id: 3, title: "Annual Meetup", date: "2025-09-10", status: "Published" },
-  ]);
+  const events = useSelector(
+    (state: { events: { events: Event[] } }) => state.events.events
+  );
 
-  type EventType = { id: number; title: string; date: string; status: string };
-  const [selectedEvent, setSelectedEvent] = useState<EventType | null>(null);
-  const [isEditing, setIsEditing] = useState(false);
+  const dispatch = useDispatch();
 
-  const handleEditEvent = (event: {
+  type EventType = {
     id: number;
     title: string;
     date: string;
     status: string;
-  }) => {
-    setSelectedEvent(event);
-    setIsEditing(true);
+    venue?: string;
+  };
+  const [selectedEvent, setSelectedEvent] = useState<EventType | null>(null);
+  const [isEditing, setIsEditing] = useState(false);
+
+  const handleEditEvent = () => {
+    dispatch(
+      eventActions.editEvent({
+        id: selectedEvent?.id || 0,
+        updatedEvent: {
+          id: selectedEvent?.id || 0,
+          title: selectedEvent?.title || "",
+          date: selectedEvent?.date || "",
+          status: selectedEvent?.status || "",
+          venue: selectedEvent?.venue || "",
+        },
+      })
+    );
   };
 
-  const handleDeleteEvent = (eventId: number) => {
-    setEvents(events.filter((event) => event.id !== eventId));
+  const handleDeleteEvent = () => {
+    dispatch(eventActions.removeEvents(selectedEvent?.id || 0));
   };
+
+  useEffect(() => {}, [events]);
 
   return (
     <div className={styles.eventSection}>
@@ -66,10 +77,10 @@ function EventCatalogue() {
               </span>
             </div>
             <div className={styles.eventCardActions}>
-              <button onClick={() => handleEditEvent(event)}>
+              <button onClick={() => handleEditEvent()}>
                 <Edit size={16} />
               </button>
-              <button onClick={() => handleDeleteEvent(event.id)}>
+              <button onClick={() => handleDeleteEvent()}>
                 <Trash2 size={16} />
               </button>
             </div>
