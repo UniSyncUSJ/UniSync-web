@@ -1,0 +1,81 @@
+.background {
+  background-image: url("../assets/images/background.jpg");
+  height: 100vh;
+  width: 100vw;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mainWindow {
+  height: 85%;
+  width: 50%;
+  background-color: white;
+  border-radius: 1rem;
+  display: flex;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+}
+
+.right {
+  flex-grow: 1;
+  height: 100%;
+  width: 100%;
+  border-top-right-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  background-image: url("../assets/images/SideDecoration2.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.left {
+  flex-grow: 1;
+  height: 100%;
+  width: 100%;
+  border-top-left-radius: 1rem;
+  border-bottom-left-radius: 1rem;
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  gap: 1rem;
+  padding: 2rem;
+
+  p {
+    font-weight: 500;
+  }
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.bottomContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+  width: 100%;
+  padding-left: 2rem;
+}
+
+.forgotPassword {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #671fd8;
+  width: fit-content;
+  text-decoration: none;
+  &:hover {
+    color: #5680d6;
+  }
+}

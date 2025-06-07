@@ -6,6 +6,7 @@ type Event = {
   date: string;
   status: string;
   venue?: string;
+  image?: string;
 };
 
 interface EventsState {
@@ -32,6 +33,7 @@ const eventsSlice = createSlice({
         date: newEvent.date,
         status: newEvent.status,
         venue: newEvent.venue,
+        image: newEvent.image,
       });
     },
     removeEvents(state, action: { payload: number }) {

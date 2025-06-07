@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useEffect, useState } from "react";
-import styles from "./eventsCatalogue.module.scss";
+import React, { useEffect, useRef, useState } from "react";
+import styles from "./eventsCatalogue.module.scss"; // Updated import path
 import { Edit, Trash2 } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { eventActions } from "../../store/events-slice";
@@ -11,6 +11,7 @@ type Event = {
   date: string;
   status: string;
   venue?: string;
+  image?: string;
 };
 
 function EventCatalogue() {
@@ -20,33 +21,21 @@ function EventCatalogue() {
 
   const dispatch = useDispatch();
 
-  type EventType = {
-    id: number;
-    title: string;
-    date: string;
-    status: string;
-    venue?: string;
-  };
-  const [selectedEvent, setSelectedEvent] = useState<EventType | null>(null);
+  const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
   const [isEditing, setIsEditing] = useState(false);
 
-  const handleEditEvent = () => {
-    dispatch(
-      eventActions.editEvent({
-        id: selectedEvent?.id || 0,
-        updatedEvent: {
-          id: selectedEvent?.id || 0,
-          title: selectedEvent?.title || "",
-          date: selectedEvent?.date || "",
-          status: selectedEvent?.status || "",
-          venue: selectedEvent?.venue || "",
-        },
-      })
-    );
+  const deleteModalRef = useRef<{ open: () => void; close: () => void }>(null);
+  const editModalRef = useRef<{ open: () => void; close: () => void }>(null);
+
+  const handleEditEvent = (event: Event) => {
+    setSelectedEvent(event);
+    setIsEditing(true);
+    editModalRef.current?.open();
   };
 
-  const handleDeleteEvent = () => {
-    dispatch(eventActions.removeEvents(selectedEvent?.id || 0));
+  const handleDeleteEvent = (event: Event) => {
+    setSelectedEvent(event);
+    deleteModalRef.current?.open();
   };
 
   useEffect(() => {}, [events]);
@@ -63,7 +52,7 @@ function EventCatalogue() {
         </div>
       </div>
       <div className={styles.eventGrid}>
-        {events.map((event: Event) => (
+        {events.map((event) => (
           <div key={event.id} className={styles.eventCard}>
             <div className={styles.eventInfo}>
               <h4>{event.title}</h4>
@@ -77,10 +66,10 @@ function EventCatalogue() {
               </span>
             </div>
             <div className={styles.eventCardActions}>
-              <button onClick={() => handleEditEvent()}>
+              <button onClick={() => handleEditEvent(event)}>
                 <Edit size={16} />
               </button>
-              <button onClick={() => handleDeleteEvent()}>
+              <button onClick={() => handleDeleteEvent(event)}>
                 <Trash2 size={16} />
               </button>
             </div>
