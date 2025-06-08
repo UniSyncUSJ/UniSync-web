@@ -1,0 +1,130 @@
+// Header.module.scss - Based on wireframe design
+.header {
+  width: 100%;
+  padding: 1rem 2rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  z-index: 10;
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  margin-bottom: 0;
+
+  @media (max-width: 968px) {
+    padding: 1rem;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  @media (max-width: 640px) {
+    padding: 0.75rem;
+  }
+}
+
+.logo {
+  font-size: 2rem;
+  font-weight: 800;
+  color: white;
+  text-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+  margin: 0;
+  flex-shrink: 0;
+
+  @media (max-width: 968px) {
+    order: 1;
+  }
+
+  @media (max-width: 640px) {
+    font-size: 1.6rem;
+  }
+}
+
+.navBar {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  gap: 0.5rem;
+  flex: 1;
+  max-width: 600px;
+
+  @media (max-width: 968px) {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+  }
+
+  @media (max-width: 640px) {
+    justify-content: space-around;
+    gap: 0.1rem;
+  }
+
+  .navLink {
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+    padding: 0.6rem 1.2rem;
+    border-radius: 0.75rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+      color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      transform: translateY(-1px);
+    }
+
+    @media (max-width: 640px) {
+      font-size: 0.85rem;
+      padding: 0.5rem 0.8rem;
+    }
+  }
+
+  .separator {
+    font-size: 1.2rem;
+    opacity: 0.6;
+    margin: 0 0.25rem;
+
+    @media (max-width: 640px) {
+      display: none;
+    }
+  }
+}
+
+.userActions {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  flex-shrink: 0;
+
+  @media (max-width: 968px) {
+    order: 2;
+  }
+
+  @media (max-width: 640px) {
+    gap: 1rem;
+  }
+
+  .profile {
+    padding: 0.5rem;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 0.75rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.3);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+  }
+}
