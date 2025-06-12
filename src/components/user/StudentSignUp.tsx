@@ -23,7 +23,7 @@ import style from "../../../styles/SignUp.module.scss";
 
 type ActionError = { error?: string };
 
-function SignUp() {
+function StudentSignUp() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const actionData = useActionData() as ActionError | undefined;
@@ -176,4 +176,4 @@ function SignUp() {
   );
 }
 
-export default SignUp;
+export default StudentSignUp;

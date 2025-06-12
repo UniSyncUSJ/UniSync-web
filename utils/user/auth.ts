@@ -40,7 +40,7 @@ export function tokenLoader() {
 export function checkAuthLoader() {
   const token = getTokenAuth();
   if (!token) {
-    return redirect("/signin");
+    return redirect("/student/login");
   }
   console.log("Token exists, user is authenticated", token);
   return null;

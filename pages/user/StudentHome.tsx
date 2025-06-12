@@ -7,7 +7,7 @@ import EventCatalogue from "../../src/components/user/Home/EventCatalogue/EventC
 
 const StudentHome = () => {
   return (
-    <div className={style.background}>
+    <div className={style.container}>
       <div className={style.pageContainer}>
         <Header />
         <div className={style.contentArea}>

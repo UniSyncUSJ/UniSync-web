@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import { Edit, Image, Save } from "lucide-react";
 import styles from "../admincomp/admin.module.scss";
-import Modal from "../../admin/modal/Modal";
+import Modal from "../../common/modal/Modal";
 import { useSelector } from "react-redux";
 
 function EventAlbum() {

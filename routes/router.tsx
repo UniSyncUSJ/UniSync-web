@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { createBrowserRouter } from "react-router-dom";
 import UniSyncLanding from "../pages/user/Home";
-import SignUpPage from "../pages/user/SignUpPage";
+import StudentSignUpPage from "../pages/user/StudentSignUpPage";
 import SignIn from "../../UniSync-web/pages/user/SignIn";
 import StudentHome from "../../UniSync-web/pages/user/StudentHome";
 import { checkAuthLoader, getRole } from "../utils/user/auth";
@@ -12,6 +12,12 @@ import Root from "../root/admin/Root";
 import ManageEventsPage from "../pages/admin/ManageEvents";
 import NotificationsPage from "../pages/admin/Notifications";
 import SettingsPage from "../pages/admin/Settings";
+import AdminSignUp from "../pages/admin/AdminSignUp";
+import AdminLogin from "../pages/admin/AdminLogin";
+import { action as adminSignupAction } from "../actions/AdminSignUp.action";
+import RootLayout from "../root/admin/Root";
+import UsersPage from "../pages/admin/UsersPage";
+import ViewAdminsPage from "../pages/admin/ViewAdminsPage";
 
 const router = createBrowserRouter([
   {
@@ -20,13 +26,13 @@ const router = createBrowserRouter([
     errorElement: <div>Error loading page</div>,
   },
   {
-    path: "signin",
+    path: "student/login",
     element: <SignIn />,
     action: signinAction,
   },
   {
-    path: "signup",
-    element: <SignUpPage />,
+    path: "student/signup",
+    element: <StudentSignUpPage />,
     action: signupAction,
   },
   {
@@ -35,14 +41,26 @@ const router = createBrowserRouter([
     // loader: checkAuthLoader,
   },
   {
+    path: "admin/signup",
+    element: <AdminSignUp />,
+    action: signupAction,
+  },
+  {
+    path: "admin/login",
+    element: <AdminLogin />,
+    action: adminSignupAction,
+  },
+  {
     path: "admin-home",
-    element: <Root />,
+    element: <RootLayout />,
     // loader: checkAuthLoader,
     children: [
       { index: true, element: <AdminPage /> },
       { path: "manage-events", element: <ManageEventsPage /> },
       { path: "notifications", element: <NotificationsPage /> },
       { path: "settings", element: <SettingsPage /> },
+      { path: "users", element: <UsersPage /> },
+      { path: "admins", element: <ViewAdminsPage /> }, // Placeholder for Admins page
     ],
   },
 ]);

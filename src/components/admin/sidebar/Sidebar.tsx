@@ -2,6 +2,7 @@ import React from "react";
 import styles from "../../../components/admin/admincomp/admin.module.scss";
 import { Bell, Calendar, Users, Settings } from "lucide-react";
 import { Link } from "react-router-dom";
+import { AdminPanelSettings } from "@mui/icons-material";
 
 function SideBar() {
   return (
@@ -25,6 +26,14 @@ function SideBar() {
         <div className={styles.navItem}>
           <Settings size={20} />
           <Link to="/admin-home/settings">Settings</Link>
+        </div>
+        <div className={styles.navItem}>
+          <Users size={20} />
+          <Link to="/admin-home/users">Users</Link>
+        </div>
+        <div className={styles.navItem}>
+          <AdminPanelSettings fontSize="small" />
+          <Link to="/admin-home/admins">Admins</Link>
         </div>
       </nav>
       <div className={styles.navFooter}>

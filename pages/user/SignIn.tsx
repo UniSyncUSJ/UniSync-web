@@ -14,7 +14,7 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Visibility from "@mui/icons-material/Visibility";
 import KeyIcon from "@mui/icons-material/Key";
 import EmailIcon from "@mui/icons-material/Email";
-import { Link, Form, redirect } from "react-router-dom";
+import { Link, Form } from "react-router-dom";
 
 function SignIn() {
   const [showPassword, setShowPassword] = useState(false);
@@ -111,7 +111,7 @@ function SignIn() {
                 <Link to="/" className={style.forgotPassword}>
                   Forgot password?
                 </Link>
-                <Link to="/signup" className={style.signUp}>
+                <Link to="/student/signup" className={style.signUp}>
                   Don't have an account?
                 </Link>
                 <Button
@@ -138,36 +138,36 @@ function SignIn() {
 export default SignIn;
 
 // Connected to react-router-dom <Form method="post" />
-export async function action({ request }: { request: Request }) {
-  console.log("SignIn action called");
-  const formData = await request.formData();
+// export async function action({ request }: { request: Request }) {
+//   console.log("SignIn action called");
+//   const formData = await request.formData();
 
-  const authData = {
-    email: formData.get("email"),
-    password: formData.get("password"),
-  };
+//   const authData = {
+//     email: formData.get("email"),
+//     password: formData.get("password"),
+//   };
 
-  try {
-    const response = await fetch("http://localhost:8080/api/auth/signin", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(authData),
-    });
+//   try {
+//     const response = await fetch("http://localhost:8080/api/auth/signin", {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify(authData),
+//     });
 
-    console.log("Response status:", response.status);
+//     console.log("Response status:", response.status);
 
-    if (!response.ok) {
-      console.error("Backend returned non-OK status:", response.status);
-      throw new Error("Failed to sign in");
-    }
+//     if (!response.ok) {
+//       console.error("Backend returned non-OK status:", response.status);
+//       throw new Error("Failed to sign in");
+//     }
 
-    const data = await response.json();
-    console.log("Token received:", data.accessToken);
-    localStorage.setItem("token", data.accessToken);
-    return redirect("/student-home");
-  } catch (error) {
-    console.error("Error signing in:", error);
-  }
-}
+//     const data = await response.json();
+//     console.log("Token received:", data.accessToken);
+//     localStorage.setItem("token", data.accessToken);
+//     return redirect("/student-home");
+//   } catch (error) {
+//     console.error("Error signing in:", error);
+//   }
+// }

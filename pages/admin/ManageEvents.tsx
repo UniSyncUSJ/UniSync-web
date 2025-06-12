@@ -4,7 +4,7 @@ import styles from "../../styles/admin/manageEvents.module.scss";
 import { Edit, Trash2, Plus, Save, X, Upload, ImageIcon } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { eventActions } from "../../redux/adminStore/events-slice";
-import Modal from "../../src/components/admin/modal/Modal";
+import Modal from "../../src/components/common/modal/Modal";
 
 type Event = {
   id: number;

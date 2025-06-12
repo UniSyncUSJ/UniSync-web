@@ -1,15 +1,28 @@
 import React, { useState } from "react";
 import { User, Edit, Save, Upload } from "lucide-react";
 import styles from "./settings.module.scss";
+import { useSelector } from "react-redux";
 
 const SettingsComponent = () => {
-  //   const [activeTab, setActiveTab] = useState("settings");
+  const admin = useSelector(
+    (state: {
+      admin: {
+        id: number;
+        image: string;
+        clubName: string;
+        description: string;
+        email: string;
+        contactInfo: string;
+      };
+    }) => state.admin
+  );
+
   const [isEditing, setIsEditing] = useState(false);
   const [profileData, setProfileData] = useState({
-    clubName: "Faculty of Applied Sciences",
-    description:
-      "Welcome to the Faculty of Applied Sciences. We are dedicated to providing quality education and fostering innovation in scientific research and applications.",
-    contactInfo: "Email: info@appliedsciences.edu | Phone: +1 (555) 123-4567",
+    clubName: admin.clubName,
+    description: admin.description,
+    email: admin.email,
+    contactInfo: admin.contactInfo,
   });
 
   const handleInputChange = (
@@ -79,19 +92,7 @@ const SettingsComponent = () => {
                 <div className={styles.profileForm}>
                   <div className={styles.formGroup}>
                     <label>Club Name</label>
-                    {isEditing ? (
-                      <input
-                        type="text"
-                        value={profileData.clubName}
-                        onChange={(e) =>
-                          handleInputChange("clubName", e.target.value)
-                        }
-                      />
-                    ) : (
-                      <div className={styles.displayValue}>
-                        {profileData.clubName}
-                      </div>
-                    )}
+                    <input type="text" value={profileData.clubName} disabled />
                   </div>
 
                   <div className={styles.formGroup}>
@@ -113,19 +114,18 @@ const SettingsComponent = () => {
 
                   <div className={styles.formGroup}>
                     <label>Contact Info</label>
-                    {isEditing ? (
-                      <input
-                        type="text"
-                        value={profileData.contactInfo}
-                        onChange={(e) =>
-                          handleInputChange("contactInfo", e.target.value)
-                        }
-                      />
-                    ) : (
-                      <div className={styles.displayValue}>
-                        {profileData.contactInfo}
-                      </div>
-                    )}
+                    <label htmlFor="email">Email</label>
+
+                    <input type="text" value={profileData.email} disabled />
+
+                    <label htmlFor="contact">Contact Number</label>
+                    <input
+                      type="text"
+                      value={profileData.contactInfo}
+                      onChange={(e) =>
+                        handleInputChange("contactInfo", e.target.value)
+                      }
+                    />
                   </div>
 
                   <div className={styles.formActions}>

@@ -9,35 +9,48 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 1rem;
 }
 
 .mainWindow {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  max-width: 900px;
   height: 85%;
-  width: 50%;
   background-color: white;
   border-radius: 1rem;
-  display: flex;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    height: auto;
+  }
+}
+
+.left {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2rem;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 }
 
 .right {
-  flex-grow: 1;
-  height: 100%;
-  width: 100%;
-  border-top-right-radius: 1rem;
-  border-bottom-right-radius: 1rem;
+  width: 50%;
   background-image: url("../src/assets/images/SideDecoration2.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-}
 
-.left {
-  flex-grow: 1;
-  height: 100%;
-  width: 100%;
-  border-top-left-radius: 1rem;
-  border-bottom-left-radius: 1rem;
+  @media (max-width: 768px) {
+    display: none;
+  }
 }
 
 .formContainer {
@@ -48,33 +61,46 @@
   height: 100%;
   gap: 1rem;
   padding: 2rem;
+  min-width: 300px;
+
+  h2 {
+    color: #671fd8;
+    margin-bottom: 0.5rem;
+    font-weight: 1200;
+    font-size: 3rem;
+  }
 
   p {
-    font-weight: 500;
+    color: #671fd8;
+    margin-bottom: 1rem;
+    font-weight: 1200;
+    font-size: 1.2rem;
   }
 }
 
 .inputGroup {
   display: flex;
   flex-direction: column;
+  gap: 1.5rem;
   width: 100%;
 }
 
 .bottomContainer {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  align-items: flex-start;
   gap: 1rem;
+  margin-top: 1.5rem;
   width: 100%;
-  padding-left: 2rem;
 }
 
-.forgotPassword {
+.forgotPassword,
+.signUp {
   font-size: 0.9rem;
   font-weight: 500;
   color: #671fd8;
-  width: fit-content;
   text-decoration: none;
+
   &:hover {
     color: #5680d6;
   }
