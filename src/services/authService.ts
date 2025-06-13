@@ -1,23 +1,59 @@
-import axios from 'axios';
-import Login from '../pages/Login';
+import apiClient from './apiClient';
+import { tokenService } from './tokenService';
 
-const API_URL = 'http://localhost:3000/api/auth/';
-
-export interface LoginCredentials {
-      username: string;
-      password: string;
+interface LoginCredentials {
+  username: string;
+  password: string;
 }
 
-export interface RegisterCredentials extend LoginCredentials {
-      email: string;
-      firstName: string;
-      lastName: string;
+interface RegisterCredentials {
+  username: string;
+  email: string;
+  password: string;
 }
 
-const authService = {
-      Login : async (credentials:   RegisterCredentials) => {
-            const response = await axios.post(`${API_URL}/auth/login`, credentials);
-    return response.data;
-      },
+interface AuthResponse {
+  token: string;
+  user: {
+    id: string;
+    username: string;
+    // Other user properties
+  };
+}
 
-      register : async( )
+export const authService = {
+  async login(credentials: LoginCredentials) {
+    try {
+      const response = await apiClient.post<AuthResponse>('/auth/login', credentials);
+      const { token, user } = response.data;
+      
+      // Store the JWT token
+      tokenService.setToken(token);
+      
+      return { token, user };
+    } catch (error) {
+      console.error('Login error:', error);
+      throw error;
+    }
+  },
+  
+  async register(credentials: RegisterCredentials) {
+    try {
+      const response = await apiClient.post<AuthResponse>('/auth/register', credentials);
+      const { token, user } = response.data;
+      
+      // Store the JWT token
+      tokenService.setToken(token);
+      
+      return { token, user };
+    } catch (error) {
+      console.error('Registration error:', error);
+      throw error;
+    }
+  },
+  
+  logout() {
+    // Remove JWT token
+    tokenService.removeToken();
+  }
+};
