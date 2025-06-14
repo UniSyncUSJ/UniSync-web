@@ -2,8 +2,8 @@
 
 import { Users } from "lucide-react";
 import Styles from "./userManage.module.scss";
-import StatCard from "../../src/components/common/StatsCard/StatCard";
-import UserListComponent from "../../src/components/common/userList/UserListComponent";
+import StatCard from "../../components/common/StatsCard/StatCard";
+import UserListComponent from "../../components/common/userList/UserListComponent";
 
 const users = [
   {

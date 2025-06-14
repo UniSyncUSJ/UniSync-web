@@ -3,9 +3,8 @@ import React, { useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Styles from "./calendar.module.scss"; // Assuming you have a CSS/SCSS file for styles
 import axios from "axios";
-import { useAxios } from "../../../../hooks/useAxios";
 import { useDispatch, useSelector } from "react-redux";
-import { userActions } from "../../../../redux/userStore/user-slice";
+import { userActions } from "../../../redux/userStore/user-slice";
 import eventImage from "../../../assets/images/eventImage.jpg";
 
 type Event = {

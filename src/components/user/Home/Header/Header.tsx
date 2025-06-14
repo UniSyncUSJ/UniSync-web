@@ -2,7 +2,7 @@ import AccountCircleIcon from "@mui/icons-material/Person";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@mui/material";
 import style from "./Header.module.scss";
-import { logOut } from "../../../../../utils/user/auth";
+import { logOut } from "../../../../utils/user/auth";
 
 const Header = () => {
   const location = useLocation();

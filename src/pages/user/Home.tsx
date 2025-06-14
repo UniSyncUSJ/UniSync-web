@@ -11,7 +11,7 @@ import {
   Shield,
 } from "lucide-react";
 import styles from "../../styles/Home.module.scss";
-import Modal from "../../src/components/common/modal/Modal";
+import Modal from "../../components/common/modal/Modal";
 import { Link } from "react-router-dom";
 type ModalHandle = {
   open: () => void;

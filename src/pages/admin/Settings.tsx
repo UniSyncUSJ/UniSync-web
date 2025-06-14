@@ -1,5 +1,5 @@
 import React from "react";
-import SettingsComponent from "../../src/components/admin/settings/Settings";
+import SettingsComponent from "../../components/admin/settings/Settings";
 
 function SettingsPage() {
   return (

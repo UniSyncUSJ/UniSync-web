@@ -3,7 +3,6 @@ import React, { useEffect, useRef, useState } from "react";
 import Styles from "./userList.module.scss";
 import { Delete, Edit, Mail, Save, X } from "lucide-react";
 import Modal from "../modal/Modal";
-import { useAxios } from "../../../../hooks/useAxios";
 
 export type User = {
   id: number;

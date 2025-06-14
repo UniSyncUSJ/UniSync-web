@@ -20,7 +20,7 @@ import Modal from "../../../components/common/modal/Modal"; // adjust path if ne
 import style from "./EventCard.module.scss";
 import modalStyles from "./eventCardModel.module.scss";
 import { useDispatch } from "react-redux";
-import { userEventActions } from "../../../../redux/userStore/user-event-slice"; // adjust path if needed
+import { userEventActions } from "../../../redux/userStore/user-event-slice"; // adjust path if needed
 
 type Event = {
   id: number;
@@ -145,7 +145,7 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
               fullWidth
               onClick={handleJoinClick}
             >
-              Join now
+              View Details
             </Button>
           </Box>
         </CardContent>

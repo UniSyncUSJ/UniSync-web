@@ -7,10 +7,8 @@ import ErrorPage from "../pages/common/errorPage/ErrorPage";
 // 🔁 Lazy loaded pages
 const UniSyncLanding = lazy(() => import("../pages/user/Home"));
 const StudentSignUpPage = lazy(() => import("../pages/user/StudentSignUpPage"));
-const SignIn = lazy(() => import("../../UniSync-web/pages/user/SignIn"));
-const StudentHome = lazy(
-  () => import("../../UniSync-web/pages/user/StudentHome")
-);
+const SignIn = lazy(() => import("../pages/user/SignIn"));
+const StudentHome = lazy(() => import("../pages/user/StudentHome"));
 const AdminPage = lazy(() => import("../pages/admin/AdminPage"));
 const ManageEventsPage = lazy(() => import("../pages/admin/ManageEvents"));
 const NotificationsPage = lazy(() => import("../pages/admin/Notifications"));
@@ -19,9 +17,9 @@ const AdminSignUp = lazy(() => import("../pages/admin/AdminSignUp"));
 const AdminLogin = lazy(() => import("../pages/admin/AdminLogin"));
 const UsersPage = lazy(() => import("../pages/admin/UsersPage"));
 const ViewAdminsPage = lazy(() => import("../pages/admin/ViewAdminsPage"));
-const Calendar = lazy(() => import("../src/components/user/calendar/Calendar"));
+const Calendar = lazy(() => import("../components/user/calendar/Calendar"));
 const UserEvents = lazy(
-  () => import("../src/components/user/userEvents/UserEvents")
+  () => import("../components/user/userEvents/UserEvents")
 );
 const RootLayout = lazy(() => import("../root/admin/Root"));
 
@@ -67,7 +65,7 @@ const router = createBrowserRouter([
     action: signupAction,
   },
   {
-    path: "admin/login",
+    path: "admin/signin",
     element: withSuspense(<AdminLogin />),
     action: adminSignupAction,
   },

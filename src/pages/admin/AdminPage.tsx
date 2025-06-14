@@ -1,5 +1,5 @@
 import React from "react";
-import Admin from "../../src/components/admin/admincomp/Admin";
+import Admin from "../../components/admin/admincomp/Admin";
 
 function AdminPage() {
   return (
