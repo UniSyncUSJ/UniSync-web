@@ -19,7 +19,7 @@ type ModalHandle = {
 };
 const UniSyncLanding = () => {
   const modal = useRef<ModalHandle | null>(null);
-  const [authMode, setAuthMode] = useState("login"); // 'login' or 'signup'
+  const [authMode, setAuthMode] = useState("signin"); // 'login' or 'signup'
   const [showUserType, setShowUserType] = useState(false);
 
   const openModal = (mode: React.SetStateAction<string>) => {
@@ -51,15 +51,15 @@ const UniSyncLanding = () => {
         <div className={styles.userActions}>
           <button
             className={styles.loginBtn}
-            onClick={() => openModal("login")}
+            onClick={() => openModal("signin")}
           >
-            Login
+            SignIn
           </button>
           <button
             className={styles.signupBtn}
             onClick={() => openModal("signup")}
           >
-            Sign Up
+            SignUp
           </button>
         </div>
       </header>

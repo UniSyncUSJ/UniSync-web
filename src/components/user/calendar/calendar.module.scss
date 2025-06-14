@@ -1,0 +1,113 @@
+body {
+  //background: linear-gradient(135deg, #8B5CF6 0%, #3B82F6 100%);
+  min-height: 100vh;
+  margin: 0;
+  padding: 20px;
+}
+
+.calendar {
+  max-width: 400px;
+  margin: 2rem auto;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 1.5rem;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  font-family: "Inter", sans-serif;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.monthYear {
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-align: center;
+  flex-grow: 1;
+  margin: 0 1rem;
+}
+
+.navButton {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: white;
+}
+
+.navButton:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+.navButton svg {
+  width: 20px;
+  height: 20px;
+}
+
+.weekDays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.weekDay {
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 0.5rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.daysGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.3rem;
+}
+
+.day {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.day:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.currentMonth {
+  color: white;
+}
+
+.otherMonth {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.today {
+  background: #ef4444;
+  color: white;
+  font-weight: 700;
+}
+
+.selected {
+  background: rgba(255, 255, 255, 0.3);
+  color: white;
+  font-weight: 600;
+}

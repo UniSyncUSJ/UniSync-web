@@ -1,120 +1,200 @@
-// EventCatalogue.module.scss - Based on wireframe design
-.container {
-  width: 100%;
-  flex: 1;
-  padding: 2rem 0;
+// EventCatalogue.module.scss
+.pageContainer {
   display: flex;
-  flex-direction: column;
-  position: relative;
-  z-index: 5;
+  min-height: 100vh;
+  gap: 24px;
+  padding: 24px;
 
   @media (max-width: 768px) {
-    padding: 1.5rem 0;
+    flex-direction: column;
+    padding: 16px;
+    gap: 16px;
   }
 }
 
-.eventGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 2rem;
-  width: 100%;
-  margin-bottom: 3rem;
-
-  @media (max-width: 768px) {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-    margin-bottom: 2rem;
-  }
-
-  @media (max-width: 480px) {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
-    // For very small screens, make cards smaller
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  }
-}
-
-.eventCard {
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  border-radius: 1.5rem;
-  padding: 1.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  transition: all 0.3s ease;
-  cursor: pointer;
-  position: relative;
+.leftSidebar {
+  width: 350px;
+  border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-  min-height: 200px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  height: fit-content;
+  position: sticky;
+  top: 24px;
 
-  &::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(135deg, #671fd8, #5680d6);
-    transform: scaleX(0);
-    transition: transform 0.3s ease;
+  @media (max-width: 768px) {
+    width: 100%;
+    position: static;
   }
+}
 
-  &:hover {
-    background: rgba(255, 255, 255, 1);
-    transform: translateY(-8px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+.calendarContainer {
+  padding: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
 
-    &::before {
-      transform: scaleX(1);
+.filterButtons {
+  padding: 20px;
+
+  .buttonGroup {
+    gap: 8px;
+
+    .filterButton {
+      text-transform: none;
+      font-weight: 500;
+      padding: 12px 16px;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+      background-color: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: inherit;
+
+      &:hover {
+        transform: translateY(-1px);
+        background-color: rgba(255, 255, 255, 0.2);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      }
     }
   }
+}
 
-  @media (max-width: 480px) {
-    padding: 1.25rem;
-    min-height: 180px;
-    border-radius: 1.25rem;
+.mainContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.eventsSection {
+  border-radius: 12px;
+  overflow: hidden;
+  height: fit-content;
+}
+
+.sectionHeader {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 24px;
+
+  h2 {
+    margin: 0;
+    font-size: 1.75rem;
+    font-weight: 600;
+    text-align: center;
+  }
+}
+
+.eventsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 24px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    padding: 16px;
+    gap: 16px;
+  }
+
+  @media (min-width: 1200px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.eventCardWrapper {
+  display: flex;
+  justify-content: center;
+
+  // Ensure event cards have consistent height
+  > * {
+    width: 100%;
+    max-width: 400px;
   }
 }
 
 .paginationContainer {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 1.5rem;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border-radius: 1.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  margin-top: auto;
+  padding: 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 
   @media (max-width: 768px) {
-    padding: 1.25rem;
-    border-radius: 1.25rem;
-  }
-
-  @media (max-width: 480px) {
-    padding: 1rem;
+    padding: 16px;
   }
 }
 
-// If no events found
 .noEventsMessage {
   text-align: center;
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 1.1rem;
-  padding: 3rem;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border-radius: 1.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 60px 24px;
+  color: inherit;
+  opacity: 0.8;
 
-  @media (max-width: 768px) {
+  h3 {
+    margin: 0 0 12px 0;
+    font-size: 1.5rem;
+    color: inherit;
+  }
+
+  p {
+    margin: 0;
     font-size: 1rem;
-    padding: 2rem;
+    line-height: 1.5;
+    color: inherit;
+    opacity: 0.7;
+  }
+}
+
+// Responsive design improvements
+@media (max-width: 1024px) {
+  .pageContainer {
+    gap: 16px;
+    padding: 16px;
+  }
+
+  .leftSidebar {
+    width: 300px;
+  }
+}
+
+@media (max-width: 768px) {
+  .leftSidebar {
+    .calendarContainer,
+    .filterButtons {
+      padding: 16px;
+    }
+  }
+
+  .eventsSection {
+    .sectionHeader {
+      padding: 20px 16px;
+
+      h2 {
+        font-size: 1.5rem;
+      }
+    }
+  }
+}
+
+// Animation for smooth transitions
+.eventCardWrapper {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+}
+
+// Custom scrollbar for sidebar
+.leftSidebar {
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 3px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.5);
   }
 }

@@ -10,9 +10,13 @@ const Header = () => {
   }
   return (
     <div className={style.header}>
-      <p className={style.logo}>UniSync</p>
+      <p className={style.logo}>
+        <Link to="/student-home" className={style.logoLink}>
+          UniSync
+        </Link>
+      </p>
       <div className={style.navBar}>
-        <Link to="/" className={style.navLink}>
+        <Link to="/student-home" className={style.navLink}>
           Events
         </Link>{" "}
         <span className={style.separator}>|</span>
@@ -20,7 +24,7 @@ const Header = () => {
           Marketplace
         </Link>{" "}
         <span className={style.separator}>|</span>
-        <Link to="/" className={style.navLink}>
+        <Link to="/student-home/my-calendar" className={style.navLink}>
           My Calendar
         </Link>{" "}
         <span className={style.separator}>|</span>

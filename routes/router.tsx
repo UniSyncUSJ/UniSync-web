@@ -18,6 +18,7 @@ import { action as adminSignupAction } from "../actions/AdminSignUp.action";
 import RootLayout from "../root/admin/Root";
 import UsersPage from "../pages/admin/UsersPage";
 import ViewAdminsPage from "../pages/admin/ViewAdminsPage";
+import Calendar from "../src/components/user/calendar/Calendar";
 
 const router = createBrowserRouter([
   {
@@ -26,7 +27,7 @@ const router = createBrowserRouter([
     errorElement: <div>Error loading page</div>,
   },
   {
-    path: "student/login",
+    path: "student/signin",
     element: <SignIn />,
     action: signinAction,
   },
@@ -39,6 +40,7 @@ const router = createBrowserRouter([
     path: "student-home",
     element: <StudentHome />,
     // loader: checkAuthLoader,
+    children: [{ path: "my-calendar", element: <Calendar /> }],
   },
   {
     path: "admin/signup",

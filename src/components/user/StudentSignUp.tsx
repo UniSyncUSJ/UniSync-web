@@ -144,7 +144,7 @@ function StudentSignUp() {
               </Box>
 
               <div className={style.bottomContainer}>
-                <Link to="/signin" className={style.forgotPassword}>
+                <Link to="/student/signin" className={style.forgotPassword}>
                   Already have an account? Sign in
                 </Link>
                 <Button
