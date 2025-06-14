@@ -8,7 +8,7 @@ import { Outlet, useLocation } from "react-router-dom";
 
 const StudentHome = () => {
   const { pathname } = useLocation();
-  const isCalendarPage = pathname.includes("my-calendar");
+  const isEventsPage = pathname.includes("my-events");
   return (
     <>
       <div className={style.container}>
@@ -16,7 +16,7 @@ const StudentHome = () => {
           <Header />
           <div className={style.contentArea}>
             {
-              isCalendarPage ? (
+              isEventsPage ? (
                 <Outlet />
               ) : (
                 <>

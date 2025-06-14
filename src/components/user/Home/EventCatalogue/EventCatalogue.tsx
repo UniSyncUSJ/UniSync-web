@@ -16,6 +16,7 @@ type Event = {
   venue: string;
   delegateCount: number;
   imageUrl: string;
+  description: string;
 };
 
 const ALL_EVENTS: Event[] = [
@@ -27,6 +28,8 @@ const ALL_EVENTS: Event[] = [
     venue: "Sumangala Hall, Faculty of Social Sciences",
     delegateCount: 10,
     imageUrl: eventImage,
+    description:
+      "This is a sample event description. It provides an overview of the event, including its purpose, activities, and any notable speakers or guests.",
   },
   {
     id: 2,
@@ -36,6 +39,8 @@ const ALL_EVENTS: Event[] = [
     venue: "Main Auditorium, Faculty of Arts",
     delegateCount: 5,
     imageUrl: eventImage,
+    description:
+      "This is another event description. It highlights the key aspects of the event and what attendees can expect.",
   },
   {
     id: 3,
@@ -45,6 +50,7 @@ const ALL_EVENTS: Event[] = [
     venue: "Innovation Center, Faculty of Engineering",
     delegateCount: 20,
     imageUrl: eventImage,
+    description: "This is a sample event description for the Tech Conference.",
   },
   {
     id: 4,
@@ -54,6 +60,7 @@ const ALL_EVENTS: Event[] = [
     venue: "Cultural Grounds, Faculty of Humanities",
     delegateCount: 15,
     imageUrl: eventImage,
+    description: "This is a sample event description for the Cultural Fest.",
   },
   {
     id: 5,
@@ -63,6 +70,8 @@ const ALL_EVENTS: Event[] = [
     venue: "Sports Complex, Faculty of Physical Education",
     delegateCount: 8,
     imageUrl: eventImage,
+    description:
+      "This is a sample event description for the Sports Meet. It includes details about the sports activities and competitions.",
   },
   {
     id: 6,
@@ -72,6 +81,7 @@ const ALL_EVENTS: Event[] = [
     venue: "Eco Hall, Faculty of Environmental Studies",
     delegateCount: 12,
     imageUrl: eventImage,
+    description: "This is a sample event description for the Green Summit.",
   },
   {
     id: 7,
@@ -81,6 +91,8 @@ const ALL_EVENTS: Event[] = [
     venue: "Business Center, Faculty of Commerce",
     delegateCount: 25,
     imageUrl: eventImage,
+    description:
+      "This is a sample event description for the Business Workshop.",
   },
   {
     id: 8,
@@ -90,6 +102,7 @@ const ALL_EVENTS: Event[] = [
     venue: "Art Gallery, Faculty of Fine Arts",
     delegateCount: 18,
     imageUrl: eventImage,
+    description: "This is a sample event description for the Art Exhibition.",
   },
   {
     id: 9,
@@ -99,6 +112,7 @@ const ALL_EVENTS: Event[] = [
     venue: "Open Air Stage, Faculty of Performing Arts",
     delegateCount: 30,
     imageUrl: eventImage,
+    description: "This is a sample event description for the Music Festival.",
   },
   {
     id: 10,
@@ -108,6 +122,7 @@ const ALL_EVENTS: Event[] = [
     venue: "Science Building, Faculty of Science",
     delegateCount: 22,
     imageUrl: eventImage,
+    description: "This is a sample event description for the Science Fair.",
   },
   {
     id: 11,
@@ -117,6 +132,8 @@ const ALL_EVENTS: Event[] = [
     venue: "Literature Hall, Faculty of Literature",
     delegateCount: 16,
     imageUrl: eventImage,
+    description:
+      "This is a sample event description for the Literature Symposium.",
   },
 ];
 
@@ -244,20 +261,19 @@ const EventCatalogue = () => {
               variant={
                 selectedFilter === "This month" ? "contained" : "outlined"
               }
-              onClick={() => handleFilterChange("This month")}
-              className={style.filterButton}
-            >
-              This month
-            </Button>
-
-            <Button
-              variant={
-                selectedFilter === "This month" ? "contained" : "outlined"
-              }
               onClick={() => handleFilterChange("Next Week")}
               className={style.filterButton}
             >
               Next Week
+            </Button>
+            <Button
+              variant={
+                selectedFilter === "This month" ? "contained" : "outlined"
+              }
+              onClick={() => handleFilterChange("This month")}
+              className={style.filterButton}
+            >
+              This month
             </Button>
 
             <Button

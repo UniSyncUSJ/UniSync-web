@@ -1,69 +1,92 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { createBrowserRouter } from "react-router-dom";
-import UniSyncLanding from "../pages/user/Home";
-import StudentSignUpPage from "../pages/user/StudentSignUpPage";
-import SignIn from "../../UniSync-web/pages/user/SignIn";
-import StudentHome from "../../UniSync-web/pages/user/StudentHome";
-import { checkAuthLoader, getRole } from "../utils/user/auth";
+import { Suspense, lazy } from "react";
+import Loading from "../pages/common/loadingPage/LoadingPage";
+import ErrorPage from "../pages/common/errorPage/ErrorPage";
+
+// 🔁 Lazy loaded pages
+const UniSyncLanding = lazy(() => import("../pages/user/Home"));
+const StudentSignUpPage = lazy(() => import("../pages/user/StudentSignUpPage"));
+const SignIn = lazy(() => import("../../UniSync-web/pages/user/SignIn"));
+const StudentHome = lazy(
+  () => import("../../UniSync-web/pages/user/StudentHome")
+);
+const AdminPage = lazy(() => import("../pages/admin/AdminPage"));
+const ManageEventsPage = lazy(() => import("../pages/admin/ManageEvents"));
+const NotificationsPage = lazy(() => import("../pages/admin/Notifications"));
+const SettingsPage = lazy(() => import("../pages/admin/Settings"));
+const AdminSignUp = lazy(() => import("../pages/admin/AdminSignUp"));
+const AdminLogin = lazy(() => import("../pages/admin/AdminLogin"));
+const UsersPage = lazy(() => import("../pages/admin/UsersPage"));
+const ViewAdminsPage = lazy(() => import("../pages/admin/ViewAdminsPage"));
+const Calendar = lazy(() => import("../src/components/user/calendar/Calendar"));
+const UserEvents = lazy(
+  () => import("../src/components/user/userEvents/UserEvents")
+);
+const RootLayout = lazy(() => import("../root/admin/Root"));
+
+// 🔁 Actions
 import { action as signinAction } from "../actions/SignIn.action";
 import { action as signupAction } from "../actions/SignUp.action";
-import AdminPage from "../pages/admin/AdminPage";
-import Root from "../root/admin/Root";
-import ManageEventsPage from "../pages/admin/ManageEvents";
-import NotificationsPage from "../pages/admin/Notifications";
-import SettingsPage from "../pages/admin/Settings";
-import AdminSignUp from "../pages/admin/AdminSignUp";
-import AdminLogin from "../pages/admin/AdminLogin";
 import { action as adminSignupAction } from "../actions/AdminSignUp.action";
-import RootLayout from "../root/admin/Root";
-import UsersPage from "../pages/admin/UsersPage";
-import ViewAdminsPage from "../pages/admin/ViewAdminsPage";
-import Calendar from "../src/components/user/calendar/Calendar";
+
+const withSuspense = (element: React.ReactElement) => (
+  <Suspense fallback={<Loading />}>{element}</Suspense>
+);
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <UniSyncLanding />,
-    errorElement: <div>Error loading page</div>,
+    element: withSuspense(<UniSyncLanding />),
+    errorElement: <ErrorPage />,
   },
   {
     path: "student/signin",
-    element: <SignIn />,
+    element: withSuspense(<SignIn />),
     action: signinAction,
   },
   {
     path: "student/signup",
-    element: <StudentSignUpPage />,
+    element: withSuspense(<StudentSignUpPage />),
     action: signupAction,
   },
   {
     path: "student-home",
-    element: <StudentHome />,
+    element: withSuspense(<StudentHome />),
     // loader: checkAuthLoader,
-    children: [{ path: "my-calendar", element: <Calendar /> }],
+    children: [
+      {
+        path: "my-events",
+        element: withSuspense(<UserEvents />),
+      },
+    ],
   },
   {
     path: "admin/signup",
-    element: <AdminSignUp />,
+    element: withSuspense(<AdminSignUp />),
     action: signupAction,
   },
   {
     path: "admin/login",
-    element: <AdminLogin />,
+    element: withSuspense(<AdminLogin />),
     action: adminSignupAction,
   },
   {
     path: "admin-home",
-    element: <RootLayout />,
+    element: withSuspense(<RootLayout />),
     // loader: checkAuthLoader,
     children: [
-      { index: true, element: <AdminPage /> },
-      { path: "manage-events", element: <ManageEventsPage /> },
-      { path: "notifications", element: <NotificationsPage /> },
-      { path: "settings", element: <SettingsPage /> },
-      { path: "users", element: <UsersPage /> },
-      { path: "admins", element: <ViewAdminsPage /> }, // Placeholder for Admins page
+      { index: true, element: withSuspense(<AdminPage />) },
+      { path: "manage-events", element: withSuspense(<ManageEventsPage />) },
+      { path: "notifications", element: withSuspense(<NotificationsPage />) },
+      { path: "settings", element: withSuspense(<SettingsPage />) },
+      { path: "users", element: withSuspense(<UsersPage />) },
+      { path: "admins", element: withSuspense(<ViewAdminsPage />) },
     ],
+  },
+  {
+    path: "*",
+    element: <ErrorPage />, // catch-all 404
   },
 ]);
 
