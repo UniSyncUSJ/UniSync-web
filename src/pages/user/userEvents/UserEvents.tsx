@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styles from "./userEvents.module.scss";
-import Modal from "../../common/modal/Modal";
+import Modal from "../../../components/common/modal/Modal";
 import { userEventActions } from "../../../redux/userStore/user-event-slice";
 
 type Event = {

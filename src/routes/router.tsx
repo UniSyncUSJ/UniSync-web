@@ -17,16 +17,16 @@ const AdminSignUp = lazy(() => import("../pages/admin/AdminSignUp"));
 const AdminLogin = lazy(() => import("../pages/admin/AdminLogin"));
 const UsersPage = lazy(() => import("../pages/admin/UsersPage"));
 const ViewAdminsPage = lazy(() => import("../pages/admin/ViewAdminsPage"));
-const Calendar = lazy(() => import("../components/user/calendar/Calendar"));
-const UserEvents = lazy(
-  () => import("../components/user/userEvents/UserEvents")
-);
+//const Calendar = lazy(() => import("../components/user/calendar/Calendar"));
+const UserEvents = lazy(() => import("../pages/user/userEvents/UserEvents"));
 const RootLayout = lazy(() => import("../root/admin/Root"));
+const SchedulePage = lazy(() => import("../pages/user/schedule/Schedule"));
 
 // 🔁 Actions
 import { action as signinAction } from "../actions/SignIn.action";
 import { action as signupAction } from "../actions/SignUp.action";
 import { action as adminSignupAction } from "../actions/AdminSignUp.action";
+import Academics from "../components/user/academics/Academics";
 
 const withSuspense = (element: React.ReactElement) => (
   <Suspense fallback={<Loading />}>{element}</Suspense>
@@ -56,6 +56,14 @@ const router = createBrowserRouter([
       {
         path: "my-events",
         element: withSuspense(<UserEvents />),
+      },
+      {
+        path: "my-schedule",
+        element: withSuspense(<SchedulePage />),
+      },
+      {
+        path: "academics",
+        element: withSuspense(<Academics />),
       },
     ],
   },

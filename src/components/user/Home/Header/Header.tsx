@@ -48,12 +48,21 @@ const Header = () => {
         </Link>
         <span className={style.separator}>|</span>
         <Link
-          to="/discover"
+          to="/student-home/academics"
           className={`${style.navLink} ${
-            isActive("/discover") ? style.active : ""
+            isActive("/student-home/academics") ? style.active : ""
           }`}
         >
-          Discover
+          Academics
+        </Link>
+        <span className={style.separator}>|</span>
+        <Link
+          to="/student-home/my-schedule"
+          className={`${style.navLink} ${
+            isActive("/student-home/my-schedule") ? style.active : ""
+          }`}
+        >
+          My-schedule
         </Link>
       </div>
 

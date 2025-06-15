@@ -1,0 +1,215 @@
+// Schedule.module.scss
+.calendarContainer {
+  background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+  padding: 2rem;
+  border-radius: 1rem;
+  margin: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1), 0 4px 12px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12), 0 6px 18px rgba(0, 0, 0, 0.08);
+  }
+
+  // FullCalendar custom styling
+  :global(.fc) {
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+
+    // Header toolbar
+    .fc-header-toolbar {
+      margin-bottom: 1.5rem;
+
+      .fc-toolbar-title {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: #1e293b;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+      }
+
+      .fc-button-group .fc-button {
+        background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+        border: none;
+        border-radius: 0.5rem;
+        padding: 0.5rem 1rem;
+        font-weight: 600;
+        color: white;
+        transition: all 0.2s ease;
+        margin: 0 0.25rem;
+
+        &:hover:not(:disabled) {
+          background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+          transform: translateY(-1px);
+          box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+
+        &:active {
+          transform: translateY(0);
+        }
+
+        &.fc-button-active {
+          background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
+          box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+      }
+    }
+
+    // Calendar grid
+    .fc-scrollgrid {
+      border: none;
+      border-radius: 0.75rem;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    }
+
+    // Day headers
+    .fc-col-header {
+      background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+
+      .fc-col-header-cell {
+        border: 1px solid #e2e8f0;
+        padding: 1rem 0.5rem;
+
+        .fc-col-header-cell-cushion {
+          font-weight: 700;
+          color: #1f2937 !important;
+          text-transform: uppercase;
+          font-size: 0.75rem;
+          letter-spacing: 0.05em;
+        }
+      }
+    }
+
+    // Calendar cells
+    .fc-daygrid-day {
+      border: 1px solid #f1f5f9;
+      background: #ffffff;
+      transition: background-color 0.2s ease;
+
+      &:hover {
+        background: #f8fafc;
+      }
+
+      .fc-daygrid-day-number {
+        color: #111827 !important;
+        font-weight: 600;
+        padding: 0.5rem;
+        font-size: 0.9rem;
+      }
+    }
+
+    // Today highlight
+    .fc-day-today {
+      background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%) !important;
+
+      .fc-daygrid-day-number {
+        color: #1d4ed8;
+        font-weight: 700;
+        background: #3b82f6;
+        color: white;
+        border-radius: 50%;
+        width: 2rem;
+        height: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0.25rem;
+      }
+    }
+
+    // Events
+    .fc-event {
+      border: none;
+      border-radius: 0.5rem;
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: white;
+      font-weight: 600;
+      padding: 0.25rem 0.5rem;
+      margin: 0.125rem;
+      box-shadow: 0 2px 8px rgba(16, 185, 129, 0.25);
+      transition: all 0.2s ease;
+      cursor: pointer;
+
+      &:hover {
+        background: linear-gradient(135deg, #059669 0%, #047857 100%);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(16, 185, 129, 0.35);
+      }
+
+      .fc-event-title {
+        font-size: 0.8rem;
+        font-weight: 600;
+      }
+
+      .fc-event-time {
+        font-size: 0.7rem;
+        opacity: 0.9;
+      }
+    }
+
+    // Week view specific
+    .fc-timegrid-slot {
+      border-color: #f1f5f9;
+
+      .fc-timegrid-slot-label {
+        color: #1f2937 !important;
+        font-size: 0.8rem;
+        font-weight: 500;
+      }
+    }
+
+    .fc-timegrid-col {
+      border-color: #f1f5f9;
+    }
+
+    // More button
+    .fc-more-link {
+      color: #1f2937 !important;
+      font-weight: 600;
+      text-decoration: none;
+      transition: color 0.2s ease;
+
+      &:hover {
+        color: #3b82f6 !important;
+      }
+    }
+
+    // Responsive adjustments
+    @media (max-width: 768px) {
+      .fc-header-toolbar {
+        flex-direction: column;
+        gap: 1rem;
+
+        .fc-toolbar-title {
+          font-size: 1.5rem;
+        }
+      }
+
+      .fc-button-group .fc-button {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.85rem;
+      }
+    }
+  }
+}
+
+// Animation keyframes
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.calendarContainer {
+  animation: slideIn 0.5s ease-out;
+}

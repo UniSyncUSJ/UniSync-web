@@ -9,22 +9,26 @@ import { Outlet, useLocation } from "react-router-dom";
 const StudentHome = () => {
   const { pathname } = useLocation();
   const isEventsPage = pathname.includes("my-events");
+  const isSchedulePage = pathname.includes("my-schedule");
+  const isAcademicsPage = pathname.includes("academics");
   return (
     <>
       <div className={style.container}>
         <div className={style.pageContainer}>
           <Header />
           <div className={style.contentArea}>
-            {
-              isEventsPage ? (
-                <Outlet />
-              ) : (
-                <>
-                  <Banner />
-                  <EventCatalogue />
-                </>
-              ) // Render Outlet only if on the calendar page
-            }
+            {isEventsPage ? (
+              <Outlet />
+            ) : isSchedulePage ? (
+              <Outlet />
+            ) : isAcademicsPage ? (
+              <Outlet />
+            ) : (
+              <>
+                <Banner />
+                <EventCatalogue />
+              </>
+            )}
           </div>
         </div>
       </div>
