@@ -59,8 +59,16 @@ interface Props {
   events?: Event[]; // Use the Event type
   handleEventClick?: (clickInfo: any) => void;
 }
+const defaultProps: Partial<Props> = {
+  events: [], // Default to an empty array
+};
 
-const Schedule = (props: Props) => {
+const Schedule: React.FC<Props> = ({
+  calendarRef,
+  events = defaultProps.events,
+  handleEventClick,
+}) => {
+  console.log("Schedule component rendered with events:", events);
   return (
     <Box
       component="div"
@@ -81,7 +89,7 @@ const Schedule = (props: Props) => {
       }}
     >
       <FullCalendar
-        ref={props.calendarRef}
+        ref={calendarRef}
         plugins={[
           dayGridPlugin,
           timeGridPlugin,
@@ -96,7 +104,7 @@ const Schedule = (props: Props) => {
           },
           {
             events:
-              props.events?.map((event) => ({
+              events?.map((event) => ({
                 id: event.id.toString(),
                 title: event.title,
                 start: event.start,
@@ -117,7 +125,7 @@ const Schedule = (props: Props) => {
         firstDay={1}
         editable={true}
         selectable={true}
-        eventClick={props.handleEventClick}
+        eventClick={handleEventClick}
         eventDisplay="block"
         headerToolbar={{
           left: "prev,next today",

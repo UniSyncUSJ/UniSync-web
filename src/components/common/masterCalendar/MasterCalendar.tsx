@@ -3,23 +3,24 @@ import { useEffect, useRef, useState } from "react";
 //import { BACKGROUND_IMAGE } from "../Utils/constants";
 // import { StringToDateObject } from "../Utils/helpers";
 import FullCalendar from "@fullcalendar/react";
-import {
-  Box,
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  TextField,
-  type CSSProperties,
-} from "@mui/material";
+
+import { Box, Button, TextField } from "@mui/material";
+
 import SettingsIcon from "@mui/icons-material/Settings";
+
 import { LocalizationProvider, DateTimePicker } from "@mui/x-date-pickers";
+
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+
 import Schedule from "../../../pages/user/schedule/Schedule";
+
 import type { EventClickArg } from "@fullcalendar/core";
+
 import { useAxios } from "../../../hooks/useAxios";
-import Styles from "./masterCalendar.module.scss"; // Updated import path
+
+import Styles from "./masterCalendar.module.scss";
+
+import Modal from "../modal/Modal";
 
 type Event = {
   id: number;
@@ -77,45 +78,44 @@ const Calendar = () => {
       end: "2025-06-30T07:00:00",
     },
   ]);
-  const [selectedEvent, setSelectedEvent] = useState<Partial<Event>>({
-    id: 0,
-    title: "",
-    start: "",
-    end: "",
-  });
+  const [selectedEvent, setSelectedEvent] = useState<Partial<Event>>({});
   const [currentView, setCurrentView] = useState<string>("dayGridMonth");
-  const [modalOpen, setModalOpen] = useState<boolean>(false);
 
-  const {
-    data: localEvents,
-    loading: loadingLocal,
-    error: errorLocal,
-    sendRequest: fetchLocalEvents,
-  } = useAxios<Event[]>({
-    url: "http://localhost:8080/api/events",
-    method: "GET",
-  });
+  // modal ref
+  const modalRef = useRef<{ open: () => void; close: () => void } | null>(null);
 
-  const {
-    data: googleEvents,
-    loading: loadingGoogle,
-    error: errorGoogle,
-    sendRequest: fetchGoogleEvents,
-  } = useAxios<Event[]>({
-    url: "http://localhost:8080/api/events/google",
-    method: "GET",
-  });
+  //  const {
+  //   data: localEvents,
+  //   loading: loadingLocal,
+  //   error: errorLocal,
+  //   sendRequest: fetchLocalEvents,
+  // } = useAxios<Event[]>({
+  //   url: "http://localhost:8080/api/events",
+  //   method: "GET",
+  // });
 
-  useEffect(() => {
-    fetchLocalEvents();
-    fetchGoogleEvents();
-  }, [fetchLocalEvents, fetchGoogleEvents]);
-  const allEvents = [...(localEvents || []), ...(googleEvents || [])];
+  // const {
+  //   data: googleEvents,
+  //   loading: loadingGoogle,
+  //   error: errorGoogle,
+  //   sendRequest: fetchGoogleEvents,
+  // } = useAxios<Event[]>({
+  //   url: "http://localhost:8080/api/events/google",
+  //   method: "GET",
+  // });
+
+  // useEffect(() => {
+  //   fetchLocalEvents();
+  //   fetchGoogleEvents();
+  // }, [fetchLocalEvents, fetchGoogleEvents]);
+  // const allEvents = [...(localEvents || []), ...(googleEvents || [])];
+  console.log("Events loaded in MasterCalendar component.", events);
 
   const toggleClendarView = () => {
     const api = calendarRef.current?.getApi();
     const nextView =
       currentView === "timeGridWeek" ? "dayGridMonth" : "timeGridWeek";
+
     if (api) {
       api.changeView(nextView);
       setCurrentView(nextView);
@@ -124,23 +124,31 @@ const Calendar = () => {
 
   const handleEventClick = (clickInfo: EventClickArg) => {
     setSelectedEvent({
-      ...clickInfo.event.extendedProps,
       id: Number(clickInfo.event.id),
       title: clickInfo.event.title,
       start: clickInfo.event.start ? clickInfo.event.start.toISOString() : "",
       end: clickInfo.event.end ? clickInfo.event.end.toISOString() : "",
+      date: clickInfo.event.start
+        ? clickInfo.event.start.toISOString().split("T")[0]
+        : "",
+      time: clickInfo.event.start
+        ? clickInfo.event.start.toISOString().split("T")[1].substring(0, 5)
+        : "",
+      venue: clickInfo.event.extendedProps.venue || "",
+      delegateCount: clickInfo.event.extendedProps.delegateCount || 0,
+      imageUrl: clickInfo.event.extendedProps.imageUrl || "",
     });
-    setModalOpen(true);
+    modalRef.current?.open();
   };
 
   const handleSave = () => {
     setEvents((prev) =>
       prev.map((e) =>
-        e.id === selectedEvent.id
+        e.id === selectedEvent!.id
           ? {
               ...e,
               ...selectedEvent,
-              id: e.id, // ensure id is string
+              id: e.id, // retain id
               title: selectedEvent.title ?? e.title,
               date: selectedEvent.date ?? e.date,
               time: selectedEvent.time ?? e.time,
@@ -153,160 +161,12 @@ const Calendar = () => {
           : e
       )
     );
-    setModalOpen(false);
+    modalRef.current?.close();
   };
 
   const handleDelete = () => {
     setEvents((prev) => prev.filter((e) => e.id !== selectedEvent!.id));
-    setModalOpen(false);
-  };
-
-  const EventModal = () => {
-    return (
-      <Dialog
-        open={modalOpen}
-        onClose={() => setModalOpen(false)}
-        fullWidth
-        PaperProps={{
-          sx: {
-            background: "rgba(20, 20, 40, 0.9)",
-            backdropFilter: "blur(20px)",
-            border: "1px solid rgba(255, 255, 255, 0.1)",
-            borderRadius: "16px",
-            boxShadow: "0 8px 32px rgba(0, 0, 0, 0.5)",
-            color: "rgba(255, 255, 255, 0.9)",
-          },
-        }}
-      >
-        <DialogTitle sx={{ color: "rgba(255, 255, 255, 0.9)" }}>
-          Edit Event
-        </DialogTitle>
-        <DialogContent>
-          <TextField
-            label="Title"
-            fullWidth
-            margin="normal"
-            value={selectedEvent?.title || ""}
-            onChange={(e) =>
-              setSelectedEvent({ ...selectedEvent, title: e.target.value })
-            }
-            sx={{
-              "& .MuiOutlinedInput-root": {
-                background: "rgba(255, 255, 255, 0.05)",
-                backdropFilter: "blur(10px)",
-                border: "1px solid rgba(255, 255, 255, 0.1)",
-                borderRadius: "8px",
-                color: "rgba(255, 255, 255, 0.9)",
-                "& fieldset": {
-                  borderColor: "rgba(255, 255, 255, 0.1)",
-                },
-                "&:hover fieldset": {
-                  borderColor: "rgba(255, 255, 255, 0.2)",
-                },
-                "&.Mui-focused fieldset": {
-                  borderColor: "rgba(255, 255, 255, 0.3)",
-                },
-              },
-              "& .MuiInputLabel-root": {
-                color: "rgba(255, 255, 255, 0.7)",
-              },
-              "& .MuiFormLabel-root.Mui-focused": {
-                color: "rgba(255, 255, 255, 0.9)",
-              },
-            }}
-          />
-          <DateTimePicker
-            label="Start"
-            value={StringToDateObject(selectedEvent?.start)}
-            onChange={(newValue) =>
-              setSelectedEvent({
-                ...selectedEvent,
-                start: newValue ? newValue.toString() : "",
-              })
-            }
-            slotProps={{
-              textField: {
-                fullWidth: true,
-                margin: "normal",
-                sx: {
-                  "& .MuiOutlinedInput-root": {
-                    background: "rgba(255, 255, 255, 0.05)",
-                    backdropFilter: "blur(10px)",
-                    border: "1px solid rgba(255, 255, 255, 0.1)",
-                    borderRadius: "8px",
-                    color: "rgba(255, 255, 255, 0.9)",
-                    "& fieldset": {
-                      borderColor: "rgba(255, 255, 255, 0.1)",
-                    },
-                    "&:hover fieldset": {
-                      borderColor: "rgba(255, 255, 255, 0.2)",
-                    },
-                    "&.Mui-focused fieldset": {
-                      borderColor: "rgba(255, 255, 255, 0.3)",
-                    },
-                  },
-                  "& .MuiInputLabel-root": {
-                    color: "rgba(255, 255, 255, 0.7)",
-                  },
-                  "& .MuiFormLabel-root.Mui-focused": {
-                    color: "rgba(255, 255, 255, 0.9)",
-                  },
-                },
-              },
-            }}
-          />
-          <DateTimePicker
-            label="End"
-            value={StringToDateObject(selectedEvent?.end)}
-            onChange={(newValue) =>
-              setSelectedEvent({
-                ...selectedEvent,
-                end: newValue ? newValue.toString() : "",
-              })
-            }
-            slotProps={{
-              textField: {
-                fullWidth: true,
-                margin: "normal",
-                sx: {
-                  "& .MuiOutlinedInput-root": {
-                    background: "rgba(255, 255, 255, 0.05)",
-                    backdropFilter: "blur(10px)",
-                    border: "1px solid rgba(255, 255, 255, 0.1)",
-                    borderRadius: "8px",
-                    color: "rgba(255, 255, 255, 0.9)",
-                    "& fieldset": {
-                      borderColor: "rgba(255, 255, 255, 0.1)",
-                    },
-                    "&:hover fieldset": {
-                      borderColor: "rgba(255, 255, 255, 0.2)",
-                    },
-                    "&.Mui-focused fieldset": {
-                      borderColor: "rgba(255, 255, 255, 0.3)",
-                    },
-                  },
-                  "& .MuiInputLabel-root": {
-                    color: "rgba(255, 255, 255, 0.7)",
-                  },
-                  "& .MuiFormLabel-root.Mui-focused": {
-                    color: "rgba(255, 255, 255, 0.9)",
-                  },
-                },
-              },
-            }}
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setModalOpen(false)}>Discard</Button>
-          <Button onClick={handleDelete} color="error">
-            Delete
-          </Button>
-          <Button onClick={handleSave} variant="contained" color="primary">
-            Save
-          </Button>
-        </DialogActions>
-      </Dialog>
-    );
+    modalRef.current?.close();
   };
 
   return (
@@ -330,12 +190,8 @@ const Calendar = () => {
           sx={{
             background: "rgba(255, 255, 255, 0.1)",
             backdropFilter: "blur(10px)",
-            border: "1px solid rgba(255, 255, 255, 0.2)",
+            border: "1px solid #fff3",
             borderRadius: "8px",
-            color: "rgba(255, 255, 255, 0.9)",
-            "&:hover": {
-              background: "rgba(255, 255, 255, 0.15)",
-            },
           }}
         >
           {" "}
@@ -351,7 +207,60 @@ const Calendar = () => {
           events={events}
           handleEventClick={handleEventClick}
         ></Schedule>
-        {EventModal()}
+
+        {/* Reusable Modal for event details */}
+        <Modal ref={modalRef}>
+          <h2>Edit Event</h2>
+
+          <TextField
+            label="Title"
+            fullWidth
+            margin="normal"
+            value={selectedEvent?.title || ""}
+            onChange={(e) =>
+              setSelectedEvent({ ...selectedEvent, title: e.target.value })
+            }
+          />
+
+          <DateTimePicker
+            label="Start"
+            value={StringToDateObject(selectedEvent?.start)}
+            onChange={(newValue) =>
+              setSelectedEvent({
+                ...selectedEvent,
+                start: newValue ? newValue.toString() : "",
+              })
+            }
+            slotProps={{ textField: { fullWidth: true, margin: "normal" } }}
+          />
+
+          <DateTimePicker
+            label="End"
+            value={StringToDateObject(selectedEvent?.end)}
+            onChange={(newValue) =>
+              setSelectedEvent({
+                ...selectedEvent,
+                end: newValue ? newValue.toString() : "",
+              })
+            }
+            slotProps={{ textField: { fullWidth: true, margin: "normal" } }}
+          />
+
+          <Box sx={{ mt: 2 }}>
+            <Button variant="contained" color="error" onClick={handleDelete}>
+              Delete
+            </Button>
+            <Button variant="contained" color="primary" onClick={handleSave}>
+              Save
+            </Button>
+            <Button
+              variant="outlined"
+              onClick={() => modalRef.current?.close()}
+            >
+              Cancel
+            </Button>
+          </Box>
+        </Modal>
       </LocalizationProvider>
     </Box>
   );
@@ -359,7 +268,8 @@ const Calendar = () => {
 
 export default Calendar;
 
-const CalendarViewToggler: CSSProperties = {
+// Styles
+const CalendarViewToggler = {
   display: "flex",
   flexDirection: "row",
   justifyContent: "center",
@@ -369,14 +279,14 @@ const CalendarViewToggler: CSSProperties = {
   gap: "1rem",
   padding: "0.75rem 1.5rem",
   borderRadius: "16px",
-  boxShadow: "0 8px 32px rgba(0, 0, 0, 0.3)",
-  border: "1px solid rgba(255, 255, 255, 0.1)",
+  boxShadow: "0 8px 32px rgb(0 0 0 / 0.3)",
+  border: "1px solid rgb(255 255 255 / 0.1)",
   marginBottom: "1rem",
   color: "rgba(255, 255, 255, 0.9)",
   fontWeight: "500",
 };
 
-const background: CSSProperties = {
+const background = {
   //   backgroundImage: `url(${BACKGROUND_IMAGE})`,
   minHeight: "100vh",
   width: "100%",

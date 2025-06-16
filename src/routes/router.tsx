@@ -27,6 +27,7 @@ import { action as signinAction } from "../actions/SignIn.action";
 import { action as signupAction } from "../actions/SignUp.action";
 import { action as adminSignupAction } from "../actions/AdminSignUp.action";
 import Academics from "../components/user/academics/Academics";
+import Calendar from "../components/common/masterCalendar/MasterCalendar";
 
 const withSuspense = (element: React.ReactElement) => (
   <Suspense fallback={<Loading />}>{element}</Suspense>
@@ -59,7 +60,7 @@ const router = createBrowserRouter([
       },
       {
         path: "my-schedule",
-        element: withSuspense(<SchedulePage />),
+        element: withSuspense(<Calendar />),
       },
       {
         path: "academics",
