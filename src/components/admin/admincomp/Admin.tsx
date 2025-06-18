@@ -1,4 +1,4 @@
-import styles from "./admin.module.scss";
+import styles from "../admin.module.scss";
 import EventCatalogue from "../../admin/events/EventCatalogue";
 import EventAlbum from "../eventalbum/EventAlbum";
 import Notifications from "../../admin/notifications/Notifications";

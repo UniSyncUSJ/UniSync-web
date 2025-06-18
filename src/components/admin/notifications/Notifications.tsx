@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styles from "../admincomp/admin.module.scss";
+import styles from "./notifications.module.scss";
 
 function Notifications() {
   const [notifications] = useState([

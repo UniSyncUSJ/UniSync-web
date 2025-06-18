@@ -3,6 +3,7 @@ import eventsSlice from "./adminStore/events-slice";
 import adminSlice from "./adminStore/admin-slice";
 import userSlice from "./userStore/user-slice";
 import userEventSlice from "./userStore/user-event-slice";
+import userCartSlice from "./userStore/user-cart-slice";
 
 const store = configureStore({
   reducer: {
@@ -11,6 +12,7 @@ const store = configureStore({
     admin: adminSlice.reducer,
     user: userSlice.reducer,
     userEvent: userEventSlice.reducer,
+    userCart: userCartSlice.reducer,
   },
 });
 

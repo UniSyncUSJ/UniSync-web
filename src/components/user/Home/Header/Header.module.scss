@@ -126,18 +126,132 @@
   @media (max-width: 640px) {
     gap: 1rem;
   }
+}
 
-  .profile {
-    padding: 0.5rem;
-    background-color: rgba(255, 255, 255, 0.2);
+// Cart Section Styles
+.cartSection {
+  display: flex;
+  align-items: center;
+  margin-right: 0.75rem; // Extra gap after cart
+
+  @media (max-width: 640px) {
+    margin-right: 0.5rem;
+  }
+}
+
+.cartButton {
+  padding: 0.5rem !important;
+  border-radius: 0.75rem !important;
+  background-color: rgba(255, 255, 255, 0.2) !important;
+  transition: all 0.3s ease !important;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.3) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  @media (max-width: 640px) {
+    padding: 0.4rem !important;
+  }
+}
+
+.cartBadge {
+  .MuiBadge-badge {
+    background-color: #ff4444 !important;
+    color: white !important;
+    font-size: 0.7rem !important;
+    font-weight: 600 !important;
+    min-width: 16px !important;
+    height: 16px !important;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+
+    @media (max-width: 640px) {
+      font-size: 0.65rem !important;
+      min-width: 14px !important;
+      height: 14px !important;
+    }
+  }
+}
+
+// Profile Section Styles
+.profileSection {
+  display: flex;
+  align-items: center;
+}
+
+.profile {
+  padding: 0.5rem;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 0.75rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+}
+
+// Logout Button Styles
+.logoutButton {
+  white-space: nowrap !important;
+  min-width: auto !important;
+
+  &.MuiButton-root {
+    font-weight: 600;
+    text-transform: none;
     border-radius: 0.75rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
+    padding: 0.5rem 1.5rem;
+    background-color: #f44336 !important;
+    box-shadow: 0 4px 8px rgba(244, 67, 54, 0.3);
 
     &:hover {
-      background-color: rgba(255, 255, 255, 0.3);
+      background-color: #d32f2f !important;
       transform: translateY(-1px);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 6px 12px rgba(211, 47, 47, 0.4);
+    }
+
+    @media (max-width: 640px) {
+      font-size: 0.85rem;
+      padding: 0.4rem 1rem;
+    }
+  }
+}
+
+// Additional mobile optimizations
+@media (max-width: 480px) {
+  .header {
+    padding: 0.5rem;
+    gap: 0.75rem;
+  }
+
+  .logo {
+    font-size: 1.4rem;
+  }
+
+  .userActions {
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .cartSection {
+    margin-right: 0.25rem;
+  }
+
+  .navBar {
+    .navLink {
+      font-size: 0.8rem;
+      padding: 0.4rem 0.6rem;
+    }
+  }
+
+  .logoutButton {
+    &.MuiButton-root {
+      font-size: 0.8rem;
+      padding: 0.35rem 0.8rem;
     }
   }
 }

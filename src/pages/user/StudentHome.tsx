@@ -11,6 +11,8 @@ const StudentHome = () => {
   const isEventsPage = pathname.includes("my-events");
   const isSchedulePage = pathname.includes("my-schedule");
   const isAcademicsPage = pathname.includes("academics");
+  const isMarketplacePage = pathname.includes("marketplace");
+  const isMyCartPage = pathname.includes("my-cart");
   return (
     <>
       <div className={style.container}>
@@ -22,6 +24,10 @@ const StudentHome = () => {
             ) : isSchedulePage ? (
               <Outlet />
             ) : isAcademicsPage ? (
+              <Outlet />
+            ) : isMarketplacePage ? (
+              <Outlet />
+            ) : isMyCartPage ? (
               <Outlet />
             ) : (
               <>

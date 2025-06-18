@@ -12,7 +12,7 @@ import { LocalizationProvider, DateTimePicker } from "@mui/x-date-pickers";
 
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 
-import Schedule from "../../../pages/user/schedule/Schedule";
+import Schedule from "../../../components/user/schedule/Schedule";
 
 import type { EventClickArg } from "@fullcalendar/core";
 
@@ -20,7 +20,7 @@ import { useAxios } from "../../../hooks/useAxios";
 
 import Styles from "./masterCalendar.module.scss";
 
-import Modal from "../modal/Modal";
+import Modal from "../../../components/common/modal/Modal";
 
 type Event = {
   id: number;
@@ -41,7 +41,7 @@ export const StringToDateObject = (value: unknown): Date | null => {
     : new Date(value as string | number | Date);
 };
 
-const Calendar = () => {
+const MasterCalendar = () => {
   const calendarRef = useRef<FullCalendar>(null);
   const [events, setEvents] = useState<Event[]>([
     {
@@ -266,7 +266,7 @@ const Calendar = () => {
   );
 };
 
-export default Calendar;
+export default MasterCalendar;
 
 // Styles
 const CalendarViewToggler = {
@@ -274,7 +274,7 @@ const CalendarViewToggler = {
   flexDirection: "row",
   justifyContent: "center",
   alignItems: "center",
-  background: "rgba(255, 255, 255, 0.05)",
+  // background: "rgba(255, 255, 255, 0.05)",
   backdropFilter: "blur(20px)",
   gap: "1rem",
   padding: "0.75rem 1.5rem",

@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "../../../components/admin/admincomp/admin.module.scss";
+import styles from "./Header.module.scss";
 import { Bell } from "lucide-react";
 
 function Header() {

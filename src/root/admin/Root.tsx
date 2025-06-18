@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "../../components/admin/header/Header";
 import SideBar from "../../components/admin/sidebar/Sidebar";
-import styles from "../../src/components/admin/admincomp/admin.module.scss";
+import styles from "../../components/admin/admin.module.scss";
 import { Outlet } from "react-router-dom";
 
 function RootLayout() {

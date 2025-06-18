@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { Edit, Image, Save } from "lucide-react";
-import styles from "../admincomp/admin.module.scss";
+import styles from "../admin.module.scss";
 import Modal from "../../common/modal/Modal";
 import { useSelector } from "react-redux";
 

@@ -81,8 +81,7 @@ const Schedule: React.FC<Props> = ({
           left: 0,
           right: 0,
           bottom: 0,
-          background:
-            "linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%)",
+
           borderRadius: "20px",
           pointerEvents: "none",
         },
@@ -150,7 +149,7 @@ const Schedule: React.FC<Props> = ({
 export default Schedule;
 
 const calendarContainer: CSSProperties = {
-  background: "rgba(255, 255, 255, 0.02)",
+  // background: "rgba(255, 255, 255, 0.02)",
   backdropFilter: "blur(20px)",
   padding: "1.5rem 2rem",
   borderRadius: "20px",
