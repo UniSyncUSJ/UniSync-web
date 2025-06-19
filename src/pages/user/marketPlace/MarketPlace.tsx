@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styles from "./MarketPlace.module.scss";
 import MarketPlaceCard from "../../../components/user/marketPlaceCard/MarketPlaceCard";
 import eventImage from "../../../assets/images/eventImage.jpg";
+import Pagination from "../../../components/common/pagination/Pagination";
 
 interface MarketplaceItem {
   id: string;
@@ -12,6 +13,8 @@ interface MarketplaceItem {
   price?: number; // Optional if you plan to use it
   quantity?: number; // Optional if you plan to use it
 }
+
+const ItemsPerPage = 4;
 
 const MarketPlace: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState("All Categories");
@@ -83,7 +86,7 @@ const MarketPlace: React.FC = () => {
     return matchesCategory && matchesSearch;
   });
 
-  const totalPages = Math.ceil(filteredItems.length / 6);
+  const totalPages = Math.ceil(filteredItems.length / ItemsPerPage);
 
   return (
     <div className={styles.marketplace}>
@@ -122,39 +125,20 @@ const MarketPlace: React.FC = () => {
           ))}
         </div>
 
-        {filteredItems.map((filteredItem) => (
-          <MarketPlaceCard key={filteredItem.id} filteredItem={filteredItem} />
-        ))}
-
-        <div className={styles.pagination}>
-          <button
-            className={styles.paginationArrow}
-            onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
-            disabled={currentPage === 1}
-          >
-            ‹
-          </button>
-          {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-            <button
-              key={page}
-              className={`${styles.paginationButton} ${
-                currentPage === page ? styles.active : ""
-              }`}
-              onClick={() => setCurrentPage(page)}
-            >
-              {page}
-            </button>
+        {filteredItems
+          .slice((currentPage - 1) * 4, currentPage * 4)
+          .map((filteredItem) => (
+            <MarketPlaceCard
+              key={filteredItem.id}
+              filteredItem={filteredItem}
+            />
           ))}
-          <button
-            className={styles.paginationArrow}
-            onClick={() =>
-              setCurrentPage(Math.min(totalPages, currentPage + 1))
-            }
-            disabled={currentPage === totalPages}
-          >
-            ›
-          </button>
-        </div>
+
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={setCurrentPage}
+        />
       </div>
     </div>
   );

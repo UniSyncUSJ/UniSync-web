@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState, type ChangeEvent } from "react";
-import { Pagination, Stack, Button, ButtonGroup } from "@mui/material";
+import { Button, ButtonGroup } from "@mui/material";
 import EventCard from "../../EventCard/EventCard";
 import style from "./EventCatalogue.module.scss";
 import eventImage from "../../../../assets/images/eventImage.jpg";
 import Calendar from "../../calendar/Calendar";
 import { useDispatch, useSelector } from "react-redux";
+import Pagination from "../../../common/pagination/Pagination";
 
 type Event = {
   id: number;
@@ -140,19 +141,13 @@ const ALL_EVENTS: Event[] = [
 const EVENTS_PER_PAGE = 4;
 
 const EventCatalogue = () => {
-  const [page, setPage] = useState(1);
   const [paginatedEvents, setPaginatedEvents] = useState<Event[]>(ALL_EVENTS);
+  const [currentPage, setCurrentPage] = useState(1);
   const [selectedFilter, setSelectedFilter] = useState<string>("This week");
 
   const selectedDate = useSelector(
     (state: { user: { selectedDate: Date | null } }) => state.user.selectedDate
   );
-
-  useEffect(() => {
-    const startIndex = (page - 1) * EVENTS_PER_PAGE;
-    const endIndex = startIndex + EVENTS_PER_PAGE;
-    setPaginatedEvents(ALL_EVENTS.slice(startIndex, endIndex));
-  }, [page]);
 
   useEffect(() => {
     if (selectedDate) {
@@ -185,13 +180,9 @@ const EventCatalogue = () => {
     }
   }, [selectedDate, selectedFilter]);
 
-  const handlePageChange = (_: ChangeEvent<unknown>, value: number) => {
-    setPage(value);
-  };
-
   const handleFilterChange = (filter: string) => {
     setSelectedFilter(filter);
-    setPage(1); // Reset to first page when filter changes
+    setCurrentPage(1); // Reset to first page when filter changes
     //show events based on the selected filter
     if (filter === "All Events") {
       setPaginatedEvents(ALL_EVENTS.slice(0, EVENTS_PER_PAGE));
@@ -293,60 +284,33 @@ const EventCatalogue = () => {
       <div className={style.mainContent}>
         {/* Events Section */}
         <div className={style.eventsSection}>
-          {/* <div className={style.sectionHeader}>
-            <h2>Events</h2>
-          </div> */}
-
           {paginatedEvents.length > 0 ? (
-            <>
-              <div className={style.eventsGrid}>
-                {paginatedEvents.map((event) => (
+            <div className={style.eventsGrid}>
+              {paginatedEvents
+                .slice(
+                  (currentPage - 1) * EVENTS_PER_PAGE,
+                  currentPage * EVENTS_PER_PAGE
+                )
+                .map((event) => (
                   <div key={event.id} className={style.eventCardWrapper}>
                     <EventCard event={event} />
                   </div>
                 ))}
-              </div>
-
-              {/* Pagination */}
-              <div className={style.paginationContainer}>
-                <Stack spacing={2} sx={{ width: "100%" }}>
-                  <Pagination
-                    count={totalPages}
-                    page={page}
-                    onChange={handlePageChange}
-                    variant="outlined"
-                    color="primary"
-                    showFirstButton
-                    showLastButton
-                    sx={{
-                      display: "flex",
-                      justifyContent: "center",
-                      "& .MuiPaginationItem-root": {
-                        color: "#ffffff",
-                        borderColor: "#ffffff",
-                        "&:hover": {
-                          backgroundColor: "primary.light",
-                          opacity: 0.1,
-                        },
-                        "&.Mui-selected": {
-                          backgroundColor: "primary.main",
-                          color: "white",
-                          "&:hover": {
-                            backgroundColor: "primary.dark",
-                          },
-                        },
-                      },
-                    }}
-                  />
-                </Stack>
-              </div>
-            </>
+            </div>
           ) : (
             <div className={style.noEventsMessage}>
               <h3>No events found</h3>
               <p>Please check back later for new events.</p>
             </div>
           )}
+
+          {paginatedEvents.length > 0 ? (
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={setCurrentPage}
+            />
+          ) : null}
         </div>
       </div>
     </div>
