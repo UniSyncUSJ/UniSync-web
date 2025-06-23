@@ -1,30 +1,89 @@
 // SearchBar.tsx - Updated based on wireframe
-import { useState } from "react";
+// import { useState } from "react";
+// import style from "./SearchBar.module.scss";
+// import SearchIcon from "@mui/icons-material/Search";
+
+// const SearchBar = () => {
+//   const [searchTerm, setSearchTerm] = useState("");
+//   const [selectedCategory, setSelectedCategory] = useState("all");
+
+//   const handleSearch = () => {
+//     // Implement search functionality
+//     console.log("Searching for:", searchTerm, "in category:", selectedCategory);
+//   };
+
+//   const handleKeyPress = (e: React.KeyboardEvent) => {
+//     if (e.key === "Enter") {
+//       handleSearch();
+//     }
+//   };
+
+//   return (
+//     <div className={style.searchBar}>
+//       <div className={style.searchContainer}>
+//         <select
+//           className={style.categoryDropdown}
+//           value={selectedCategory}
+//           onChange={(e) => setSelectedCategory(e.target.value)}
+//         >
+//           <option value="all">Select Category</option>
+//           <option value="academic">Academic</option>
+//           <option value="sports">Sports</option>
+//           <option value="cultural">Cultural</option>
+//           <option value="social">Social</option>
+//           <option value="career">Career</option>
+//         </select>
+
+//         <input
+//           type="text"
+//           className={style.searchInput}
+//           placeholder="Search for events, clubs, activities..."
+//           value={searchTerm}
+//           onChange={(e) => setSearchTerm(e.target.value)}
+//           onKeyPress={handleKeyPress}
+//         />
+
+//         <button className={style.searchButton} onClick={handleSearch}>
+//           <SearchIcon fontSize="small" />
+//           Search
+//         </button>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default SearchBar;
+
+// SearchBar.tsx
 import style from "./SearchBar.module.scss";
 import SearchIcon from "@mui/icons-material/Search";
+import { useDispatch, useSelector } from "react-redux";
+import { userSearchActions } from "../../../../redux/userStore/user-search-slice";
+import type { RootState } from "../../../../redux/index";
 
 const SearchBar = () => {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("all");
+  const dispatch = useDispatch();
+  const searchState = useSelector((state: RootState) => state.userSearch);
 
-  const handleSearch = () => {
-    // Implement search functionality
-    console.log("Searching for:", searchTerm, "in category:", selectedCategory);
-  };
-
-  const handleKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter") {
-      handleSearch();
-    }
-  };
-
+  function handleSearchTerm(term: string) {
+    // Implement search functionality here
+    dispatch(userSearchActions.setSearchTerm(term));
+    console.log(
+      "Searching for:",
+      searchState.searchTerm,
+      "in category:",
+      searchState.selectedCategory
+    );
+  }
   return (
     <div className={style.searchBar}>
       <div className={style.searchContainer}>
         <select
           className={style.categoryDropdown}
-          value={selectedCategory}
-          onChange={(e) => setSelectedCategory(e.target.value)}
+          value={searchState.selectedCategory}
+          onChange={(e) =>
+            dispatch(userSearchActions.setSelectedCategory(e.target.value))
+          }
         >
           <option value="all">Select Category</option>
           <option value="academic">Academic</option>
@@ -38,12 +97,11 @@ const SearchBar = () => {
           type="text"
           className={style.searchInput}
           placeholder="Search for events, clubs, activities..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          onKeyPress={handleKeyPress}
+          value={searchState.searchTerm}
+          onChange={(e) => handleSearchTerm(e.target.value)}
         />
 
-        <button className={style.searchButton} onClick={handleSearch}>
+        <button className={style.searchButton} disabled>
           <SearchIcon fontSize="small" />
           Search
         </button>
