@@ -18,7 +18,7 @@ const AdminLogin = lazy(() => import("../pages/admin/AdminLogin"));
 const UsersPage = lazy(() => import("../pages/admin/UsersPage"));
 const ViewAdminsPage = lazy(() => import("../pages/admin/ViewAdminsPage"));
 const UserEvents = lazy(() => import("../pages/user/userEvents/UserEvents"));
-const RootLayout = lazy(() => import("../root/admin/Root"));
+const AdminLayout = lazy(() => import("../layouts/admin/AdminLayout"));
 
 // 🔁 Actions
 import { action as signinAction } from "../actions/SignIn.action";
@@ -85,7 +85,7 @@ const router = createBrowserRouter([
   },
   {
     path: "admin-home",
-    element: withSuspense(<RootLayout />),
+    element: withSuspense(<AdminLayout />),
     // loader: checkAuthLoader,
     children: [
       { index: true, element: withSuspense(<AdminPage />) },
@@ -98,7 +98,7 @@ const router = createBrowserRouter([
   },
   {
     path: "*",
-    element: <ErrorPage />, // catch-all 404
+    element: <ErrorPage />,
   },
 ]);
 

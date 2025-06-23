@@ -1,10 +1,9 @@
-import React from "react";
 import Header from "../../components/admin/header/Header";
 import SideBar from "../../components/admin/sidebar/Sidebar";
 import styles from "../../components/admin/admin.module.scss";
 import { Outlet } from "react-router-dom";
 
-function RootLayout() {
+function AdminLayout() {
   return (
     <>
       <div className={styles.adminDashboard}>
@@ -22,4 +21,4 @@ function RootLayout() {
   );
 }
 
-export default RootLayout;
+export default AdminLayout;
