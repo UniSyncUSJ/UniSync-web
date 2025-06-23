@@ -1,0 +1,35 @@
+.heroVisual {
+  position: relative;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 400px;
+  overflow: visible;
+
+  @media (max-width: 968px) {
+    height: 300px;
+  }
+}
+
+.floatingCardGroup {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  max-width: 400px;
+}
+
+@media (max-width: 640px) {
+  .floatingCardGroup {
+    min-height: 250px;
+  }
+}
+
+@media (max-width: 968px) and (min-width: 641px) {
+  .floatingCardGroup {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    position: static;
+  }
+}

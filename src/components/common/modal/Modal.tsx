@@ -27,7 +27,7 @@ const Modal = React.forwardRef<ModalHandle, ModalProps>(({ children }, ref) => {
     <dialog ref={dialog} className={styles.modal}>
       {children}
     </dialog>,
-    document.getElementById("modal-root")!
+    document.getElementById("root")!
   );
 });
 

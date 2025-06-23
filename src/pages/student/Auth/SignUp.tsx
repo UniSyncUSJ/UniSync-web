@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   Box,
   TextField,
@@ -19,11 +19,11 @@ import {
   School as SchoolIcon,
 } from "@mui/icons-material";
 
-import style from "../../../styles/SignUp.module.scss";
+import style from "./signUp.module.scss";
 
 type ActionError = { error?: string };
 
-function StudentSignUp() {
+function SignUp() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const actionData = useActionData() as ActionError | undefined;
@@ -176,4 +176,4 @@ function StudentSignUp() {
   );
 }
 
-export default StudentSignUp;
+export default SignUp;

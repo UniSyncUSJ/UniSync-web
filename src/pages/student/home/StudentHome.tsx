@@ -1,9 +1,7 @@
-// StudentHome.tsx - Updated based on wireframe
-import style from "../../styles/Home.module.scss";
-
-import Banner from "../../components/user/Home/Banner/Banner";
-import Header from "../../components/user/Home/Header/Header";
-import EventCatalogue from "../../components/user/Home/EventCatalogue/EventCatalogue";
+import style from "./StudentHome.module.scss";
+import Banner from "../../../components/user/Home/Banner/Banner";
+import Header from "../../../components/user/Home/Header/Header";
+import EventCatalogue from "../../../components/user/Home/EventCatalogue/EventCatalogue";
 import { Outlet, useLocation } from "react-router-dom";
 
 const StudentHome = () => {

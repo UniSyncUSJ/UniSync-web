@@ -1,5 +1,5 @@
 import TextField from "@mui/material/TextField";
-import style from "../../styles/SignUp.module.scss";
+import style from "./signIn.module.scss";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import {
