@@ -50,7 +50,7 @@ const router = createBrowserRouter([
     action: signupAction,
   },
   {
-    path: "student-home",
+    path: "student/home",
     element: withSuspense(<StudentHome />),
     // loader: checkAuthLoader,
     children: [

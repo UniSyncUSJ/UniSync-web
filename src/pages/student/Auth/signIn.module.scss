@@ -1,107 +1,454 @@
-.background {
-  background-image: url("../src/assets/images/background.jpg");
-  height: 100vh;
-  width: 100vw;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+// Variables matching your landing page
+$primary-gradient: linear-gradient(135deg, #8B5CF6 0%, #3B82F6 50%, #06B6D4 100%);
+$primary-purple: #8B5CF6;
+$primary-blue: #3B82F6;
+$accent-teal: #06B6D4;
+$white: #ffffff;
+$gray-50: #f9fafb;
+$gray-100: #f3f4f6;
+$gray-200: #e5e7eb;
+$gray-300: #d1d5db;
+$gray-400: #9ca3af;
+$gray-500: #6b7280;
+$gray-600: #4b5563;
+$gray-800: #1f2937;
+$gray-900: #111827;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 1rem;
+// Animations
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
 }
 
-.mainWindow {
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.1); opacity: 1; }
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+// Main container
+.signinContainer {
+  min-height: 100vh;
+  background: $primary-gradient;
   display: flex;
-  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+.signinContent {
   width: 100%;
-  max-width: 900px;
-  height: 85%;
-  background-color: white;
-  border-radius: 1rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
-  overflow: hidden;
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-    height: auto;
-  }
-}
-
-.left {
-  width: 50%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 2rem;
-
-  @media (max-width: 768px) {
-    width: 100%;
-  }
-}
-
-.right {
-  width: 50%;
-  background-image: url("../src/assets/images/SideDecoration2.jpg");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-
-  @media (max-width: 768px) {
-    display: none;
-  }
-}
-
-.formContainer {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  max-width: 1200px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
   align-items: center;
-  height: 100%;
-  gap: 1rem;
-  padding: 2rem;
-  min-width: 300px;
-
-  h2 {
-    color: #671fd8;
-    margin-bottom: 0.5rem;
-    font-weight: 1200;
-    font-size: 3rem;
+  
+  @media (max-width: 968px) {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    max-width: 500px;
   }
+}
 
-  p {
-    color: #671fd8;
-    margin-bottom: 1rem;
-    font-weight: 1200;
-    font-size: 1.2rem;
+// Form section
+.signinFormSection {
+  animation: slideInLeft 0.8s ease-out;
+}
+
+.signinFormContainer {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border-radius: 24px;
+  padding: 48px 40px;
+  box-shadow: 
+    0 25px 50px -12px rgba(0, 0, 0, 0.25),
+    0 0 0 1px rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  
+  @media (max-width: 480px) {
+    padding: 32px 24px;
   }
+}
+
+.signinHeader {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.signinTitle {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: $primary-purple;
+  background: linear-gradient(135deg, $primary-purple, $primary-blue);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  padding: 0 0 12px 0;
+}
+
+.signinSubtitle {
+  font-size: 1.1rem;
+  color: $gray-600;
+  margin: 0;
+  font-weight: 400;
+}
+
+// Form styles
+.signinForm {
+  width: 100%;
+}
+
+.formFields {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-bottom: 32px;
 }
 
 .inputGroup {
+  position: relative;
   display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  width: 100%;
+  align-items: center;
 }
 
-.bottomContainer {
+.inputIcon {
+  position: absolute;
+  left: 16px;
+  z-index: 2;
+  color: $gray-400;
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 1rem;
-  margin-top: 1.5rem;
-  width: 100%;
+  align-items: center;
+  pointer-events: none;
 }
 
-.forgotPassword,
-.signUp {
+.customInput {
+  width: 100%;
+  padding: 16px 16px 16px 52px;
+  border: 2px solid $gray-200;
+  border-radius: 12px;
+  font-size: 1rem;
+  background: $white;
+  transition: all 0.3s ease;
+  outline: none;
+  color: $gray-800;
+  
+  &::placeholder {
+    color: $gray-400;
+  }
+  
+  &:focus {
+    border-color: $primary-purple;
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+    
+    ~ .inputIcon {
+      color: $primary-purple;
+    }
+  }
+  
+  &:hover {
+    border-color: $gray-300;
+  }
+}
+
+.passwordInput {
+  padding-right: 52px;
+}
+
+.passwordToggle {
+  position: absolute;
+  right: 16px;
+  background: none;
+  border: none;
+  color: $gray-400;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    color: $primary-purple;
+    background: rgba(139, 92, 246, 0.1);
+  }
+}
+
+// Sign in actions
+.signinActions {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.forgotPasswordLink {
+  text-align: center;
+  color: $primary-purple;
+  text-decoration: none;
   font-size: 0.9rem;
   font-weight: 500;
-  color: #671fd8;
-  text-decoration: none;
-
+  transition: all 0.2s ease;
+  
   &:hover {
-    color: #5680d6;
+    color: $primary-blue;
+    text-decoration: underline;
+  }
+}
+
+.customButton {
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  outline: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.signinButton {
+  padding: 16px 32px;
+  background: linear-gradient(135deg, $primary-purple, $primary-blue);
+  color: $white;
+  width: 100%;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(139, 92, 246, 0.4);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+  }
+  
+  &:hover::before {
+    left: 100%;
+  }
+}
+
+.signupPrompt {
+  text-align: center;
+  font-size: 0.9rem;
+  color: $gray-600;
+}
+
+.signupLink {
+  color: $primary-purple;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    color: $primary-blue;
+    text-decoration: underline;
+  }
+}
+
+// Visual section
+.signinVisualSection {
+  animation: slideInRight 0.8s ease-out;
+  
+  @media (max-width: 968px) {
+    order: -1;
+  }
+}
+
+.visualContent {
+  position: relative;
+  height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.floatingElements {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.floatingCard {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: $white;
+  font-weight: 500;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.cardIcon {
+  font-size: 1.2rem;
+}
+
+.card1 {
+  top: 20%;
+  right: 20%;
+  animation: float 3s ease-in-out infinite;
+}
+
+.card2 {
+  top: 50%;
+  left: 10%;
+  animation: float 3s ease-in-out 1s infinite;
+}
+
+.card3 {
+  bottom: 25%;
+  right: 15%;
+  animation: float 3s ease-in-out 2s infinite;
+}
+
+.centralIllustration {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.syncCircle {
+  width: 200px;
+  height: 200px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  position: relative;
+  animation: rotate 20s linear infinite;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    border: 2px solid transparent;
+    border-top-color: $white;
+    border-radius: 50%;
+    animation: rotate 3s linear infinite;
+  }
+}
+
+.syncDot {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  background: $white;
+  border-radius: 50%;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+}
+
+.dot1 {
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.dot2 {
+  top: 50%;
+  right: -8px;
+  transform: translateY(-50%);
+  animation: pulse 2s ease-in-out 0.7s infinite;
+}
+
+.dot3 {
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: pulse 2s ease-in-out 1.4s infinite;
+}
+
+.syncPulse {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;
+  height: 60px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.8), transparent);
+  border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+// Responsive design
+@media (max-width: 968px) {
+  .signinVisualSection {
+    .visualContent {
+      height: 300px;
+    }
+    
+    .syncCircle {
+      width: 150px;
+      height: 150px;
+    }
+    
+    .floatingCard {
+      font-size: 0.9rem;
+      padding: 12px 16px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .signinContainer {
+    padding: 12px;
+  }
+  
+  .signinTitle {
+    font-size: 2rem;
+  }
+  
+  .customInput {
+    padding: 14px 14px 14px 48px;
+  }
+  
+  .inputIcon {
+    left: 14px;
+  }
+  
+  .passwordToggle {
+    right: 14px;
   }
 }

@@ -1,12 +1,10 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { useEffect, useState, type ChangeEvent } from "react";
+import { useEffect, useState } from "react";
 import { Button, ButtonGroup } from "@mui/material";
 import EventCard from "../../EventCard/EventCard";
 import style from "./EventCatalogue.module.scss";
 import eventImage from "../../../../assets/images/eventImage.jpg";
 import Calendar from "../../calendar/Calendar";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import Pagination from "../../../common/pagination/Pagination";
 
 type Event = {

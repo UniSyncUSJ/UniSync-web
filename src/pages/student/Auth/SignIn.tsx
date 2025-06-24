@@ -1,173 +1,233 @@
-import TextField from "@mui/material/TextField";
-import style from "./signIn.module.scss";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import {
-  FormControl,
-  IconButton,
-  InputAdornment,
-  InputLabel,
-  OutlinedInput,
-} from "@mui/material";
-import { useState } from "react";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import Visibility from "@mui/icons-material/Visibility";
-import KeyIcon from "@mui/icons-material/Key";
-import EmailIcon from "@mui/icons-material/Email";
+import React, { useState } from "react";
 import { Link, Form } from "react-router-dom";
+import styles from "./signIn.module.scss";
 
-function SignIn() {
+// Custom Input Component
+interface InputProps {
+  type: string;
+  name: string;
+  placeholder: string;
+  required?: boolean;
+  value?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  icon?: React.ReactNode;
+}
+
+const CustomInput: React.FC<InputProps> = ({
+  type,
+  name,
+  placeholder,
+  required = false,
+  value,
+  onChange,
+  icon,
+}) => {
+  return (
+    <div className={styles.inputGroup}>
+      {icon && <div className={styles.inputIcon}>{icon}</div>}
+      <input
+        type={type}
+        name={name}
+        placeholder={placeholder}
+        required={required}
+        value={value}
+        onChange={onChange}
+        className={styles.customInput}
+      />
+    </div>
+  );
+};
+
+// Custom Password Input Component
+interface PasswordInputProps {
+  name: string;
+  placeholder: string;
+  required?: boolean;
+  value?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+const PasswordInput: React.FC<PasswordInputProps> = ({
+  name,
+  placeholder,
+  required = false,
+  value,
+  onChange,
+}) => {
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
-  const handleMouseDownPassword = (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    event.preventDefault();
-  };
-  const handleMouseUpPassword = (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    event.preventDefault();
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
   };
 
   return (
-    <div className={style.background}>
-      <div className={style.mainWindow}>
-        <div className={style.left}>
-          <div className={style.formContainer}>
-            <h2>Login</h2>
-            <p>Welcome to uniSync</p>
+    <div className={styles.inputGroup}>
+      <div className={styles.inputIcon}>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+          <circle cx="12" cy="16" r="1"/>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+        </svg>
+      </div>
+      <input
+        type={showPassword ? "text" : "password"}
+        name={name}
+        placeholder={placeholder}
+        required={required}
+        value={value}
+        onChange={onChange}
+        className={`${styles.customInput} ${styles.passwordInput}`}
+      />
+      <button
+        type="button"
+        className={styles.passwordToggle}
+        onClick={togglePasswordVisibility}
+        aria-label={showPassword ? "Hide password" : "Show password"}
+      >
+        {showPassword ? (
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
+            <line x1="1" y1="1" x2="23" y2="23"/>
+          </svg>
+        ) : (
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+            <circle cx="12" cy="12" r="3"/>
+          </svg>
+        )}
+      </button>
+    </div>
+  );
+};
 
-            <Form
-              method="post"
-              className={style.inputGroup}
-              style={{ width: "100%" }}
-            >
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "row",
-                  alignItems: "center",
-                  maxWidth: "100%",
-                }}
-              >
-                <EmailIcon sx={{ color: "action.active", mr: 1, my: 0.5 }} />
-                <TextField
-                  name="email"
-                  fullWidth
-                  label="Email"
+// Custom Button Component
+interface ButtonProps {
+  type?: "button" | "submit" | "reset";
+  children: React.ReactNode;
+  onClick?: () => void;
+  className?: string;
+  disabled?: boolean;
+}
+
+const CustomButton: React.FC<ButtonProps> = ({
+  type = "button",
+  children,
+  onClick,
+  className = "",
+  disabled = false,
+}) => {
+  return (
+    <button
+      type={type}
+      onClick={onClick}
+      className={`${styles.customButton} ${className}`}
+      disabled={disabled}
+    >
+      {children}
+    </button>
+  );
+};
+
+// Main SignIn Component
+const SignIn: React.FC = () => {
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  return (
+    <div className={styles.signinContainer}>
+      <div className={styles.signinContent}>
+        <div className={styles.signinFormSection}>
+          <div className={styles.signinFormContainer}>
+            <div className={styles.signinHeader}>
+              <h1 className={styles.signinTitle}>Login</h1>
+              <p className={styles.signinSubtitle}>Welcome to UniSync</p>
+            </div>
+
+            <Form method="post" className={styles.signinForm}>
+              <div className={styles.formFields}>
+                <CustomInput
                   type="email"
-                  autoComplete="email"
-                  size="small"
+                  name="email"
+                  placeholder="Email"
                   required
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  icon={
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                      <polyline points="22,6 12,13 2,6"/>
+                    </svg>
+                  }
                 />
-              </Box>
 
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "row",
-                  alignItems: "center",
-                  width: "100%",
-                }}
-              >
-                <KeyIcon sx={{ color: "action.active", mr: 1, my: 0.5 }} />
-                <FormControl sx={{ my: 0.5, width: "100%" }} variant="outlined">
-                  <InputLabel
-                    htmlFor="outlined-adornment-password"
-                    size="small"
-                  >
-                    Password
-                  </InputLabel>
-                  <OutlinedInput
-                    name="password"
-                    size="small"
-                    fullWidth
-                    id="outlined-adornment-password"
-                    type={showPassword ? "text" : "password"}
-                    endAdornment={
-                      <InputAdornment position="end">
-                        <IconButton
-                          onClick={handleClickShowPassword}
-                          onMouseDown={handleMouseDownPassword}
-                          onMouseUp={handleMouseUpPassword}
-                          edge="end"
-                          aria-label={
-                            showPassword ? "hide password" : "show password"
-                          }
-                        >
-                          {showPassword ? <VisibilityOff /> : <Visibility />}
-                        </IconButton>
-                      </InputAdornment>
-                    }
-                    label="Password"
-                    required
-                  />
-                </FormControl>
-              </Box>
+                <PasswordInput
+                  name="password"
+                  placeholder="Password"
+                  required
+                  value={formData.password}
+                  onChange={handleInputChange}
+                />
+              </div>
 
-              <div className={style.bottomContainer}>
-                <Link to="/" className={style.forgotPassword}>
+              <div className={styles.signinActions}>
+                <Link to="/" className={styles.forgotPasswordLink}>
                   Forgot password?
                 </Link>
-                <Link to="/student/signup" className={style.signUp}>
-                  Don't have an account?
-                </Link>
-                <Button
-                  type="submit"
-                  variant="contained"
-                  sx={{
-                    background: "#603dd9",
-                    "&:hover": { background: "#6215d7" },
-                  }}
-                  fullWidth
-                >
+                
+                <CustomButton type="submit" className={styles.signinButton}>
                   Sign In
-                </Button>
+                </CustomButton>
+                
+                <div className={styles.signupPrompt}>
+                  <span>Don't have an account? </span>
+                  <Link to="/student/signup" className={styles.signupLink}>
+                    Sign Up
+                  </Link>
+                </div>
               </div>
             </Form>
           </div>
         </div>
-        <div className={style.right} />
+
+        <div className={styles.signinVisualSection}>
+          <div className={styles.visualContent}>
+            <div className={styles.floatingElements}>
+              <div className={`${styles.floatingCard} ${styles.card1}`}>
+                <div className={styles.cardIcon}>📅</div>
+                <span>Upcoming Events</span>
+              </div>
+              <div className={`${styles.floatingCard} ${styles.card2}`}>
+                <div className={styles.cardIcon}>🔔</div>
+                <span>Live Updates</span>
+              </div>
+              <div className={`${styles.floatingCard} ${styles.card3}`}>
+                <div className={styles.cardIcon}>📚</div>
+                <span>Academic Resources</span>
+              </div>
+            </div>
+            <div className={styles.centralIllustration}>
+              <div className={styles.syncCircle}>
+                <div className={`${styles.syncDot} ${styles.dot1}`}></div>
+                <div className={`${styles.syncDot} ${styles.dot2}`}></div>
+                <div className={`${styles.syncDot} ${styles.dot3}`}></div>
+                <div className={styles.syncPulse}></div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
-}
+};
 
 export default SignIn;
-
-// Connected to react-router-dom <Form method="post" />
-// export async function action({ request }: { request: Request }) {
-//   console.log("SignIn action called");
-//   const formData = await request.formData();
-
-//   const authData = {
-//     email: formData.get("email"),
-//     password: formData.get("password"),
-//   };
-
-//   try {
-//     const response = await fetch("http://localhost:8080/api/auth/signin", {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify(authData),
-//     });
-
-//     console.log("Response status:", response.status);
-
-//     if (!response.ok) {
-//       console.error("Backend returned non-OK status:", response.status);
-//       throw new Error("Failed to sign in");
-//     }
-
-//     const data = await response.json();
-//     console.log("Token received:", data.accessToken);
-//     localStorage.setItem("token", data.accessToken);
-//     return redirect("/student-home");
-//   } catch (error) {
-//     console.error("Error signing in:", error);
-//   }
-// }

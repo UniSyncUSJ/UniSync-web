@@ -11,6 +11,7 @@ const StudentHome = () => {
   const isAcademicsPage = pathname.includes("academics");
   const isMarketplacePage = pathname.includes("marketplace");
   const isMyCartPage = pathname.includes("my-cart");
+ 
   return (
     <>
       <div className={style.container}>

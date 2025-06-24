@@ -12,9 +12,9 @@ import styles from "./landingPage.module.scss";
 import Modal from "../../components/common/modal/Modal";
 import { Link } from "react-router-dom";
 import Header from "../../components/header/Header";
-import FeatureCard from "../../components/landingPage/featureCard";
 import Footer from "../../components/landingPage/Footer";
 import FloatingCardsSection from "../../components/landingPage/FloatingCardsSection";
+import FeatureCard from "../../components/landingPage/FeatureCard";
 
 type ModalHandle = {
   open: () => void;
