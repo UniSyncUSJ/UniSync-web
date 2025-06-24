@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Pagination from "../../../common/pagination/Pagination";
 import { useDebounce } from "../../../../hooks/useDebounce";
 import { useSearchEventsQuery } from "../../../../services/searchApi";
+import { useAxios } from "../../../../hooks/useAxios";
 
 type Event = {
   id: number;
@@ -158,6 +159,7 @@ const EventCatalogue = () => {
   const [paginatedEvents, setPaginatedEvents] = useState<Event[]>(ALL_EVENTS);
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedFilter, setSelectedFilter] = useState<string>("This week");
+
   const userSearch = useSelector(
     (state: { userSearch: { searchTerm: string; selectedCategory: string } }) =>
       state.userSearch
@@ -180,50 +182,48 @@ const EventCatalogue = () => {
       { skip: !debouncedSearchTerm } // don’t fetch if no input
     );
 
+  // === Fetch events from backend ===
+  const {
+    data: allEvents,
+    error: fetchError,
+    loading,
+    sendRequest,
+  } = useAxios<Event[]>({
+    method: "GET",
+    url: "http://localhost:8080/api/events",
+  });
+
   useEffect(() => {
-    let filteredEvents = ALL_EVENTS;
+    sendRequest(); // Initial fetch
+  }, [sendRequest]);
+  //use allEvents as the source for the events and it's filterings when using the backend
 
+  useEffect(() => {
     if (selectedDate) {
-      // Filter events based on selected date. show all the events that match the selected date and events that are in the same week or month
-      const startOfWeek = new Date(selectedDate);
-      startOfWeek.setDate(selectedDate.getDate() - selectedDate.getDay()); // Set to the start of the week (Sunday)
-      const endOfWeek = new Date(selectedDate);
-      endOfWeek.setDate(selectedDate.getDate() + (6 - selectedDate.getDay())); // Set to the end of the week (Saturday)
-      const startOfMonth = new Date(
-        selectedDate.getFullYear(),
-        selectedDate.getMonth(),
-        1
-      );
-      const endOfMonth = new Date(
-        selectedDate.getFullYear(),
-        selectedDate.getMonth() + 1,
-        0
-      ); // Last day of the month
-      filteredEvents = ALL_EVENTS.filter((event) => {
+      const filteredEventsBySelectedDate = ALL_EVENTS.filter((event) => {
         const eventDate = new Date(event.date);
-        if (selectedFilter === "This week") {
-          return eventDate >= startOfWeek && eventDate <= endOfWeek;
-        } else if (selectedFilter === "This month") {
-          return eventDate >= startOfMonth && eventDate <= endOfMonth;
-        }
-        return false; // Default case, no filter applied
+        return (
+          eventDate.getFullYear() === selectedDate.getFullYear() &&
+          eventDate.getMonth() === selectedDate.getMonth() &&
+          eventDate.getDate() === selectedDate.getDate()
+        );
       });
-
-      setPaginatedEvents(filteredEvents);
+      if (filteredEventsBySelectedDate.length > 0) {
+        setPaginatedEvents(
+          filteredEventsBySelectedDate.slice(0, EVENTS_PER_PAGE)
+        );
+      } else {
+        setPaginatedEvents(ALL_EVENTS.slice(0, EVENTS_PER_PAGE));
+      }
     }
-  }, [
-    selectedDate,
-    selectedFilter,
-    userSearch.searchTerm,
-    userSearch.selectedCategory,
-  ]);
+  }, [selectedDate]);
 
   const handleFilterChange = (filter: string) => {
     setSelectedFilter(filter);
     setCurrentPage(1); // Reset to first page when filter changes
     //show events based on the selected filter
     if (filter === "All Events") {
-      setPaginatedEvents(ALL_EVENTS.slice(0, EVENTS_PER_PAGE));
+      setPaginatedEvents(ALL_EVENTS);
       return;
     }
     // If the filter is "This week" or "This month", we can filter the events accordingly
@@ -293,6 +293,15 @@ const EventCatalogue = () => {
           >
             <Button
               variant={
+                selectedFilter === "All Events" ? "contained" : "outlined"
+              }
+              onClick={() => handleFilterChange("All Events")}
+              className={style.filterButton}
+            >
+              All Events
+            </Button>
+            <Button
+              variant={
                 selectedFilter === "This week" ? "contained" : "outlined"
               }
               onClick={() => handleFilterChange("This week")}
@@ -300,15 +309,17 @@ const EventCatalogue = () => {
             >
               This week
             </Button>
+
             <Button
               variant={
-                selectedFilter === "This month" ? "contained" : "outlined"
+                selectedFilter === "Next Week" ? "contained" : "outlined"
               }
               onClick={() => handleFilterChange("Next Week")}
               className={style.filterButton}
             >
               Next Week
             </Button>
+
             <Button
               variant={
                 selectedFilter === "This month" ? "contained" : "outlined"
@@ -317,16 +328,6 @@ const EventCatalogue = () => {
               className={style.filterButton}
             >
               This month
-            </Button>
-
-            <Button
-              variant={
-                selectedFilter === "This month" ? "contained" : "outlined"
-              }
-              onClick={() => handleFilterChange("All Events")}
-              className={style.filterButton}
-            >
-              All Events
             </Button>
           </ButtonGroup>
         </div>
@@ -368,7 +369,7 @@ const EventCatalogue = () => {
             <Pagination
               currentPage={currentPage}
               totalPages={totalPages}
-              onPageChange={setCurrentPage}
+              onPageChange={(page: number) => setCurrentPage(page)}
             />
           )}
         </div>

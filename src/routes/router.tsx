@@ -5,10 +5,10 @@ import Loading from "../pages/common/loadingPage/LoadingPage";
 import ErrorPage from "../pages/common/errorPage/ErrorPage";
 
 // 🔁 Lazy loaded pages
-const UniSyncLanding = lazy(() => import("../pages/user/Home"));
-const StudentSignUpPage = lazy(() => import("../pages/user/StudentSignUpPage"));
-const SignIn = lazy(() => import("../pages/user/SignIn"));
-const StudentHome = lazy(() => import("../pages/user/StudentHome"));
+const UniSyncLanding = lazy(() => import("../pages/landingPage/LandingPage"));
+const SignUp = lazy(() => import("../pages/user/Auth/SignUp"));
+const SignIn = lazy(() => import("../pages/user/Auth/SignIn"));
+const StudentHome = lazy(() => import("../pages/user/home/StudentHome"));
 const AdminPage = lazy(() => import("../pages/admin/AdminPage"));
 const ManageEventsPage = lazy(() => import("../pages/admin/ManageEvents"));
 const NotificationsPage = lazy(() => import("../pages/admin/Notifications"));
@@ -18,7 +18,7 @@ const AdminLogin = lazy(() => import("../pages/admin/AdminLogin"));
 const UsersPage = lazy(() => import("../pages/admin/UsersPage"));
 const ViewAdminsPage = lazy(() => import("../pages/admin/ViewAdminsPage"));
 const UserEvents = lazy(() => import("../pages/user/userEvents/UserEvents"));
-const RootLayout = lazy(() => import("../root/admin/Root"));
+const AdminLayout = lazy(() => import("../layouts/admin/AdminLayout"));
 
 // 🔁 Actions
 import { action as signinAction } from "../actions/SignIn.action";
@@ -46,7 +46,7 @@ const router = createBrowserRouter([
   },
   {
     path: "student/signup",
-    element: withSuspense(<StudentSignUpPage />),
+    element: withSuspense(<SignUp />),
     action: signupAction,
   },
   {
@@ -85,7 +85,7 @@ const router = createBrowserRouter([
   },
   {
     path: "admin-home",
-    element: withSuspense(<RootLayout />),
+    element: withSuspense(<AdminLayout />),
     // loader: checkAuthLoader,
     children: [
       { index: true, element: withSuspense(<AdminPage />) },
