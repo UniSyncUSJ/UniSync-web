@@ -75,15 +75,15 @@ const router = createBrowserRouter([
   {
     path: "admin/signup",
     element: withSuspense(<AdminSignUp />),
-    action: signupAction,
+    // action: signupAction,
   },
   {
     path: "admin/signin",
     element: withSuspense(<AdminLogin />),
-    action: adminSignupAction,
+    // action: adminSignupAction,
   },
   {
-    path: "admin-home",
+    path: "admin/home",
     element: withSuspense(<AdminLayout />),
     // loader: checkAuthLoader,
     children: [

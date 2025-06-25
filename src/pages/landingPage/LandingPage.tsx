@@ -46,7 +46,7 @@ const UniSyncLanding = () => {
               <p>Access events, updates, and academic resources</p>
             </Link>
 
-            <Link to={`admin/${authMode}`} className={styles.userTypeBtn}>
+            <Link to={`admin/signin`} className={styles.userTypeBtn}>
               <Shield size={24} />
               <span>Organization Admin</span>
               <p>Manage events, send updates, and organize activities</p>
