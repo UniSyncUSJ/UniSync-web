@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
-import { Button, ButtonGroup } from "@mui/material";
 import EventCard from "../../EventCard/EventCard";
 import style from "./EventCatalogue.module.scss";
 import eventImage from "../../../../assets/images/eventImage.jpg";
-import Calendar from "../../calendar/Calendar";
 import { useSelector } from "react-redux";
 import Pagination from "../../../common/pagination/Pagination";
 
@@ -189,46 +187,46 @@ const EventCatalogue = () => {
     }
   }, [selectedDate, selectedFilter]);
 
-  const handleFilterChange = (filter: string) => {
-    setSelectedFilter(filter);
-    setCurrentPage(1); // Reset to first page when filter changes
-    //show events based on the selected filter
-    if (filter === "All Events") {
-      setPaginatedEvents(ALL_EVENTS.slice(0, EVENTS_PER_PAGE));
-      return;
-    }
-    // If the filter is "This week" or "This month", we can filter the events accordingly
-    const filteredEvents = ALL_EVENTS.filter((event) => {
-      const eventDate = new Date(event.date);
-      if (filter === "This week") {
-        const startOfWeek = new Date();
-        startOfWeek.setDate(new Date().getDate() - new Date().getDay());
-        const endOfWeek = new Date();
-        endOfWeek.setDate(new Date().getDate() + (6 - new Date().getDay()));
-        return eventDate >= startOfWeek && eventDate <= endOfWeek;
-      } else if (filter === "This month") {
-        const startOfMonth = new Date(
-          new Date().getFullYear(),
-          new Date().getMonth(),
-          1
-        );
-        const endOfMonth = new Date(
-          new Date().getFullYear(),
-          new Date().getMonth() + 1,
-          0
-        );
-        return eventDate >= startOfMonth && eventDate <= endOfMonth;
-      } else if (filter === "Next Week") {
-        const startOfNextWeek = new Date();
-        startOfNextWeek.setDate(new Date().getDate() + 7 - new Date().getDay());
-        const endOfNextWeek = new Date();
-        endOfNextWeek.setDate(new Date().getDate() + 13 - new Date().getDay());
-        return eventDate >= startOfNextWeek && eventDate <= endOfNextWeek;
-      }
-      return false; // Default case, no filter applied
-    });
-    setPaginatedEvents(filteredEvents.slice(0, EVENTS_PER_PAGE));
-  };
+  // const handleFilterChange = (filter: string) => {
+  //   setSelectedFilter(filter);
+  //   setCurrentPage(1); // Reset to first page when filter changes
+  //   //show events based on the selected filter
+  //   if (filter === "All Events") {
+  //     setPaginatedEvents(ALL_EVENTS.slice(0, EVENTS_PER_PAGE));
+  //     return;
+  //   }
+  //   // If the filter is "This week" or "This month", we can filter the events accordingly
+  //   const filteredEvents = ALL_EVENTS.filter((event) => {
+  //     const eventDate = new Date(event.date);
+  //     if (filter === "This week") {
+  //       const startOfWeek = new Date();
+  //       startOfWeek.setDate(new Date().getDate() - new Date().getDay());
+  //       const endOfWeek = new Date();
+  //       endOfWeek.setDate(new Date().getDate() + (6 - new Date().getDay()));
+  //       return eventDate >= startOfWeek && eventDate <= endOfWeek;
+  //     } else if (filter === "This month") {
+  //       const startOfMonth = new Date(
+  //         new Date().getFullYear(),
+  //         new Date().getMonth(),
+  //         1
+  //       );
+  //       const endOfMonth = new Date(
+  //         new Date().getFullYear(),
+  //         new Date().getMonth() + 1,
+  //         0
+  //       );
+  //       return eventDate >= startOfMonth && eventDate <= endOfMonth;
+  //     } else if (filter === "Next Week") {
+  //       const startOfNextWeek = new Date();
+  //       startOfNextWeek.setDate(new Date().getDate() + 7 - new Date().getDay());
+  //       const endOfNextWeek = new Date();
+  //       endOfNextWeek.setDate(new Date().getDate() + 13 - new Date().getDay());
+  //       return eventDate >= startOfNextWeek && eventDate <= endOfNextWeek;
+  //     }
+  //     return false; // Default case, no filter applied
+  //   });
+  //   setPaginatedEvents(filteredEvents.slice(0, EVENTS_PER_PAGE));
+  // };
 
   const totalPages = Math.ceil(ALL_EVENTS.length / EVENTS_PER_PAGE);
 

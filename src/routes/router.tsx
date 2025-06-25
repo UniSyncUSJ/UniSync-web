@@ -21,8 +21,6 @@ const UserEvents = lazy(() => import("../pages/user/userEvents/UserEvents"));
 const AdminLayout = lazy(() => import("../layouts/admin/AdminLayout"));
 
 // 🔁 Actions
-import { action as signupAction } from "../actions/SignUp.action";
-import { action as adminSignupAction } from "../actions/AdminSignUp.action";
 import Academics from "../components/user/academics/Academics";
 import MasterCalendar from "../pages/student/masterCalendar/MasterCalendar";
 import MarketPlace from "../pages/student/marketPlace/MarketPlace";
@@ -46,7 +44,7 @@ const router = createBrowserRouter([
   {
     path: "student/signup",
     element: withSuspense(<SignUp />),
-    action: signupAction,
+    // action: signupAction,
   },
   {
     path: "student/home",

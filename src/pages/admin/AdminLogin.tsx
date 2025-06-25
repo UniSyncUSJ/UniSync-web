@@ -12,7 +12,7 @@ function AdminLogin() {
     console.log('test1')
     if(email === 'admin@unisync.com' && pass === 'admin') {
       console.log('test2')
-      navigate('/home');
+      navigate('/admin/home');
     }
   };
 
@@ -54,7 +54,7 @@ function AdminLogin() {
               onChange={(e) => setPass(e.target.value)}
             />
           </div>
-          <button className={styles.submitButton} onClick={handleLogin}>
+          <button type="button" className={styles.submitButton} onClick={handleLogin}>
             Log In
           </button>
         </Form>
