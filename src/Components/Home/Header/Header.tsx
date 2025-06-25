@@ -1,9 +1,18 @@
 import AccountCircleIcon from '@mui/icons-material/Person';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@mui/material';
 import style from './Header.module.scss'
+import { useAuth } from '../../../context/AuthContext';
 
 const Header = () => {
+  const { logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
+  };
+
   return <div className={style.header}>
     <p className={style.logo}>UniSync</p>
     <div className={style.navBar}>
@@ -14,7 +23,7 @@ const Header = () => {
     </div>
     <div className={style.userActions}>
       <AccountCircleIcon className={style.profile} fontSize='large' sx={{color:'white'}}/>
-      <Button size='medium' color='error' variant='contained'>Logout</Button>
+      <Button size='medium' color='error' variant='contained' onClick={handleLogout}>Logout</Button>
     </div>
   </div>
 }

@@ -1,0 +1,75 @@
+// Banner.module.scss - Based on wireframe design
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem 2rem 2rem 2rem;
+  position: relative;
+  z-index: 5;
+  text-align: center;
+
+  @media (max-width: 768px) {
+    padding: 2rem 1rem 1.5rem 1rem;
+  }
+}
+
+.heroText {
+  margin-bottom: 2rem;
+
+  @media (max-width: 768px) {
+    margin-bottom: 1.5rem;
+  }
+}
+
+.text_1 {
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: white;
+  text-align: center;
+  margin: 0 0 0.8rem 0;
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+
+  @media (max-width: 768px) {
+    font-size: 2rem;
+    margin-bottom: 0.6rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1.6rem;
+    br {
+      display: none;
+    }
+  }
+}
+
+.text_2 {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.9);
+  text-align: center;
+  font-weight: 400;
+  margin: 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  font-style: italic;
+
+  @media (max-width: 768px) {
+    font-size: 1rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 0.95rem;
+  }
+}
+
+.searchContainer {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+
+  @media (max-width: 768px) {
+    max-width: 100%;
+  }
+}

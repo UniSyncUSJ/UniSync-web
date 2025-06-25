@@ -1,0 +1,98 @@
+.container {
+  min-height: 100vh;
+  width: 100vw;
+  background-image: url("../assets/images/background.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+.content {
+  background-color: white;
+  border-radius: 1rem;
+  padding: 2rem;
+  width: 100%;
+  max-width: 600px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: #333;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.statusSection {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background-color: #f8f9fa;
+  border-radius: 0.5rem;
+}
+
+.statusTitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.statusItem {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+  color: #555;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.tokenContainer {
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: #f1f3f5;
+  border-radius: 0.5rem;
+  word-break: break-all;
+}
+
+.tokenText {
+  font-family: monospace;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .content {
+    padding: 1.5rem;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .statusTitle {
+    font-size: 1.3rem;
+  }
+
+  .buttonGroup {
+    flex-direction: column;
+  }
+} 

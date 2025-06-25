@@ -1,13 +1,20 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./pages/Home";
 import SignIn from "./pages/SignIn";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
+import { AuthProvider } from "./context/AuthContext";
+import ProtectedRoute from "./Components/ProtectedRoute";
+import TestAuth from "./pages/TestAuth";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />,
+    element: (
+      <ProtectedRoute>
+        <Home />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/signin",
@@ -18,9 +25,23 @@ const router = createBrowserRouter([
     element: <Login />,
   },
   {
-    path:"*",
+    path: "/test-auth",
+    element: (
+      <ProtectedRoute>
+        <TestAuth />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "*",
     element: <NotFound />
   }
 ]);
 
-export default router;
+export default function AppRouter() {
+  return (
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
+  );
+}

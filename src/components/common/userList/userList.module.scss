@@ -1,0 +1,619 @@
+// Variables
+$primary-color: #3b82f6;
+$primary-hover: #2563eb;
+$secondary-color: #64748b;
+$success-color: #10b981;
+$danger-color: #ef4444;
+$danger-hover: #dc2626;
+$background-color: #f8fafc;
+$card-background: #ffffff;
+$border-color: #e2e8f0;
+$text-primary: #1e293b;
+$text-secondary: #64748b;
+$shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+$shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+  0 4px 6px -2px rgba(0, 0, 0, 0.05);
+
+// Mixins
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin card {
+  background: $card-background;
+  border-radius: 12px;
+  border: 1px solid $border-color;
+  box-shadow: $shadow;
+}
+
+@mixin button-base {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: none;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+
+  &:hover {
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+// Modal Styles
+.modal {
+  border: none;
+  border-radius: 16px;
+  padding: 0;
+  max-width: 500px;
+  width: 90vw;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  background: $card-background;
+
+  &::backdrop {
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+  }
+}
+
+.modalContent {
+  padding: 0;
+}
+
+.modalHeader {
+  @include flex-between;
+  padding: 24px 24px 16px 24px;
+  border-bottom: 1px solid $border-color;
+
+  h3 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+    color: $text-primary;
+  }
+}
+
+.closeButton {
+  @include flex-center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: rgba($secondary-color, 0.1);
+  border-radius: 8px;
+  color: $secondary-color;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: rgba($secondary-color, 0.2);
+    color: $text-primary;
+  }
+}
+
+.modalForm {
+  padding: 24px;
+}
+
+.modalBody {
+  padding: 24px;
+  text-align: center;
+
+  p {
+    margin: 12px 0;
+    color: $text-primary;
+    font-size: 16px;
+
+    &:first-of-type {
+      margin-top: 16px;
+    }
+  }
+}
+
+.warningIcon {
+  @include flex-center;
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 16px auto;
+  background: rgba($danger-color, 0.1);
+  border-radius: 50%;
+  color: $danger-color;
+}
+
+.warningText {
+  color: $text-secondary !important;
+  font-size: 14px !important;
+}
+
+.formGroup {
+  margin-bottom: 20px;
+
+  label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: $text-primary;
+    font-size: 14px;
+  }
+
+  input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid $border-color;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+
+    &:focus {
+      outline: none;
+      border-color: $primary-color;
+      box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
+    }
+
+    &:hover {
+      border-color: rgba($primary-color, 0.3);
+    }
+  }
+}
+
+.modalActions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  padding-top: 16px;
+  margin-top: 24px;
+  border-top: 1px solid $border-color;
+}
+
+.modalButton {
+  @include button-base;
+  padding: 12px 20px;
+  font-weight: 500;
+
+  &:hover {
+    transform: translateY(-1px);
+  }
+}
+
+.cancelButton {
+  background: rgba($secondary-color, 0.1);
+  color: $secondary-color;
+  border: 1px solid rgba($secondary-color, 0.2);
+
+  &:hover {
+    background: rgba($secondary-color, 0.15);
+    border-color: rgba($secondary-color, 0.3);
+  }
+}
+
+.saveButton {
+  background: $primary-color;
+  color: white;
+  border: 1px solid $primary-color;
+
+  &:hover {
+    background: $primary-hover;
+    border-color: $primary-hover;
+  }
+}
+
+.dangerButton {
+  background: $danger-color;
+  color: white;
+  border: 1px solid $danger-color;
+
+  &:hover {
+    background: $danger-hover;
+    border-color: $danger-hover;
+  }
+}
+
+// Mobile Responsiveness for Modals
+@media (max-width: 768px) {
+  .modal {
+    width: 95vw;
+    max-width: none;
+  }
+
+  .modalHeader {
+    padding: 20px 20px 12px 20px;
+
+    h3 {
+      font-size: 18px;
+    }
+  }
+
+  .modalForm,
+  .modalBody {
+    padding: 20px;
+  }
+
+  .modalActions {
+    flex-direction: column;
+    gap: 8px;
+
+    .modalButton {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+
+  .formGroup {
+    margin-bottom: 16px;
+
+    input {
+      padding: 14px 16px;
+      font-size: 16px; // Prevent zoom on iOS
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .modalHeader {
+    padding: 16px 16px 12px 16px;
+  }
+
+  .modalForm,
+  .modalBody {
+    padding: 16px;
+  }
+
+  .warningIcon {
+    width: 64px;
+    height: 64px;
+
+    svg {
+      width: 32px;
+      height: 32px;
+    }
+  }
+}
+// Main container
+.container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  padding: 0;
+  color: $text-primary;
+}
+
+// Header
+.header {
+  background: $card-background;
+  border-bottom: 1px solid $border-color;
+  box-shadow: $shadow;
+  padding: 24px 0;
+  margin-bottom: 32px;
+}
+
+.headerContent {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.headerIcon {
+  @include flex-center;
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, $primary-color, #8b5cf6);
+  border-radius: 12px;
+  color: white;
+}
+
+.headerText {
+  h1 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 700;
+    color: $text-primary;
+    line-height: 1.2;
+  }
+
+  p {
+    margin: 4px 0 0 0;
+    color: $text-secondary;
+    font-size: 16px;
+  }
+}
+
+// Stats Card
+.statsCard {
+  @include card;
+  max-width: 1200px;
+  margin: 0 auto 32px auto;
+  padding: 24px;
+  margin-left: 24px;
+  margin-right: 24px;
+}
+
+.statsContent {
+  @include flex-between;
+}
+
+.statsText {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.statsLabel {
+  font-size: 14px;
+  font-weight: 500;
+  color: $text-secondary;
+}
+
+.statsNumber {
+  font-size: 36px;
+  font-weight: 700;
+  color: $text-primary;
+}
+
+.statsIcon {
+  @include flex-center;
+  width: 64px;
+  height: 64px;
+  background: linear-gradient(
+    135deg,
+    rgba($primary-color, 0.1),
+    rgba(#8b5cf6, 0.1)
+  );
+  border-radius: 16px;
+  color: $primary-color;
+}
+
+// User Card
+.userCard {
+  @include card;
+  max-width: 1200px;
+  margin: 0 auto;
+  margin-left: 24px;
+  margin-right: 24px;
+  overflow: hidden;
+}
+
+.userCardHeader {
+  padding: 20px 24px;
+  border-bottom: 1px solid $border-color;
+  background: linear-gradient(
+    135deg,
+    rgba($primary-color, 0.02),
+    rgba(#8b5cf6, 0.02)
+  );
+
+  h2 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+    color: $text-primary;
+  }
+}
+
+// User List
+.userList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.userItem {
+  @include flex-between;
+  padding: 24px;
+  border-bottom: 1px solid $border-color;
+  transition: background-color 0.2s ease;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &:hover {
+    background: rgba($primary-color, 0.02);
+  }
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex: 1;
+}
+
+.userAvatar {
+  @include flex-center;
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, $primary-color, #8b5cf6);
+  border-radius: 12px;
+  color: white;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.userDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.userName {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: $text-primary;
+}
+
+.userEmail {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: $text-secondary;
+  font-size: 14px;
+}
+
+// Actions
+.userActions {
+  display: flex;
+  gap: 12px;
+}
+
+.actionButton {
+  @include button-base;
+
+  span {
+    display: inline;
+  }
+}
+
+.editButton {
+  background: rgba($primary-color, 0.1);
+  color: $primary-color;
+  border: 1px solid rgba($primary-color, 0.2);
+
+  &:hover {
+    background: rgba($primary-color, 0.15);
+    border-color: rgba($primary-color, 0.3);
+  }
+}
+
+.deleteButton {
+  background: rgba($danger-color, 0.1);
+  color: $danger-color;
+  border: 1px solid rgba($danger-color, 0.2);
+
+  &:hover {
+    background: rgba($danger-color, 0.15);
+    border-color: rgba($danger-color, 0.3);
+  }
+}
+
+// Mobile Responsiveness
+@media (max-width: 768px) {
+  .headerContent {
+    padding: 0 16px;
+    flex-direction: column;
+    text-align: center;
+    gap: 12px;
+  }
+
+  .headerText {
+    h1 {
+      font-size: 24px;
+    }
+
+    p {
+      font-size: 14px;
+    }
+  }
+
+  .statsCard {
+    margin-left: 16px;
+    margin-right: 16px;
+    padding: 20px;
+  }
+
+  .statsContent {
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+  }
+
+  .statsNumber {
+    font-size: 28px;
+  }
+
+  .userCard {
+    margin-left: 16px;
+    margin-right: 16px;
+  }
+
+  .userCardHeader {
+    padding: 16px 20px;
+
+    h2 {
+      font-size: 18px;
+    }
+  }
+
+  .userItem {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 20px;
+  }
+
+  .userInfo {
+    width: 100%;
+  }
+
+  .userActions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .actionButton {
+    span {
+      display: none;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .headerContent {
+    padding: 0 12px;
+  }
+
+  .statsCard {
+    margin-left: 12px;
+    margin-right: 12px;
+    padding: 16px;
+  }
+
+  .userCard {
+    margin-left: 12px;
+    margin-right: 12px;
+  }
+
+  .userItem {
+    padding: 16px;
+  }
+
+  .userAvatar {
+    width: 40px;
+    height: 40px;
+    font-size: 14px;
+  }
+
+  .userName {
+    font-size: 15px;
+  }
+
+  .userEmail {
+    font-size: 13px;
+  }
+
+  .userActions {
+    gap: 8px;
+  }
+
+  .actionButton {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+}

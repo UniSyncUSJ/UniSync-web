@@ -1,0 +1,236 @@
+.eventJoinModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(12px);
+  z-index: 1000;
+  padding: 20px;
+}
+
+.modalContent {
+  background: rgba(45, 45, 55, 0.95);
+  backdrop-filter: blur(20px);
+  border-radius: 24px;
+  padding: 0;
+  max-width: 420px;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1);
+  animation: modalAppear 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-origin: center;
+}
+
+@keyframes modalAppear {
+  0% {
+    opacity: 0;
+    transform: scale(0.85) translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.modalImage {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 20px 20px 0 0;
+  position: relative;
+}
+
+.modalHeader {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: white;
+  margin: 0;
+  padding: 24px 24px 16px;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.modalDetail {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 8px 24px;
+
+  .icon {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+
+  span {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+}
+
+// Description paragraph styling
+.modalContent p {
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 16px 24px 0;
+  letter-spacing: -0.01em;
+}
+
+.modalActions {
+  display: flex;
+  gap: 12px;
+  padding: 24px;
+  margin-top: 8px;
+}
+
+.joinButton {
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%);
+  color: white;
+  border: none;
+  border-radius: 16px;
+  padding: 16px 28px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  flex: 1;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  letter-spacing: -0.01em;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent
+    );
+    transition: left 0.5s;
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px rgba(139, 92, 246, 0.4),
+      0 0 0 1px rgba(255, 255, 255, 0.1);
+
+    &::before {
+      left: 100%;
+    }
+  }
+
+  &:active {
+    transform: translateY(-1px);
+  }
+}
+
+.closeButton {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  padding: 16px 28px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  flex: 1;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  letter-spacing: -0.01em;
+  backdrop-filter: blur(10px);
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+    color: white;
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
+    background: rgba(255, 255, 255, 0.05);
+  }
+}
+
+// Mobile responsiveness
+@media (max-width: 480px) {
+  .eventJoinModal {
+    padding: 16px;
+  }
+
+  .modalContent {
+    max-width: 100%;
+    border-radius: 20px;
+  }
+
+  .modalImage {
+    height: 180px;
+    border-radius: 16px 16px 0 0;
+  }
+
+  .modalHeader {
+    font-size: 1.5rem;
+    padding: 20px 20px 12px;
+  }
+
+  .modalDetail {
+    padding: 6px 20px;
+
+    .icon {
+      font-size: 18px;
+    }
+
+    span {
+      font-size: 0.9rem;
+    }
+  }
+
+  .modalContent p {
+    margin: 12px 20px 0;
+    font-size: 0.9rem;
+  }
+
+  .modalActions {
+    padding: 20px;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .joinButton,
+  .closeButton {
+    padding: 14px 24px;
+    font-size: 0.95rem;
+    border-radius: 14px;
+  }
+}
+
+// Extra small screens
+@media (max-width: 320px) {
+  .modalContent {
+    margin: 10px;
+  }
+
+  .modalActions {
+    padding: 16px;
+  }
+}
+
+// High resolution displays
+@media (-webkit-min-device-pixel-ratio: 2) {
+  .modalContent {
+    border: 0.5px solid rgba(255, 255, 255, 0.1);
+  }
+}
