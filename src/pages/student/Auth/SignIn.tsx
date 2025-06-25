@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, Form } from "react-router-dom";
+import { Link, Form, useNavigate } from "react-router-dom";
 import styles from "./signIn.module.scss";
 
 // Custom Input Component
@@ -135,6 +135,15 @@ const SignIn: React.FC = () => {
     password: "",
   });
 
+  const navigate = useNavigate();
+
+  const handleLogin = () => {
+    if(formData.email == 'student@unisync.com' && formData.password == 'admin') {
+      navigate('/student/home');
+    }
+  }
+
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
@@ -153,7 +162,7 @@ const SignIn: React.FC = () => {
               <p className={styles.signinSubtitle}>Welcome to UniSync</p>
             </div>
 
-            <Form method="post" className={styles.signinForm}>
+            <Form className={styles.signinForm}>
               <div className={styles.formFields}>
                 <CustomInput
                   type="email"
@@ -180,11 +189,11 @@ const SignIn: React.FC = () => {
               </div>
 
               <div className={styles.signinActions}>
-                <Link to="/" className={styles.forgotPasswordLink}>
+                <Link to="#" className={styles.forgotPasswordLink}>
                   Forgot password?
                 </Link>
                 
-                <CustomButton type="submit" className={styles.signinButton}>
+                <CustomButton className={styles.signinButton} onClick={handleLogin}>
                   Sign In
                 </CustomButton>
                 

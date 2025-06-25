@@ -42,7 +42,7 @@ const router = createBrowserRouter([
   {
     path: "student/signin",
     element: withSuspense(<SignIn />),
-    action: signinAction,
+    // action: signinAction,
   },
   {
     path: "student/signup",
