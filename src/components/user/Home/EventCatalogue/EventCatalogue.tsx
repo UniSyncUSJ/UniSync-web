@@ -134,6 +134,17 @@ const ALL_EVENTS: Event[] = [
     description:
       "This is a sample event description for the Literature Symposium.",
   },
+  {
+    id: 13,
+    title: "Literature Symposium",
+    date: "2025-06-15",
+    time: "10:00 am - 04:00 pm",
+    venue: "Literature Hall, Faculty of Literature",
+    delegateCount: 16,
+    imageUrl: eventImage,
+    description:
+      "This is a sample event description for the Literature Symposium.",
+  },
 ];
 
 const EVENTS_PER_PAGE = 4;
@@ -225,12 +236,12 @@ const EventCatalogue = () => {
     <div className={style.pageContainer}>
       {/* Left Sidebar - Calendar */}
       <div className={style.leftSidebar}>
-        <div className={style.calendarContainer}>
+        {/* <div className={style.calendarContainer}>
           <Calendar />
-        </div>
+        </div> */}
 
         {/* Filter Buttons */}
-        <div className={style.filterButtons}>
+        {/* <div className={style.filterButtons}>
           <ButtonGroup
             orientation="vertical"
             variant="outlined"
@@ -275,7 +286,7 @@ const EventCatalogue = () => {
               All Events
             </Button>
           </ButtonGroup>
-        </div>
+        </div> */}
       </div>
 
       {/* Main Content Area */}
