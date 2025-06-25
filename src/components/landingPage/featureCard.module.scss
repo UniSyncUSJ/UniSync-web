@@ -1,0 +1,31 @@
+.featureCard {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 1rem;
+  padding: 2rem;
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  }
+
+  h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin: 1rem 0;
+  }
+
+  p {
+    opacity: 0.8;
+    line-height: 1.6;
+  }
+}
+
+.featureIcon {
+  color: #4ecdc4;
+  width: 2.5rem;
+  height: 2.5rem;
+}

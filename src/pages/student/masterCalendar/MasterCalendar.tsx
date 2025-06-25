@@ -16,10 +16,6 @@ import Schedule from "../../../components/user/schedule/Schedule";
 
 import type { EventClickArg } from "@fullcalendar/core";
 
-import { useAxios } from "../../../hooks/useAxios";
-
-import Styles from "./masterCalendar.module.scss";
-
 import Modal from "../../../components/common/modal/Modal";
 
 type Event = {

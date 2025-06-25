@@ -81,7 +81,7 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
       <Card
         className={style.eventCard}
         elevation={2}
-        sx={{ borderRadius: "20px" }}
+        sx={{ borderRadius: "20px", width:'350px'}}
       >
         <Box className={style.imageContainer}>
           <img

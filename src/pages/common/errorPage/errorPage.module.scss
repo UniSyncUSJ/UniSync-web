@@ -1,5 +1,3 @@
-// errorPage.module.scss
-
 .errorPage {
   position: relative;
   display: flex;
@@ -21,7 +19,6 @@
   color: #ffffff;
 }
 
-// Animated background elements
 .backgroundElements {
   position: absolute;
   top: 0;
@@ -91,7 +88,6 @@
   }
 }
 
-// Main container
 .container {
   position: relative;
   z-index: 10;
@@ -109,7 +105,6 @@
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
-// 404 Number with glitch effect
 .errorNumber {
   margin-bottom: 2rem;
   position: relative;
@@ -119,42 +114,12 @@
   font-size: clamp(4rem, 15vw, 8rem);
   font-weight: 900;
   letter-spacing: -0.05em;
-  background: linear-gradient(45deg, #8a2be2, #483d8b, #6a5acd, #9370db);
+  background: linear-gradient(45deg, #8449bb, #9e9bb1, #7b6ecc, #beb4d3);
   background-size: 400% 400%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: gradientShift 3s ease-in-out infinite, glitch 2s infinite;
   position: relative;
-
-  &::before,
-  &::after {
-    content: attr(data-text);
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(45deg, #8a2be2, #483d8b);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  &::before {
-    animation: glitch-1 0.5s infinite;
-    clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
-  }
-
-  &::after {
-    animation: glitch-2 0.5s infinite;
-    clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
-  }
-}
-
-// Error icon
-.iconContainer {
-  margin-bottom: 2rem;
 }
 
 .errorIcon {
@@ -196,7 +161,6 @@
   }
 }
 
-// Text content
 .textContent {
   margin-bottom: 3rem;
 }
@@ -221,7 +185,6 @@
   animation: fadeInUp 1s ease-out;
 }
 
-// Action buttons
 .actions {
   display: flex;
   gap: 1rem;
@@ -303,14 +266,6 @@
   }
 }
 
-// Decorative elements
-.decorativeElements {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  opacity: 0.6;
-}
-
 .line {
   width: 60px;
   height: 2px;
@@ -327,7 +282,6 @@
   box-shadow: 0 0 20px rgba(106, 90, 205, 0.6);
 }
 
-// Animations
 @keyframes float {
   0%,
   100% {
@@ -510,7 +464,6 @@
   }
 }
 
-// Responsive design
 @media (max-width: 768px) {
   .container {
     margin: 1rem;
@@ -560,7 +513,6 @@
   }
 }
 
-// Accessibility
 @media (prefers-reduced-motion: reduce) {
   * {
     animation-duration: 0.01ms !important;
@@ -569,7 +521,6 @@
   }
 }
 
-// Dark mode support
 @media (prefers-color-scheme: light) {
   .errorPage {
     background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);

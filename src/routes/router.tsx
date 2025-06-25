@@ -5,10 +5,10 @@ import Loading from "../pages/common/loadingPage/LoadingPage";
 import ErrorPage from "../pages/common/errorPage/ErrorPage";
 
 // 🔁 Lazy loaded pages
-const UniSyncLanding = lazy(() => import("../pages/user/Home"));
-const StudentSignUpPage = lazy(() => import("../pages/user/StudentSignUpPage"));
-const SignIn = lazy(() => import("../pages/user/SignIn"));
-const StudentHome = lazy(() => import("../pages/user/StudentHome"));
+const UniSyncLanding = lazy(() => import("../pages/landingPage/LandingPage"));
+const SignUp = lazy(() => import("../pages/student/Auth/SignUp"));
+const SignIn = lazy(() => import("../pages/student/Auth/SignIn"));
+const StudentHome = lazy(() => import("../pages/student/home/StudentHome"));
 const AdminPage = lazy(() => import("../pages/admin/AdminPage"));
 const ManageEventsPage = lazy(() => import("../pages/admin/ManageEvents"));
 const NotificationsPage = lazy(() => import("../pages/admin/Notifications"));
@@ -18,15 +18,15 @@ const AdminLogin = lazy(() => import("../pages/admin/AdminLogin"));
 const UsersPage = lazy(() => import("../pages/admin/UsersPage"));
 const ViewAdminsPage = lazy(() => import("../pages/admin/ViewAdminsPage"));
 const UserEvents = lazy(() => import("../pages/user/userEvents/UserEvents"));
-const RootLayout = lazy(() => import("../root/admin/Root"));
+const AdminLayout = lazy(() => import("../layouts/admin/AdminLayout"));
 
 // 🔁 Actions
 import { action as signinAction } from "../actions/SignIn.action";
 import { action as signupAction } from "../actions/SignUp.action";
 import { action as adminSignupAction } from "../actions/AdminSignUp.action";
 import Academics from "../components/user/academics/Academics";
-import MasterCalendar from "../pages/user/masterCalendar/MasterCalendar";
-import MarketPlace from "../pages/user/marketPlace/MarketPlace";
+import MasterCalendar from "../pages/student/masterCalendar/MasterCalendar";
+import MarketPlace from "../pages/student/marketPlace/MarketPlace";
 import UserCart from "../pages/user/userCart/UserCart";
 
 const withSuspense = (element: React.ReactElement) => (
@@ -42,15 +42,15 @@ const router = createBrowserRouter([
   {
     path: "student/signin",
     element: withSuspense(<SignIn />),
-    action: signinAction,
+    // action: signinAction,
   },
   {
     path: "student/signup",
-    element: withSuspense(<StudentSignUpPage />),
+    element: withSuspense(<SignUp />),
     action: signupAction,
   },
   {
-    path: "student-home",
+    path: "student/home",
     element: withSuspense(<StudentHome />),
     // loader: checkAuthLoader,
     children: [
@@ -85,7 +85,7 @@ const router = createBrowserRouter([
   },
   {
     path: "admin-home",
-    element: withSuspense(<RootLayout />),
+    element: withSuspense(<AdminLayout />),
     // loader: checkAuthLoader,
     children: [
       { index: true, element: withSuspense(<AdminPage />) },
@@ -98,7 +98,7 @@ const router = createBrowserRouter([
   },
   {
     path: "*",
-    element: <ErrorPage />, // catch-all 404
+    element: <ErrorPage />,
   },
 ]);
 
