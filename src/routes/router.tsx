@@ -21,9 +21,6 @@ const UserEvents = lazy(() => import("../pages/user/userEvents/UserEvents"));
 const AdminLayout = lazy(() => import("../layouts/admin/AdminLayout"));
 
 // 🔁 Actions
-import { action as signinAction } from "../actions/SignIn.action";
-import { action as signupAction } from "../actions/SignUp.action";
-import { action as adminSignupAction } from "../actions/AdminSignUp.action";
 import Academics from "../components/user/academics/Academics";
 import MasterCalendar from "../pages/student/masterCalendar/MasterCalendar";
 import MarketPlace from "../pages/student/marketPlace/MarketPlace";
@@ -47,7 +44,7 @@ const router = createBrowserRouter([
   {
     path: "student/signup",
     element: withSuspense(<SignUp />),
-    action: signupAction,
+    // action: signupAction,
   },
   {
     path: "student/home",
@@ -76,15 +73,15 @@ const router = createBrowserRouter([
   {
     path: "admin/signup",
     element: withSuspense(<AdminSignUp />),
-    action: signupAction,
+    // action: signupAction,
   },
   {
     path: "admin/signin",
     element: withSuspense(<AdminLogin />),
-    action: adminSignupAction,
+    // action: adminSignupAction,
   },
   {
-    path: "admin-home",
+    path: "admin/home",
     element: withSuspense(<AdminLayout />),
     // loader: checkAuthLoader,
     children: [

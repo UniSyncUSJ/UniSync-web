@@ -40,13 +40,13 @@ const UniSyncLanding = () => {
           <p>Are you a student or representing an organization?</p>
 
           <div className={styles.userTypeOptions}>
-            <Link to={`student/${authMode}`} className={styles.userTypeBtn}>
+            <Link to={`student/signin`} className={styles.userTypeBtn}>
               <User size={24} />
               <span>Student</span>
               <p>Access events, updates, and academic resources</p>
             </Link>
 
-            <Link to={`admin/${authMode}`} className={styles.userTypeBtn}>
+            <Link to={`admin/signin`} className={styles.userTypeBtn}>
               <Shield size={24} />
               <span>Organization Admin</span>
               <p>Manage events, send updates, and organize activities</p>
