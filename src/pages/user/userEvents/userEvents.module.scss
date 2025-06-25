@@ -1,0 +1,512 @@
+.userEventsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.eventCard {
+  display: flex;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  }
+}
+
+.eventImageSection {
+  flex: 0 0 300px;
+  position: relative;
+
+  .eventImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    min-height: 200px;
+  }
+}
+
+.eventDetailsSection {
+  flex: 1;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
+
+.eventContent {
+  flex: 1;
+}
+
+.eventTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 16px 0;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+}
+
+.eventDetailItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  color: #666;
+  font-size: 0.95rem;
+
+  &:last-of-type {
+    margin-bottom: 16px;
+  }
+}
+
+.detailLabel {
+  font-weight: 600;
+  min-width: 80px;
+  color: #333;
+}
+
+.detailValue {
+  color: #555;
+  font-weight: 500;
+}
+
+.delegateCount {
+  color: #6366f1;
+  font-weight: 600;
+}
+
+.eventDescription {
+  color: #666;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin: 16px 0 0 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.eventActions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.removeButton {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  letter-spacing: -0.01em;
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+// Empty state
+.emptyState {
+  text-align: center;
+  padding: 60px 20px;
+  color: #666;
+
+  .emptyIcon {
+    font-size: 4rem;
+    color: #ddd;
+    margin-bottom: 16px;
+  }
+
+  .emptyTitle {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+  }
+
+  .emptyDescription {
+    font-size: 0.9rem;
+    color: #666;
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .userEventsContainer {
+    padding: 16px;
+    gap: 16px;
+  }
+
+  .eventCard {
+    flex-direction: column;
+  }
+
+  .eventImageSection {
+    flex: none;
+
+    .eventImage {
+      height: 200px;
+    }
+  }
+
+  .eventDetailsSection {
+    padding: 20px;
+  }
+
+  .eventTitle {
+    font-size: 1.3rem;
+    margin-bottom: 12px;
+  }
+
+  .eventDetailItem {
+    margin-bottom: 6px;
+  }
+
+  .detailLabel {
+    min-width: 70px;
+    font-size: 0.9rem;
+  }
+
+  .detailValue {
+    font-size: 0.9rem;
+  }
+
+  .eventDescription {
+    font-size: 0.85rem;
+    margin-top: 12px;
+  }
+
+  .eventActions {
+    margin-top: 16px;
+  }
+
+  .removeButton {
+    width: 100%;
+    padding: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .userEventsContainer {
+    padding: 12px;
+  }
+
+  .eventDetailsSection {
+    padding: 16px;
+  }
+
+  .eventTitle {
+    font-size: 1.2rem;
+  }
+
+  .eventDetailItem {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+    margin-bottom: 8px;
+  }
+
+  .detailLabel {
+    min-width: auto;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .detailValue {
+    font-size: 0.9rem;
+    margin-left: 0;
+  }
+}
+
+// Modal overlay and positioning
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.modalContent {
+  background: rgba(45, 45, 55, 0.95);
+  backdrop-filter: blur(20px);
+  border-radius: 20px;
+  padding: 32px;
+  max-width: 420px;
+  width: 100%;
+  position: relative;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1);
+  animation: modalSlideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-origin: center;
+}
+
+@keyframes modalSlideIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.9) translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.modalTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white;
+  margin: 0 0 16px 0;
+  text-align: center;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+}
+
+.modalMessage {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1rem;
+  line-height: 1.5;
+  text-align: center;
+  margin: 0 0 32px 0;
+  letter-spacing: -0.01em;
+}
+
+.modalActions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.confirmButton {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 14px 24px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  letter-spacing: -0.01em;
+  min-width: 120px;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent
+    );
+    transition: left 0.5s;
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(239, 68, 68, 0.3);
+
+    &::before {
+      left: 100%;
+    }
+  }
+
+  &:active {
+    transform: translateY(-1px);
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 8px 20px rgba(239, 68, 68, 0.3),
+      0 0 0 3px rgba(239, 68, 68, 0.2);
+  }
+}
+
+.cancelButton {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  padding: 14px 24px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  letter-spacing: -0.01em;
+  min-width: 120px;
+  backdrop-filter: blur(10px);
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+    color: white;
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.2);
+  }
+}
+
+// Dark mode support
+@media (prefers-color-scheme: dark) {
+  .modalContent {
+    background: #1f1f1f;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .modalTitle {
+    color: white;
+  }
+
+  .modalMessage {
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .cancelButton {
+    background: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.8);
+    border-color: rgba(255, 255, 255, 0.2);
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: rgba(255, 255, 255, 0.3);
+      color: white;
+    }
+
+    &:active {
+      background: rgba(255, 255, 255, 0.05);
+    }
+  }
+}
+
+// Mobile responsiveness
+@media (max-width: 480px) {
+  .modalOverlay {
+    padding: 16px;
+  }
+
+  .modalContent {
+    padding: 24px;
+    border-radius: 16px;
+  }
+
+  .modalTitle {
+    font-size: 1.3rem;
+    margin-bottom: 12px;
+  }
+
+  .modalMessage {
+    font-size: 0.95rem;
+    margin-bottom: 24px;
+  }
+
+  .modalActions {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .confirmButton,
+  .cancelButton {
+    width: 100%;
+    padding: 16px;
+    font-size: 0.95rem;
+    min-width: auto;
+  }
+}
+
+// Extra small screens
+@media (max-width: 320px) {
+  .modalContent {
+    padding: 20px;
+  }
+
+  .modalTitle {
+    font-size: 1.2rem;
+  }
+
+  .modalMessage {
+    font-size: 0.9rem;
+  }
+}
+
+// High contrast mode
+@media (prefers-contrast: high) {
+  .modalContent {
+    border: 2px solid #000;
+  }
+
+  .confirmButton {
+    background: #dc2626;
+
+    &:hover {
+      background: #b91c1c;
+    }
+  }
+
+  .cancelButton {
+    border: 2px solid #666;
+
+    &:hover {
+      border-color: #333;
+    }
+  }
+}
+
+// Reduced motion
+@media (prefers-reduced-motion: reduce) {
+  .modalContent {
+    animation: none;
+  }
+
+  .confirmButton,
+  .cancelButton {
+    transition: none;
+
+    &:hover {
+      transform: none;
+    }
+  }
+
+  .confirmButton::before {
+    display: none;
+  }
+}

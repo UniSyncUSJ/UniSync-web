@@ -1,0 +1,94 @@
+// SearchBar.module.scss - Based on wireframe design
+.searchBar {
+  width: 100%;
+  max-width: 600px;
+  position: relative;
+  margin: 0 auto;
+}
+
+.searchContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 2rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+  }
+
+  &:focus-within {
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+    border-color: rgba(103, 31, 216, 0.5);
+  }
+}
+
+.searchInput {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  color: #1f2937;
+
+  &::placeholder {
+    color: #9ca3af;
+    font-style: italic;
+  }
+
+  @media (max-width: 640px) {
+    font-size: 0.95rem;
+    padding: 0.4rem 0.8rem;
+  }
+}
+
+.searchButton {
+  background: linear-gradient(135deg, #671fd8, #5680d6);
+  color: white;
+  border: none;
+  border-radius: 1.5rem;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: 0 4px 15px rgba(103, 31, 216, 0.3);
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(103, 31, 216, 0.4);
+  }
+
+  @media (max-width: 640px) {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+  }
+}
+
+.categoryDropdown {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #6b7280;
+  font-size: 0.95rem;
+  padding: 0.5rem;
+  cursor: pointer;
+  border-right: 1px solid rgba(156, 163, 175, 0.3);
+  margin-right: 0.5rem;
+
+  @media (max-width: 640px) {
+    font-size: 0.85rem;
+    padding: 0.4rem;
+  }
+}
