@@ -4,6 +4,7 @@
   min-height: 100vh;
   gap: 24px;
   padding: 24px;
+  margin: 0 auto;
 
   @media (max-width: 768px) {
     flex-direction: column;
@@ -62,14 +63,78 @@
   flex-direction: column;
 }
 
+// New styles for top filter buttons
+.topFilterButtons {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+  padding: 0;
+
+  @media (max-width: 768px) {
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .buttonGroup {
+    display: flex;
+    gap: 12px;
+    width: 100%;
+
+    @media (max-width: 768px) {
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .filterButton {
+      text-transform: none;
+      font-weight: 500;
+      padding: 10px 20px;
+      border-radius: 25px;
+      transition: all 0.2s ease;
+      background-color: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: inherit;
+      min-width: 100px;
+      flex: 1;
+
+      @media (max-width: 768px) {
+        min-width: auto;
+        flex: none;
+        padding: 8px 16px;
+        font-size: 0.9rem;
+      }
+
+      &:hover {
+        transform: translateY(-1px);
+        background-color: rgba(255, 255, 255, 0.2);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      }
+
+      &.contained {
+        background-color: rgba(255, 255, 255, 0.9);
+        color: #333;
+        font-weight: 600;
+      }
+
+      &.active {
+        background: white;
+        color: #667eea;
+        font-weight: 600;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+    }
+  }
+}
+
 .eventsSection {
   border-radius: 12px;
   overflow: hidden;
   height: fit-content;
+  flex: 1;
 }
 
 .sectionHeader {
-  // background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
   padding: 24px;
 
@@ -83,9 +148,10 @@
 
 .eventsGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(1, minmax(300px, 1fr));
   gap: 20px;
   padding: 24px;
+  min-height: 400px;
 
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
@@ -96,11 +162,15 @@
   @media (min-width: 1200px) {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  @media (min-width: 1600px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 .eventCardWrapper {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
 
   // Ensure event cards have consistent height
   > * {
@@ -108,12 +178,20 @@
     max-width: 400px;
   }
 }
+
 .pagination {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 0.5rem;
+  margin-top: auto;
+  padding-top: 24px;
+
+  @media (max-width: 768px) {
+    padding-top: 16px;
+  }
 }
+
 .paginationButton,
 .paginationArrow {
   padding: 0.75rem 1rem;
@@ -153,6 +231,8 @@
 .paginationContainer {
   padding: 24px;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  justify-content: center;
 
   @media (max-width: 768px) {
     padding: 16px;
@@ -164,6 +244,7 @@
   padding: 60px 24px;
   color: inherit;
   opacity: 0.8;
+  grid-column: 1 / -1;
 
   h3 {
     margin: 0 0 12px 0;
@@ -180,6 +261,16 @@
   }
 }
 
+// Hide sidebar filter buttons when we have top filters
+.leftSidebar .filterButtons {
+  display: none;
+}
+
+// Show top filter buttons
+.topFilterButtons {
+  display: flex !important;
+}
+
 // Responsive design improvements
 @media (max-width: 1024px) {
   .pageContainer {
@@ -194,8 +285,7 @@
 
 @media (max-width: 768px) {
   .leftSidebar {
-    .calendarContainer,
-    .filterButtons {
+    .calendarContainer {
       padding: 16px;
     }
   }
@@ -206,6 +296,15 @@
 
       h2 {
         font-size: 1.5rem;
+      }
+    }
+  }
+
+  .topFilterButtons {
+    .buttonGroup {
+      .filterButton {
+        font-size: 0.85rem;
+        padding: 6px 12px;
       }
     }
   }

@@ -179,7 +179,7 @@ const EventCatalogue = () => {
             ? ""
             : userSearch.selectedCategory,
       },
-      { skip: !debouncedSearchTerm } // don’t fetch if no input
+      { skip: !debouncedSearchTerm } // don't fetch if no input
     );
 
   // === Fetch events from backend ===
@@ -213,7 +213,7 @@ const EventCatalogue = () => {
           filteredEventsBySelectedDate.slice(0, EVENTS_PER_PAGE)
         );
       } else {
-        setPaginatedEvents(ALL_EVENTS.slice(0, EVENTS_PER_PAGE));
+        setPaginatedEvents([]);
       }
     }
   }, [selectedDate]);
@@ -277,16 +277,18 @@ const EventCatalogue = () => {
 
   return (
     <div className={style.pageContainer}>
-      {/* Left Sidebar - Calendar */}
+      {/* Left Sidebar - Calendar Only */}
       <div className={style.leftSidebar}>
         <div className={style.calendarContainer}>
           <Calendar />
         </div>
+      </div>
 
-        {/* Filter Buttons */}
-        <div className={style.filterButtons}>
+      {/* Main Content Area */}
+      <div className={style.mainContent}>
+        {/* Top Filter Buttons */}
+        <div className={style.topFilterButtons}>
           <ButtonGroup
-            orientation="vertical"
             variant="outlined"
             fullWidth
             className={style.buttonGroup}
@@ -296,7 +298,9 @@ const EventCatalogue = () => {
                 selectedFilter === "All Events" ? "contained" : "outlined"
               }
               onClick={() => handleFilterChange("All Events")}
-              className={style.filterButton}
+              className={`${style.filterButton} ${
+                selectedFilter === "All Events" ? style.active : ""
+              }`}
             >
               All Events
             </Button>
@@ -305,36 +309,37 @@ const EventCatalogue = () => {
                 selectedFilter === "This week" ? "contained" : "outlined"
               }
               onClick={() => handleFilterChange("This week")}
-              className={style.filterButton}
+              className={`${style.filterButton} ${
+                selectedFilter === "This week" ? style.active : ""
+              }`}
             >
               This week
             </Button>
-
             <Button
               variant={
                 selectedFilter === "Next Week" ? "contained" : "outlined"
               }
               onClick={() => handleFilterChange("Next Week")}
-              className={style.filterButton}
+              className={`${style.filterButton} ${
+                selectedFilter === "Next Week" ? style.active : ""
+              }`}
             >
               Next Week
             </Button>
-
             <Button
               variant={
                 selectedFilter === "This month" ? "contained" : "outlined"
               }
               onClick={() => handleFilterChange("This month")}
-              className={style.filterButton}
+              className={`${style.filterButton} ${
+                selectedFilter === "This month" ? style.active : ""
+              }`}
             >
               This month
             </Button>
           </ButtonGroup>
         </div>
-      </div>
 
-      {/* Main Content Area */}
-      <div className={style.mainContent}>
         {/* Events Section */}
         <div className={style.eventsSection}>
           {currentItems.length > 0 ? (
@@ -366,11 +371,13 @@ const EventCatalogue = () => {
           )}
 
           {totalPages > 1 && (
-            <Pagination
-              currentPage={currentPage}
-              totalPages={totalPages}
-              onPageChange={(page: number) => setCurrentPage(page)}
-            />
+            <div className={style.paginationContainer}>
+              <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={(page: number) => setCurrentPage(page)}
+              />
+            </div>
           )}
         </div>
       </div>

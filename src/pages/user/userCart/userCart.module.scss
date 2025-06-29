@@ -445,6 +445,7 @@ $tablet: 1024px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  text-decoration: none;
 
   &:hover {
     background: linear-gradient(135deg, $accent-blue, $purple-gradient-start);
@@ -522,6 +523,7 @@ $tablet: 1024px;
   cursor: pointer;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  text-decoration: none;
 
   &:hover {
     transform: translateY(-3px);

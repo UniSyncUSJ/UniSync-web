@@ -136,7 +136,21 @@ function UserCart() {
                 Proceed to Checkout
               </button>
 
-              <button className={styles.continueBtn}>Continue Shopping</button>
+              {/* <Link
+                to="/student-home/marketplace"
+                className={styles.continueBtn}
+              >
+                Continue Shopping
+              </Link> */}
+              <button className={styles.continueBtn}>
+                {" "}
+                <Link
+                  style={{ textDecoration: "none", color: "inherit" }}
+                  to="/student-home/marketplace"
+                >
+                  Continue Shopping
+                </Link>
+              </button>
             </div>
           </div>
         </div>
