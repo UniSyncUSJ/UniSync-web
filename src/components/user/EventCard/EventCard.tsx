@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useRef } from "react";
 import {
   Card,
@@ -100,9 +101,6 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
             <Box className={style.headerActions}>
               <IconButton size="small" className={style.actionButton}>
                 <FavoriteBorder fontSize="small" />
-              </IconButton>
-              <IconButton size="small" className={style.actionButton}>
-                <MoreHoriz fontSize="small" />
               </IconButton>
             </Box>
           </Box>

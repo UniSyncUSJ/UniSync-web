@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useRef, useState } from "react";
 import {
   BookOpen,
@@ -11,10 +12,10 @@ import {
 import styles from "./landingPage.module.scss";
 import Modal from "../../components/common/modal/Modal";
 import { Link } from "react-router-dom";
-import Header from "../../components/header/Header";
+import Header from "../../components/user/header/Header";
+import FeatureCard from "../../components/landingPage/FeatureCard";
 import Footer from "../../components/landingPage/Footer";
 import FloatingCardsSection from "../../components/landingPage/FloatingCardsSection";
-import FeatureCard from "../../components/landingPage/FeatureCard";
 
 type ModalHandle = {
   open: () => void;
@@ -33,36 +34,38 @@ const UniSyncLanding = () => {
   };
 
   const AuthModal = () => {
-    return <Modal ref={modal}>
-      <div className={styles.modal}>
-        <div className={styles.modalContent}>
-          <h3>Choose Account Type</h3>
-          <p>Are you a student or representing an organization?</p>
+    return (
+      <Modal ref={modal}>
+        <div className={styles.modal}>
+          <div className={styles.modalContent}>
+            <h3>Choose Account Type</h3>
+            <p>Are you a student or representing an organization?</p>
 
-          <div className={styles.userTypeOptions}>
-            <Link to={`student/${authMode}`} className={styles.userTypeBtn}>
-              <User size={24} />
-              <span>Student</span>
-              <p>Access events, updates, and academic resources</p>
-            </Link>
+            <div className={styles.userTypeOptions}>
+              <Link to={`student/${authMode}`} className={styles.userTypeBtn}>
+                <User size={24} />
+                <span>Student</span>
+                <p>Access events, updates, and academic resources</p>
+              </Link>
 
-            <Link to={`admin/${authMode}`} className={styles.userTypeBtn}>
-              <Shield size={24} />
-              <span>Organization Admin</span>
-              <p>Manage events, send updates, and organize activities</p>
-            </Link>
+              <Link to={`admin/${authMode}`} className={styles.userTypeBtn}>
+                <Shield size={24} />
+                <span>Organization Admin</span>
+                <p>Manage events, send updates, and organize activities</p>
+              </Link>
+            </div>
+
+            <button
+              className={styles.closeModal}
+              onClick={() => modal.current?.close()}
+            >
+              Cancel
+            </button>
           </div>
-
-          <button
-            className={styles.closeModal}
-            onClick={() => modal.current?.close()}
-          >
-            Cancel
-          </button>
         </div>
-      </div>
-    </Modal>
-  }
+      </Modal>
+    );
+  };
 
   return (
     <div className={styles.container}>
@@ -105,43 +108,43 @@ const UniSyncLanding = () => {
         </div>
 
         <div className={styles.featureGrid}>
-          <FeatureCard 
-            icon={Calendar} 
-            title="Event Management" 
+          <FeatureCard
+            icon={Calendar}
+            title="Event Management"
             description="Discover, track, and never miss important university events, seminars, and activities."
           />
 
-          <FeatureCard 
-            icon={Bell} 
-            title="Real-time Updates" 
+          <FeatureCard
+            icon={Bell}
+            title="Real-time Updates"
             description="Get instant notifications about academic deadlines, schedule
               changes, and announcements."
           />
 
-          <FeatureCard 
-            icon={BookOpen} 
-            title="Academic Tracking" 
+          <FeatureCard
+            icon={BookOpen}
+            title="Academic Tracking"
             description="Stay on top of your coursework, assignments, and academic progress
               with smart reminders."
           />
 
-          <FeatureCard 
-            icon={Users} 
-            title="Community Connect" 
+          <FeatureCard
+            icon={Users}
+            title="Community Connect"
             description="Connect with classmates, join study groups, and participate in
               campus communities."
           />
 
-          <FeatureCard 
-            icon={Users} 
-            title="Achievement Tracking" 
+          <FeatureCard
+            icon={Users}
+            title="Achievement Tracking"
             description="Monitor your academic milestones and celebrate your university
               achievements."
           />
 
-          <FeatureCard 
-            icon={Users} 
-            title="Admin Dashboard" 
+          <FeatureCard
+            icon={Users}
+            title="Admin Dashboard"
             description="Comprehensive tools for organizations to manage events and
               communicate with students."
           />
@@ -165,8 +168,8 @@ const UniSyncLanding = () => {
           </button>
         </div>
       </section>
-    
-    <Footer />
+
+      <Footer />
     </div>
   );
 };
