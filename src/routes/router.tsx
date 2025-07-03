@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { createBrowserRouter } from "react-router-dom";
 import { Suspense, lazy } from "react";
-import Loading from "../pages/common/loadingPage/LoadingPage";
-import ErrorPage from "../pages/common/errorPage/ErrorPage";
+import Loading from "../pages/common/loadingPage/LoadingPage.module.scss";
+import ErrorPage from "../pages/common/errorPage/errorPage.module.scss";
 
 // 🔁 Lazy loaded pages
-const UniSyncLanding = lazy(() => import("../pages/user/Home"));
+const UniSyncLanding = lazy(_c = () => import("../pages/user/home/StudentHome"));
 const StudentSignUpPage = lazy(() => import("../pages/user/StudentSignUpPage"));
 const SignIn = lazy(() => import("../pages/user/SignIn"));
 const StudentHome = lazy(() => import("../pages/user/StudentHome"));
