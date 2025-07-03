@@ -4,6 +4,9 @@ import style from "./EventCatalogue.module.scss";
 import eventImage from "../../../../assets/images/eventImage.jpg";
 import { useSelector } from "react-redux";
 import Pagination from "../../../common/pagination/Pagination";
+import { useDebounce } from "../../../../hooks/useDebounce";
+import { useSearchEventsQuery } from "../../../../services/searchApi";
+import { useAxios } from "../../../../hooks/useAxios";
 
 type Event = {
   id: number;
@@ -14,6 +17,7 @@ type Event = {
   delegateCount: number;
   imageUrl: string;
   description: string;
+  category?: string;
 };
 
 const ALL_EVENTS: Event[] = [
@@ -27,6 +31,7 @@ const ALL_EVENTS: Event[] = [
     imageUrl: eventImage,
     description:
       "This is a sample event description. It provides an overview of the event, including its purpose, activities, and any notable speakers or guests.",
+    category: "academic", // Example category
   },
   {
     id: 2,
@@ -38,6 +43,7 @@ const ALL_EVENTS: Event[] = [
     imageUrl: eventImage,
     description:
       "This is another event description. It highlights the key aspects of the event and what attendees can expect.",
+    category: "cultural", // Example category
   },
   {
     id: 3,
@@ -48,6 +54,7 @@ const ALL_EVENTS: Event[] = [
     delegateCount: 20,
     imageUrl: eventImage,
     description: "This is a sample event description for the Tech Conference.",
+    category: "career", // Example category
   },
   {
     id: 4,
@@ -58,6 +65,7 @@ const ALL_EVENTS: Event[] = [
     delegateCount: 15,
     imageUrl: eventImage,
     description: "This is a sample event description for the Cultural Fest.",
+    category: "cultural", // Example category
   },
   {
     id: 5,
@@ -69,6 +77,7 @@ const ALL_EVENTS: Event[] = [
     imageUrl: eventImage,
     description:
       "This is a sample event description for the Sports Meet. It includes details about the sports activities and competitions.",
+    category: "sports", // Example category
   },
   {
     id: 6,
@@ -79,6 +88,7 @@ const ALL_EVENTS: Event[] = [
     delegateCount: 12,
     imageUrl: eventImage,
     description: "This is a sample event description for the Green Summit.",
+    category: "social", // Example category
   },
   {
     id: 7,
@@ -90,6 +100,7 @@ const ALL_EVENTS: Event[] = [
     imageUrl: eventImage,
     description:
       "This is a sample event description for the Business Workshop.",
+    category: "career", // Example category
   },
   {
     id: 8,
@@ -100,6 +111,7 @@ const ALL_EVENTS: Event[] = [
     delegateCount: 18,
     imageUrl: eventImage,
     description: "This is a sample event description for the Art Exhibition.",
+    category: "cultural", // Example category
   },
   {
     id: 9,
@@ -110,6 +122,7 @@ const ALL_EVENTS: Event[] = [
     delegateCount: 30,
     imageUrl: eventImage,
     description: "This is a sample event description for the Music Festival.",
+    category: "cultural", // Example category
   },
   {
     id: 10,
@@ -120,6 +133,7 @@ const ALL_EVENTS: Event[] = [
     delegateCount: 22,
     imageUrl: eventImage,
     description: "This is a sample event description for the Science Fair.",
+    category: "academic", // Example category
   },
   {
     id: 11,
@@ -131,6 +145,7 @@ const ALL_EVENTS: Event[] = [
     imageUrl: eventImage,
     description:
       "This is a sample event description for the Literature Symposium.",
+    category: "cultural", // Example category
   },
   {
     id: 13,
@@ -152,83 +167,120 @@ const EventCatalogue = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedFilter, setSelectedFilter] = useState<string>("This week");
 
+  const userSearch = useSelector(
+    (state: { userSearch: { searchTerm: string; selectedCategory: string } }) =>
+      state.userSearch
+  );
+  const debouncedSearchTerm = useDebounce(userSearch.searchTerm, 500);
+
   const selectedDate = useSelector(
     (state: { user: { selectedDate: Date | null } }) => state.user.selectedDate
   );
 
+  const { data: searchResults = [], isLoading: searchLoading } =
+    useSearchEventsQuery(
+      {
+        query: debouncedSearchTerm,
+        category:
+          userSearch.selectedCategory === "all"
+            ? ""
+            : userSearch.selectedCategory,
+      },
+      { skip: !debouncedSearchTerm } // don’t fetch if no input
+    );
+
+  // === Fetch events from backend ===
+  const {
+    data: allEvents,
+    error: fetchError,
+    loading,
+    sendRequest,
+  } = useAxios<Event[]>({
+    method: "GET",
+    url: "http://localhost:8080/api/events",
+  });
+
+  useEffect(() => {
+    sendRequest(); // Initial fetch
+  }, [sendRequest]);
+  //use allEvents as the source for the events and it's filterings when using the backend
+
   useEffect(() => {
     if (selectedDate) {
-      // Filter events based on selected date. show all the events that match the selected date and events that are in the same week or month
-      const startOfWeek = new Date(selectedDate);
-      startOfWeek.setDate(selectedDate.getDate() - selectedDate.getDay()); // Set to the start of the week (Sunday)
-      const endOfWeek = new Date(selectedDate);
-      endOfWeek.setDate(selectedDate.getDate() + (6 - selectedDate.getDay())); // Set to the end of the week (Saturday)
-      const startOfMonth = new Date(
-        selectedDate.getFullYear(),
-        selectedDate.getMonth(),
-        1
-      );
-      const endOfMonth = new Date(
-        selectedDate.getFullYear(),
-        selectedDate.getMonth() + 1,
-        0
-      ); // Last day of the month
-      const filteredEvents = ALL_EVENTS.filter((event) => {
+      const filteredEventsBySelectedDate = ALL_EVENTS.filter((event) => {
         const eventDate = new Date(event.date);
-        if (selectedFilter === "This week") {
-          return eventDate >= startOfWeek && eventDate <= endOfWeek;
-        } else if (selectedFilter === "This month") {
-          return eventDate >= startOfMonth && eventDate <= endOfMonth;
-        }
-        return false; // Default case, no filter applied
+        return (
+          eventDate.getFullYear() === selectedDate.getFullYear() &&
+          eventDate.getMonth() === selectedDate.getMonth() &&
+          eventDate.getDate() === selectedDate.getDate()
+        );
       });
-
-      setPaginatedEvents(filteredEvents);
+      if (filteredEventsBySelectedDate.length > 0) {
+        setPaginatedEvents(
+          filteredEventsBySelectedDate.slice(0, EVENTS_PER_PAGE)
+        );
+      } else {
+        setPaginatedEvents(ALL_EVENTS.slice(0, EVENTS_PER_PAGE));
+      }
     }
-  }, [selectedDate, selectedFilter]);
+  }, [selectedDate]);
 
-  // const handleFilterChange = (filter: string) => {
-  //   setSelectedFilter(filter);
-  //   setCurrentPage(1); // Reset to first page when filter changes
-  //   //show events based on the selected filter
-  //   if (filter === "All Events") {
-  //     setPaginatedEvents(ALL_EVENTS.slice(0, EVENTS_PER_PAGE));
-  //     return;
-  //   }
-  //   // If the filter is "This week" or "This month", we can filter the events accordingly
-  //   const filteredEvents = ALL_EVENTS.filter((event) => {
-  //     const eventDate = new Date(event.date);
-  //     if (filter === "This week") {
-  //       const startOfWeek = new Date();
-  //       startOfWeek.setDate(new Date().getDate() - new Date().getDay());
-  //       const endOfWeek = new Date();
-  //       endOfWeek.setDate(new Date().getDate() + (6 - new Date().getDay()));
-  //       return eventDate >= startOfWeek && eventDate <= endOfWeek;
-  //     } else if (filter === "This month") {
-  //       const startOfMonth = new Date(
-  //         new Date().getFullYear(),
-  //         new Date().getMonth(),
-  //         1
-  //       );
-  //       const endOfMonth = new Date(
-  //         new Date().getFullYear(),
-  //         new Date().getMonth() + 1,
-  //         0
-  //       );
-  //       return eventDate >= startOfMonth && eventDate <= endOfMonth;
-  //     } else if (filter === "Next Week") {
-  //       const startOfNextWeek = new Date();
-  //       startOfNextWeek.setDate(new Date().getDate() + 7 - new Date().getDay());
-  //       const endOfNextWeek = new Date();
-  //       endOfNextWeek.setDate(new Date().getDate() + 13 - new Date().getDay());
-  //       return eventDate >= startOfNextWeek && eventDate <= endOfNextWeek;
-  //     }
-  //     return false; // Default case, no filter applied
-  //   });
-  //   setPaginatedEvents(filteredEvents.slice(0, EVENTS_PER_PAGE));
-  // };
+  const handleFilterChange = (filter: string) => {
+    setSelectedFilter(filter);
+    setCurrentPage(1); // Reset to first page when filter changes
+    //show events based on the selected filter
+    if (filter === "All Events") {
+      setPaginatedEvents(ALL_EVENTS.slice(0, EVENTS_PER_PAGE));
+      return;
+    }
+    // If the filter is "This week" or "This month", we can filter the events accordingly
+    const filteredEvents = ALL_EVENTS.filter((event) => {
+      const eventDate = new Date(event.date);
+      if (filter === "This week") {
+        const startOfWeek = new Date();
+        startOfWeek.setDate(new Date().getDate() - new Date().getDay());
+        const endOfWeek = new Date();
+        endOfWeek.setDate(new Date().getDate() + (6 - new Date().getDay()));
+        return eventDate >= startOfWeek && eventDate <= endOfWeek;
+      } else if (filter === "This month") {
+        const startOfMonth = new Date(
+          new Date().getFullYear(),
+          new Date().getMonth(),
+          1
+        );
+        const endOfMonth = new Date(
+          new Date().getFullYear(),
+          new Date().getMonth() + 1,
+          0
+        );
+        return eventDate >= startOfMonth && eventDate <= endOfMonth;
+      } else if (filter === "Next Week") {
+        const startOfNextWeek = new Date();
+        startOfNextWeek.setDate(new Date().getDate() + 7 - new Date().getDay());
+        const endOfNextWeek = new Date();
+        endOfNextWeek.setDate(new Date().getDate() + 13 - new Date().getDay());
+        return eventDate >= startOfNextWeek && eventDate <= endOfNextWeek;
+      }
+      return false; // Default case, no filter applied
+    });
+    setPaginatedEvents(filteredEvents.slice(0, EVENTS_PER_PAGE));
+  };
 
-  const totalPages = Math.ceil(ALL_EVENTS.length / EVENTS_PER_PAGE);
+  const showingSearchResults = debouncedSearchTerm.length > 0;
+  const currentItems = showingSearchResults
+    ? searchResults.slice(
+        (currentPage - 1) * EVENTS_PER_PAGE,
+        currentPage * EVENTS_PER_PAGE
+      )
+    : paginatedEvents.slice(
+        (currentPage - 1) * EVENTS_PER_PAGE,
+        currentPage * EVENTS_PER_PAGE
+      );
+
+  const totalItems = showingSearchResults
+    ? searchResults.length
+    : paginatedEvents.length;
+  const totalPages = Math.ceil(totalItems / EVENTS_PER_PAGE);
 
   return (
     <div className={style.pageContainer}>
@@ -248,6 +300,15 @@ const EventCatalogue = () => {
           >
             <Button
               variant={
+                selectedFilter === "All Events" ? "contained" : "outlined"
+              }
+              onClick={() => handleFilterChange("All Events")}
+              className={style.filterButton}
+            >
+              All Events
+            </Button>
+            <Button
+              variant={
                 selectedFilter === "This week" ? "contained" : "outlined"
               }
               onClick={() => handleFilterChange("This week")}
@@ -255,15 +316,17 @@ const EventCatalogue = () => {
             >
               This week
             </Button>
+
             <Button
               variant={
-                selectedFilter === "This month" ? "contained" : "outlined"
+                selectedFilter === "Next Week" ? "contained" : "outlined"
               }
               onClick={() => handleFilterChange("Next Week")}
               className={style.filterButton}
             >
               Next Week
             </Button>
+
             <Button
               variant={
                 selectedFilter === "This month" ? "contained" : "outlined"
@@ -273,16 +336,6 @@ const EventCatalogue = () => {
             >
               This month
             </Button>
-
-            <Button
-              variant={
-                selectedFilter === "This month" ? "contained" : "outlined"
-              }
-              onClick={() => handleFilterChange("All Events")}
-              className={style.filterButton}
-            >
-              All Events
-            </Button>
           </ButtonGroup>
         </div> */}
       </div>
@@ -291,18 +344,26 @@ const EventCatalogue = () => {
       <div className={style.mainContent}>
         {/* Events Section */}
         <div className={style.eventsSection}>
-          {paginatedEvents.length > 0 ? (
+          {currentItems.length > 0 ? (
             <div className={style.eventsGrid}>
-              {paginatedEvents
-                .slice(
-                  (currentPage - 1) * EVENTS_PER_PAGE,
-                  currentPage * EVENTS_PER_PAGE
-                )
-                .map((event) => (
-                  <div key={event.id} className={style.eventCardWrapper}>
-                    <EventCard event={event} />
+              {currentItems.map((event: any) => {
+                const mappedEvent: Event = {
+                  id: event.id,
+                  title: event.title,
+                  date: event.date,
+                  time: event.time ?? "",
+                  venue: event.venue ?? "",
+                  delegateCount: event.delegateCount ?? 0,
+                  imageUrl: event.imageUrl ?? eventImage,
+                  description: event.description ?? "",
+                  category: event.category ?? "",
+                };
+                return (
+                  <div key={mappedEvent.id} className={style.eventCardWrapper}>
+                    <EventCard event={mappedEvent} />
                   </div>
-                ))}
+                );
+              })}
             </div>
           ) : (
             <div className={style.noEventsMessage}>
@@ -311,13 +372,13 @@ const EventCatalogue = () => {
             </div>
           )}
 
-          {paginatedEvents.length > 0 ? (
+          {totalPages > 1 && (
             <Pagination
               currentPage={currentPage}
               totalPages={totalPages}
-              onPageChange={setCurrentPage}
+              onPageChange={(page: number) => setCurrentPage(page)}
             />
-          ) : null}
+          )}
         </div>
       </div>
     </div>

@@ -3,6 +3,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import styles from "./userCart.module.scss";
 import { userCartActions } from "../../../redux/userStore/user-cart-slice";
+import { Link } from "react-router-dom";
 
 function UserCart() {
   const userCart = useSelector((state: any) => state.userCart.cart);
@@ -160,7 +161,9 @@ function UserCart() {
             Looks like you haven't added anything to your cart yet. Start
             shopping to fill it up!
           </p>
-          <button className={styles.shopNowBtn}>Start Shopping</button>
+          <Link to="/student-home/marketplace" className={styles.shopNowBtn}>
+            Start Shopping
+          </Link>
         </div>
       )}
     </div>
