@@ -1,6 +1,11 @@
+import { Link } from 'react-router-dom';
 import style from './header.module.scss'
 
-const Header = () => {
+interface Props {
+  isAuthenticated : boolean
+}
+
+const Header = (props : Props) => {
   return (
     <header className={style.header}>
       <div className={style.logo}>UniSync</div>
@@ -20,18 +25,21 @@ const Header = () => {
       </nav>
 
       <div className={style.userActions}>
-        <button
-          className={style.loginBtn}
-          // onClick={() => openModal("signin")}
-        >
-          SignIn
-        </button>
-        <button
-          className={style.signupBtn}
-          // onClick={() => openModal("signup")}
-        >
-          SignUp
-        </button>
+        { !props.isAuthenticated ? (
+          <> 
+            <Link to='/student/signin' className={style.actionButton} >
+              SignIn
+            </Link>
+            <Link to='/student/signup' className={style.actionButton} >
+              SignUp
+            </Link>
+          </> 
+        ) : (
+          <Link to='/student/signup' className={style.signOut} >
+            SignOut
+          </Link>
+        )
+      }
       </div>
     </header>
   )

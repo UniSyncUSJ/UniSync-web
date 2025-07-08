@@ -66,7 +66,7 @@ const UniSyncLanding = () => {
 
   return (
     <div className={styles.container}>
-      <Header />
+      <Header isAuthenticated={false} />
 
       {AuthModal()}
 
