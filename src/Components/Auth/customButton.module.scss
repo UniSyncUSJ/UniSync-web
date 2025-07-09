@@ -1,0 +1,60 @@
+$primary-purple: #8B5CF6;
+$primary-blue: #3B82F6;
+$white: #ffffff;
+
+%customButtonBase {
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  outline: none;
+  position: relative;
+  overflow: hidden;
+  padding: 16px 32px;
+  width: 100%;
+}
+
+.customButton {
+  @extend %customButtonBase;
+  background: linear-gradient(135deg, $primary-purple, $primary-blue);
+  color: $white;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(139, 92, 246, 0.4);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent
+    );
+    transition: left 0.5s;
+  }
+
+  &:hover::before {
+    left: 100%;
+  }
+}
+
+.disabled {
+  @extend %customButtonBase;
+  background: #ccc;
+  color: #888;
+  cursor: not-allowed;
+  pointer-events: none;
+}

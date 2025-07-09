@@ -5,10 +5,10 @@ import Loading from "../pages/common/loadingPage/LoadingPage.module.scss";
 import ErrorPage from "../pages/common/errorPage/errorPage.module.scss";
 
 // 🔁 Lazy loaded pages
-const UniSyncLanding = lazy(_c = () => import("../pages/user/home/StudentHome"));
-const StudentSignUpPage = lazy(() => import("../pages/user/StudentSignUpPage"));
-const SignIn = lazy(() => import("../pages/user/SignIn"));
-const StudentHome = lazy(() => import("../pages/user/StudentHome"));
+const UniSyncLanding = lazy(() => import("../pages/landingPage/LandingPage"));
+const SignUp = lazy(() => import("../pages/student/Auth/SingUp/SignUp"));
+const SignIn = lazy(() => import("../pages/student/Auth/SignIn/SignIn"));
+const StudentHome = lazy(() => import("../pages/student/home/StudentHome"));
 const AdminPage = lazy(() => import("../pages/admin/AdminPage"));
 const ManageEventsPage = lazy(() => import("../pages/admin/ManageEvents"));
 const NotificationsPage = lazy(() => import("../pages/admin/Notifications"));
