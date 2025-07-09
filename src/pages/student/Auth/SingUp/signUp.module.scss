@@ -1,0 +1,207 @@
+$primary: #4f46e5;
+$secondary: #6366f1;
+$accent: #06b6d4;
+$primary-purple: #8B5CF6;
+
+$white: #ffffff;
+$gray-50: #f9fafb;
+$gray-100: #f3f4f6;
+$gray-300: #d1d5db;
+$gray-400: #9ca3af;
+$gray-500: #6b7280;
+$gray-600: #4b5563;
+$gray-700: #374151;
+$gray-900: #111827;
+$red: #ef4444;
+$green: #10b981;
+
+$radius-sm: 6px;
+$radius-md: 12px;
+$radius-lg: 20px;
+
+$transition: all 0.3s ease;
+
+// Main container
+.container {
+  min-height: 100vh;
+  background: linear-gradient(to right, $primary, $accent);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+// Form Card
+.formCard {
+  width: 100%;
+  max-width: 500px;
+  background-color: $white;
+  border-radius: $radius-lg;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  padding: 3rem 2.5rem;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: bold;
+  background: linear-gradient(90deg, $primary, $secondary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  padding: 0 0 10px 0;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: $gray-500;
+  margin-top: 0.5rem;
+}
+
+// Section and Groups
+.section {
+  margin-bottom: 1.5rem;
+}
+
+.sectionTitle {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: $gray-700;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+.formGroup {
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.inputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.inputIcon {
+  position: absolute;
+  left: 1rem;
+  color: $gray-400;
+  pointer-events: none;
+}
+
+.input,
+.select {
+  width: 100%;
+  padding: 0.75rem 1rem 0.75rem 3rem;
+  border: 2px solid $gray-100;
+  border-radius: $radius-md;
+  font-size: 1rem;
+  background-color: $white;
+  color: $gray-900;
+  transition: $transition;
+
+  &::placeholder {
+    color: $gray-400;
+  }
+
+  &:hover {
+    border-color: $gray-300;
+  }
+
+  &:focus {
+    border-color: $primary-purple;
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+    
+    ~ .inputIcon {
+      color: $primary-purple;
+    }
+  }
+}
+
+.select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%239ca3af' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1rem;
+}
+
+.inputFocus {
+  border-color: $primary-purple;
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+}
+
+.inputError {
+  border-color: $red;
+}
+
+.passwordToggle {
+  position: absolute;
+  right: 1rem;
+  background: none;
+  border: none;
+  color: $gray-400;
+  cursor: pointer;
+
+  &:hover {
+    color: $gray-600;
+  }
+}
+
+.passwordStrength,
+.passwordMatch {
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+  font-weight: 500;
+  padding: 0.25rem 0.5rem;
+  border-radius: $radius-sm;
+}
+
+.passwordWeak {
+  color: $red;
+  background-color: #fef2f2;
+}
+
+.passwordMedium {
+  color: #f59e0b;
+  background-color: #fffbeb;
+}
+
+.passwordStrong {
+  color: $green;
+  background-color: #f0fdf4;
+}
+
+.passwordMatchSuccess {
+  color: $green;
+  background-color: #f0fdf4;
+}
+
+.passwordMatchError {
+  color: $red;
+  background-color: #fef2f2;
+}
+
+.loginLink {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 0.875rem;
+  color: $gray-500;
+}
+
+.loginLinkText {
+  color: $primary;
+  font-weight: 600;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+    color: $accent;
+  }
+}

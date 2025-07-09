@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
-import { Eye, EyeOff, Mail, Lock, User, Phone, Building, GraduationCap, Users } from 'lucide-react';
+import { Mail, User, Phone, Building, GraduationCap, Users } from 'lucide-react';
 import styles from './signUp.module.scss';
+import CustomButton from '../../../../components/Auth/CustomButton';
+import CustomInput from '../../../../components/Auth/CustomInput';
+import PasswordInput from '../../../../components/Auth/PasswordInput';
 
 interface FormData {
   university: string;
@@ -14,7 +17,12 @@ interface FormData {
   confirmPassword: string;
 }
 
-const SignUpForm: React.FC = () => {
+const Universities = {
+  'MIT' : "MIT",
+  "Japura" : "University of Sri Jayewardenepura"
+}
+
+const SignUp = () => {
   const [formData, setFormData] = useState<FormData>({
     university: '',
     department: '',
@@ -27,8 +35,6 @@ const SignUpForm: React.FC = () => {
     confirmPassword: ''
   });
 
-  const [showPassword, setShowPassword] = useState<boolean>(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState<boolean>(false);
   const [focusedField, setFocusedField] = useState<string>('');
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -47,7 +53,6 @@ const SignUpForm: React.FC = () => {
   };
 
   const passwordsMatch = formData.password && formData.confirmPassword && formData.password === formData.confirmPassword;
-  const passwordsDontMatch = formData.confirmPassword && formData.password !== formData.confirmPassword;
   const passwordStrength = getPasswordStrength(formData.password);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -139,139 +144,92 @@ const SignUpForm: React.FC = () => {
             <div className={styles.sectionTitle}>Personal Information</div>
             
             <div className={styles.formGroup}>
-              <div className={styles.inputWrapper}>
-                <User size={20} className={styles.inputIcon} />
-                <input
-                  type="text"
-                  name="firstName"
-                  placeholder="First Name"
-                  value={formData.firstName}
-                  onChange={handleInputChange}
-                  className={`${styles.input} ${focusedField === 'firstName' ? styles.inputFocus : ''}`}
-                  onFocus={() => setFocusedField('firstName')}
-                  onBlur={() => setFocusedField('')}
-                  required
-                />
-              </div>
-            </div>
+              <CustomInput 
+                type='text' 
+                name='firstName' 
+                placeholder='FirstName' 
+                value={formData.firstName}
+                onChange={handleInputChange} 
+                onFocus={() => setFocusedField('firstName')}
+                onBlur={() => setFocusedField('')}
+                className={`${focusedField === 'firstName' ? styles.inputFocus : ''}`}
+                required
+                icon={User}
+              />
 
-            <div className={styles.formGroup}>
-              <div className={styles.inputWrapper}>
-                <User size={20} className={styles.inputIcon} />
-                <input
-                  type="text"
-                  name="lastName"
-                  placeholder="Last Name"
-                  value={formData.lastName}
-                  onChange={handleInputChange}
-                  className={`${styles.input} ${focusedField === 'lastName' ? styles.inputFocus : ''}`}
-                  onFocus={() => setFocusedField('lastName')}
-                  onBlur={() => setFocusedField('')}
-                  required
-                />
-              </div>
-            </div>
+              <CustomInput 
+                type='text' 
+                name='lastName' 
+                placeholder='Last Name' 
+                value={formData.lastName}
+                onChange={handleInputChange} 
+                onFocus={() => setFocusedField('lasstName')}
+                onBlur={() => setFocusedField('')}
+                className={`${focusedField === 'lastName' ? styles.inputFocus : ''}`}
+                required
+                icon={User}
+              />
 
-            <div className={styles.formGroup}>
-              <div className={styles.inputWrapper}>
-                <Mail size={20} className={styles.inputIcon} />
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Email"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  className={`${styles.input} ${focusedField === 'email' ? styles.inputFocus : ''}`}
-                  onFocus={() => setFocusedField('email')}
-                  onBlur={() => setFocusedField('')}
-                  required
-                />
-              </div>
-            </div>
+              <CustomInput 
+                type="email"
+                name="email"
+                placeholder="Email"
+                value={formData.email}
+                onChange={handleInputChange}
+                className={`${styles.input} ${focusedField === 'email' ? styles.inputFocus : ''}`}
+                onFocus={() => setFocusedField('email')}
+                onBlur={() => setFocusedField('')}
+                required
+                icon={Mail}
+              />
 
-            <div className={styles.formGroup}>
-              <div className={styles.inputWrapper}>
-                <Phone size={20} className={styles.inputIcon} />
-                <input
-                  type="tel"
-                  name="phoneNumber"
-                  placeholder="Phone Number"
-                  value={formData.phoneNumber}
-                  onChange={handleInputChange}
-                  className={`${styles.input} ${focusedField === 'phoneNumber' ? styles.inputFocus : ''}`}
-                  onFocus={() => setFocusedField('phoneNumber')}
-                  onBlur={() => setFocusedField('')}
-                  required
-                />
-              </div>
-            </div>
+              <CustomInput
+                type="tel"
+                name="phoneNumber"
+                placeholder="Phone Number"
+                value={formData.phoneNumber}
+                onChange={handleInputChange}
+                className={`${styles.input} ${focusedField === 'phoneNumber' ? styles.inputFocus : ''}`}
+                onFocus={() => setFocusedField('phoneNumber')}
+                onBlur={() => setFocusedField('')}
+                required
+                icon={Phone}
+              />  
 
-            <div className={styles.formGroup}>
-              <div className={styles.inputWrapper}>
-                <Lock size={20} className={styles.inputIcon} />
-                <input
-                  type={showPassword ? 'text' : 'password'}
-                  name="password"
-                  placeholder="Password"
-                  value={formData.password}
-                  onChange={handleInputChange}
-                  className={`${styles.input} ${focusedField === 'password' ? styles.inputFocus : ''}`}
-                  onFocus={() => setFocusedField('password')}
-                  onBlur={() => setFocusedField('')}
-                  required
-                />
-                <button
-                  type="button"
-                  className={styles.passwordToggle}
-                  onClick={() => setShowPassword(!showPassword)}
-                >
-                  {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-                </button>
-              </div>
+              <PasswordInput 
+                name='password' 
+                placeholder='Password' 
+                value={formData.password}
+                onChange={handleInputChange}
+                onFocus={() => setFocusedField('password')}
+                onBlur={() => setFocusedField('')}
+                required
+              />
               {passwordStrength && (
                 <div className={`${styles.passwordStrength} ${styles[`password${passwordStrength.charAt(0).toUpperCase() + passwordStrength.slice(1)}`]}`}>
                   Password strength: {passwordStrength}
                 </div>
-              )}
-            </div>
+              )} 
 
-            <div className={styles.formGroup}>
-              <div className={styles.inputWrapper}>
-                <Lock size={20} className={styles.inputIcon} />
-                <input
-                  type={showConfirmPassword ? 'text' : 'password'}
-                  name="confirmPassword"
-                  placeholder="Confirm Password"
-                  value={formData.confirmPassword}
-                  onChange={handleInputChange}
-                  className={`${styles.input} ${focusedField === 'confirmPassword' ? styles.inputFocus : ''} ${passwordsDontMatch ? styles.inputError : ''}`}
-                  onFocus={() => setFocusedField('confirmPassword')}
-                  onBlur={() => setFocusedField('')}
-                  required
-                />
-                <button
-                  type="button"
-                  className={styles.passwordToggle}
-                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                >
-                  {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-                </button>
-              </div>
+              <PasswordInput 
+                name='confirmPassword' 
+                placeholder='Confirm Password' 
+                value={formData.confirmPassword}
+                onChange={handleInputChange}
+                onFocus={() => setFocusedField('confirmPassword')}
+                onBlur={() => setFocusedField('')}
+                required
+              />
               {formData.confirmPassword && (
                 <div className={`${styles.passwordMatch} ${passwordsMatch ? styles.passwordMatchSuccess : styles.passwordMatchError}`}>
                   {passwordsMatch ? '✓ Passwords match' : '✗ Passwords do not match'}
                 </div>
               )}
+              
             </div>
           </div>
 
-          <button
-            type="submit"
-            className={styles.submitButton}
-            onClick={handleSubmit}
-          >
-            Create Account
-          </button>
+          <CustomButton type='submit' title='Create Account' onClick={()=>handleSubmit} />
 
           <div className={styles.loginLink}>
             Already have an account?{' '}
@@ -285,4 +243,4 @@ const SignUpForm: React.FC = () => {
   );
 };
 
-export default SignUpForm;
+export default SignUp;

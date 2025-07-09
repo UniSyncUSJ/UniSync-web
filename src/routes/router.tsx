@@ -6,8 +6,8 @@ import ErrorPage from "../pages/common/errorPage/ErrorPage";
 
 // 🔁 Lazy loaded pages
 const UniSyncLanding = lazy(() => import("../pages/landingPage/LandingPage"));
-const SignUp = lazy(() => import("../pages/student/Auth/SignUp"));
-const SignIn = lazy(() => import("../pages/student/Auth/SignIn"));
+const SignUp = lazy(() => import("../pages/student/Auth/SingUp/SignUp"));
+const SignIn = lazy(() => import("../pages/student/Auth/SignIn/SignIn"));
 const StudentHome = lazy(() => import("../pages/student/home/StudentHome"));
 const AdminPage = lazy(() => import("../pages/admin/AdminPage"));
 const ManageEventsPage = lazy(() => import("../pages/admin/ManageEvents"));
